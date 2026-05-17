@@ -1,11 +1,50 @@
+# Secrets and environment
 .env
-.venv/
+.env.*
+*.secret
+*.key
+
+# Python
 __pycache__/
-*.pyc
-.DS_Store
-node_modules/
-dist/
+*.py[cod]
+*.pyo
+*.pyd
+.python-version
+.venv/
+venv/
+env/
+ENV/
+.ipynb_checkpoints/
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+
+# Build / packaging
 build/
+dist/
+*.egg-info/
+
+# Node / frontend
+node_modules/
+.next/
+out/
+
+# Logs and temp files
+*.log
+*.tmp
+*.temp
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Local data files
 *.csv
 *.parquet
-*.log
+*.sqlite
+*.db
+
+# Snowflake / app local artifacts
+.streamlit/secrets.toml

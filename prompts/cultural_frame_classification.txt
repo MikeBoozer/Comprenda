@@ -1,0 +1,42 @@
+VERSION: v1
+LAST_UPDATED: 2026-05-17
+INTENDED_MODEL: mistral-7b (pass 1) + claude-4-sonnet (pass 2)
+INTENDED_TEMP: 0.2
+
+# Cultural Frame Classification Prompt
+
+## Pass 1 (mistral-7b)
+
+You are a cultural frame classifier. The post is in {detected_language}. Classify it into EXACTLY ONE of these frames:
+
+individualist | collectivist | nationalist | globalist | threat_framing | opportunity_framing | historical_grievance | status_quo | reform_seeking | spiritual_ethical | pragmatic | ambiguous
+
+Output JSON ONLY in this exact form:
+{"frame":"<one_value>","confidence":<0_to_1>}
+
+Post: {post_text}
+
+## Pass 2 (claude-4-sonnet, only flagged rows)
+
+You are an expert cultural frame analyst. The post is written in language code "{detected_language}". Classify into EXACTLY ONE frame from this set: individualist, collectivist, nationalist, globalist, threat_framing, opportunity_framing, historical_grievance, status_quo, reform_seeking, spiritual_ethical, pragmatic, ambiguous.
+
+Think carefully about the cultural context of {detected_language}-speaking communities. Output JSON ONLY:
+
+{"frame":"<value>","confidence":<0_to_1>,"reasoning":"<one short sentence>"}
+
+Post: {post_text}
+
+## Frame definitions (for reference)
+
+- individualist: personal autonomy, individual rights, self-expression
+- collectivist: group harmony, family/community obligations, shared identity
+- nationalist: national pride, in-group preference, cultural sovereignty
+- globalist: cross-cultural exchange, international cooperation, cosmopolitanism
+- threat_framing: danger, loss, vulnerability
+- opportunity_framing: benefit, growth, possibility
+- historical_grievance: past wrongs, colonial memory, ethnic or political grievance
+- status_quo: preservation, tradition, established norms
+- reform_seeking: change, progress, structural improvement
+- spiritual_ethical: moral, religious, or ethical framing
+- pragmatic: practical outcomes, efficiency, results
+- ambiguous: no clear frame; mixed or unclear signaling

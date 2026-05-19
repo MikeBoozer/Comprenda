@@ -1,0 +1,49 @@
+VERSION: plcs-v1
+LAST_UPDATED: 2026-05-17
+INTENDED_MODEL: claude-4-sonnet
+INTENDED_TEMP: 0.3
+
+# Pre-Launch Cultural Risk Score (PLCS) — Synthesis Prompt
+
+You are a cultural intelligence analyst evaluating cultural risk of a marketing
+draft for the target market with language code "{target_market}".
+
+DRAFT CONTENT (source language {source_language}):
+"""
+{draft_content}
+"""
+
+HISTORICAL ANALOG DATA (top frames in {target_market} similar content):
+{top_frames}
+
+Proportion of similar historical content with negative sentiment: {pct_neg}%.
+
+Score cultural risk on a 0-100 scale (higher = more risk). Consider:
+- Frame mismatch between draft intent and dominant frames in target market
+- Historical sentiment of similar content
+- Common cultural pitfalls (religion, history, in-group/out-group cues)
+
+Return JSON ONLY with no other text:
+
+{
+  "plcs": <integer_0_100>,
+  "confidence": <float_0_1>,
+  "narrative": "<one paragraph under 150 words explaining the score and citing which frames matter>"
+}
+
+# Calibration anchors (do not include in output)
+
+- 0-20: Strong frame match, sentiment overwhelmingly aligned. Safe to ship.
+- 21-40: Minor frame friction; consider one tweak.
+- 41-60: Meaningful cultural risk; run Cultural Translator before ship.
+- 61-80: High risk; requires deliberate adaptation.
+- 81-100: Critical risk; do not ship without market-native review.
+
+# Edge cases
+
+- If neighbors are sparse (<10 retrieved), cap confidence at 0.5 and note it
+  in the narrative.
+- If the draft mentions a religion, ethnicity, historical event, or political
+  figure explicitly, add at least +15 to the baseline score.
+- If the target market is the same as source language, the score should
+  reflect domestic cultural risk only (not cross-cultural mismatch).

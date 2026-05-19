@@ -1,0 +1,116 @@
+{
+  "_comment": "Snowflake Marketplace billing config for Nuance. Paste into the Provider Studio billing setup. Adjust currency / tax handling as required.",
+  "currency": "USD",
+  "billing_model": "hybrid",
+
+  "subscriptions": [
+    {
+      "tier_name": "Pulse",
+      "monthly_price": 0,
+      "annual_price": 0,
+      "description": "Free forever. 1 event, 3 languages, 5 PLCS scores per month.",
+      "limits": {
+        "events": 1,
+        "languages": 3,
+        "plcs_per_month": 5,
+        "ai_briefs_per_month": 0,
+        "translator_runs_per_month": 0,
+        "users": 1,
+        "mcp_access": false,
+        "drift_alerts": false
+      }
+    },
+    {
+      "tier_name": "Studio",
+      "monthly_price": 349,
+      "annual_price": 3559,
+      "annual_discount_pct": 15,
+      "description": "Solo marketers and boutique agencies.",
+      "limits": {
+        "events": 10,
+        "languages": 8,
+        "plcs_per_month": 50,
+        "ai_briefs_per_month": 5,
+        "translator_runs_per_month": 20,
+        "users": 1,
+        "mcp_access": false,
+        "drift_alerts": "email"
+      }
+    },
+    {
+      "tier_name": "Brand",
+      "monthly_price": 1290,
+      "annual_price": 13158,
+      "annual_discount_pct": 15,
+      "description": "Mid-market global brands.",
+      "limits": {
+        "events": "unlimited",
+        "languages": 24,
+        "plcs_per_month": "unlimited",
+        "ai_briefs_per_month": "unlimited",
+        "translator_runs_per_month": "unlimited",
+        "users": 5,
+        "mcp_access": true,
+        "drift_alerts": ["email", "slack", "teams"]
+      }
+    },
+    {
+      "tier_name": "Enterprise",
+      "monthly_price": null,
+      "annual_price": null,
+      "description": "Custom. Native App + SSO + SLA + dedicated CSM. Contact sales.",
+      "limits": {
+        "events": "unlimited",
+        "languages": "unlimited",
+        "plcs_per_month": "unlimited",
+        "ai_briefs_per_month": "unlimited",
+        "translator_runs_per_month": "unlimited",
+        "users": "unlimited",
+        "mcp_access": true,
+        "white_label": true,
+        "sla_hours": 24
+      }
+    }
+  ],
+
+  "usage_billing": [
+    {
+      "event_name": "plcs_score",
+      "price_per_event": 1.00,
+      "description": "Beyond plan: Pre-Launch Risk Score per scored (content, market) pair."
+    },
+    {
+      "event_name": "ai_brief",
+      "price_per_event": 10.00,
+      "description": "Beyond plan: AI Cultural Intelligence Brief generated."
+    },
+    {
+      "event_name": "translator_run",
+      "price_per_event": 2.00,
+      "description": "Beyond plan: Cultural Translator run."
+    }
+  ],
+
+  "free_trial": {
+    "duration_days": 14,
+    "applies_to_tiers": ["Studio", "Brand"],
+    "requires_credit_card": false,
+    "auto_convert_to_pulse_on_expiry": true
+  },
+
+  "discounts": [
+    {
+      "name": "annual",
+      "type": "percent",
+      "value": 15,
+      "applies_to": ["Studio", "Brand"]
+    },
+    {
+      "name": "snowflake_startup_program",
+      "type": "percent",
+      "value": 50,
+      "applies_to": ["Studio"],
+      "duration_months": 6
+    }
+  ]
+}

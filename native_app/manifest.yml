@@ -1,0 +1,61 @@
+# =============================================================================
+# Project Nuance — Snowflake Native App manifest
+# =============================================================================
+# This file is the entry point for packaging Nuance as a Snowflake Native App
+# distributed via Snowflake Marketplace. The customer installs Nuance into
+# their own Snowflake account; their data never leaves their boundary.
+# =============================================================================
+
+manifest_version: 1
+
+version:
+  name: "v1_0"
+  label: "Nuance v1.0"
+  comment: "Cross-lingual cultural intelligence engine."
+
+artifacts:
+  setup_script: setup_script.sql
+  readme: README.md
+  default_streamlit: app_instance.nuance_app
+  extension_code: true
+
+configuration:
+  log_level: INFO
+  trace_level: ALWAYS
+
+privileges:
+  - EXECUTE TASK:
+      description: "Required to run Cultural Drift Alerts on the customer's schedule."
+  - EXECUTE MANAGED TASK:
+      description: "Required for the Drift Alerts cron task."
+  - CREATE WAREHOUSE:
+      description: "Allows Nuance to create its own XS warehouse for compute isolation."
+  - BIND SERVICE ENDPOINT:
+      description: "Required for the MCP server companion service."
+
+references:
+  - consumer_raw_data:
+      label: "Customer raw multilingual content"
+      description: |
+        Bind this to a customer table or view holding their multilingual social,
+        review, news, or support content. Expected columns: post_id, post_text,
+        detected_language, post_timestamp, event_tag (optional), source_platform.
+      privileges:
+        - SELECT
+      object_type: TABLE
+      multi_valued: false
+      register_callback: app_instance.register_consumer_raw_data
+      configuration_callback: app_instance.config_consumer_raw_data
+      required_at_setup: true
+
+  - consumer_notification:
+      label: "Email notification integration (optional)"
+      description: |
+        Bind a customer-owned EMAIL notification integration for Drift Alert
+        delivery. If unbound, alerts are surfaced in-app only.
+      privileges:
+        - USAGE
+      object_type: NOTIFICATION_INTEGRATION
+      multi_valued: false
+      register_callback: app_instance.register_consumer_notification
+      required_at_setup: false

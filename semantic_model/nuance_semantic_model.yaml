@@ -1,0 +1,308 @@
+# =============================================================================
+# Nuance — Cortex Analyst semantic model
+# =============================================================================
+# Powers natural-language → SQL queries over Nuance's enriched cultural data.
+# Upload to a Snowflake stage and point Cortex Analyst Studio at this YAML.
+#
+# Sample questions this model answers (use these as Cortex Analyst test set):
+#   1. "Which language community had the strongest negative sentiment for the
+#      iPhone 17 launch?"
+#   2. "What was the highest Cultural Divergence Score in the last 30 days,
+#      and which languages and event was it between?"
+#   3. "For the Olympics 2026 opening event, which cultural frame was most
+#      dominant in Japanese posts?"
+#   4. "How many posts did we analyze last week per language?"
+#   5. "Which events have the most cultural divergence between Japanese and
+#      English speakers?"
+#   6. "Show me the average sentiment by frame and by language for product
+#      launches this quarter."
+#   7. "Which Pre-Launch Risk scores returned ≥80 in the last 14 days?"
+#   8. "What is the trend of average sentiment for 'Brand X' over the past
+#      3 months across Spanish, Portuguese, and French speakers?"
+#   9. "List all tracked entities currently active for drift monitoring."
+#  10. "How many drift alerts fired in the last week, broken down by entity?"
+# =============================================================================
+
+name: nuance
+description: |
+  Project Nuance — cross-lingual cultural intelligence engine. This semantic model
+  exposes enriched social/news content (multilingual), cultural frame classifications,
+  Cultural Divergence Scores (CDS), Pre-Launch Risk Scores (PLCS), drift events,
+  and tracked entities for natural-language analytics.
+
+tables:
+  # ---------------------------------------------------------------------------
+  - name: enriched_content
+    description: |
+      Per-post enriched content — sentiment, cultural frame, emotional tone,
+      language, event, timestamp.
+    base_table:
+      database: NUANCE_DB
+      schema: ENRICHED
+      table: CULTURAL_FRAMES
+
+    primary_key:
+      columns: [POST_ID]
+
+    dimensions:
+      - name: post_id
+        expr: POST_ID
+        data_type: VARCHAR
+        description: Unique identifier of the post.
+        unique: true
+      - name: detected_language
+        expr: DETECTED_LANGUAGE
+        data_type: VARCHAR
+        synonyms: [language, lang, market, community, speakers]
+        description: ISO 639-1 language code of the post.
+        sample_values: [en, ja, zh, de, es, fr, ko, pt, ar, hi, it, ru]
+      - name: cultural_frame
+        expr: CULTURAL_FRAME
+        data_type: VARCHAR
+        synonyms: [frame, framing, cultural framing]
+        description: One of 12 cultural frame taxonomy values.
+        sample_values:
+          [individualist, collectivist, nationalist, globalist,
+           threat_framing, opportunity_framing, historical_grievance,
+           status_quo, reform_seeking, spiritual_ethical, pragmatic, ambiguous]
+      - name: emotional_tone
+        expr: EMOTIONAL_TONE
+        data_type: VARCHAR
+        synonyms: [emotion, tone, feeling]
+        sample_values: [anger, fear, joy, sadness, surprise, disgust, trust, neutral]
+      - name: event_tag
+        expr: EVENT_TAG
+        data_type: VARCHAR
+        synonyms: [event, campaign, launch, story]
+        description: Custom event grouping label.
+
+    time_dimensions:
+      - name: inference_date
+        expr: DATE(INFERENCE_TIMESTAMP)
+        data_type: DATE
+        synonyms: [date, when classified]
+
+    measures:
+      - name: post_count
+        expr: COUNT(POST_ID)
+        data_type: NUMBER
+        synonyms: [number of posts, post volume, n posts]
+      - name: avg_sentiment
+        expr: AVG(SENTIMENT_SCORE)
+        data_type: NUMBER
+        synonyms: [average sentiment, mean sentiment, sentiment]
+        description: Average sentiment score, range [-1, 1].
+      - name: avg_frame_confidence
+        expr: AVG(FRAME_CONFIDENCE)
+        data_type: NUMBER
+        synonyms: [average confidence, mean frame confidence]
+      - name: negative_post_share
+        expr: AVG(IFF(SENTIMENT_SCORE < -0.2, 1.0, 0.0))
+        data_type: NUMBER
+        synonyms: [negative share, percent negative, neg ratio]
+
+  # ---------------------------------------------------------------------------
+  - name: cds_scores
+    description: |
+      Cultural Divergence Score per (event, language pair). CDS in [0,1];
+      >0.35 = meaningful; >0.55 = cultural risk signal.
+    base_table:
+      database: NUANCE_DB
+      schema: OUTPUTS
+      table: CULTURAL_DIVERGENCE_SCORES
+
+    primary_key:
+      columns: [CDS_ID]
+
+    dimensions:
+      - name: event_tag
+        expr: EVENT_TAG
+        data_type: VARCHAR
+        synonyms: [event, campaign]
+      - name: language_a
+        expr: LANGUAGE_A
+        data_type: VARCHAR
+        synonyms: [first language, language one]
+      - name: language_b
+        expr: LANGUAGE_B
+        data_type: VARCHAR
+        synonyms: [second language, language two]
+
+    time_dimensions:
+      - name: computed_date
+        expr: DATE(COMPUTED_AT)
+        data_type: DATE
+
+    measures:
+      - name: avg_cds
+        expr: AVG(CDS_SCORE)
+        data_type: NUMBER
+        synonyms: [cultural divergence, average CDS, mean CDS]
+      - name: max_cds
+        expr: MAX(CDS_SCORE)
+        data_type: NUMBER
+        synonyms: [highest CDS, peak divergence]
+      - name: avg_confidence
+        expr: AVG(CDS_CONFIDENCE)
+        data_type: NUMBER
+
+  # ---------------------------------------------------------------------------
+  - name: plcs_scores
+    description: |
+      Pre-Launch Cultural Risk Scores. One row per (draft, target market) pair
+      scored by the SCORE_CONTENT stored procedure.
+    base_table:
+      database: NUANCE_DB
+      schema: OUTPUTS
+      table: PRE_LAUNCH_RISK_SCORES
+
+    primary_key:
+      columns: [PLCS_ID]
+
+    dimensions:
+      - name: target_market
+        expr: TARGET_MARKET
+        data_type: VARCHAR
+        synonyms: [target language, target country, market]
+      - name: source_language
+        expr: SOURCE_LANGUAGE
+        data_type: VARCHAR
+      - name: requested_by
+        expr: REQUESTED_BY
+        data_type: VARCHAR
+
+    time_dimensions:
+      - name: scored_date
+        expr: DATE(INFERENCE_TIMESTAMP)
+        data_type: DATE
+
+    measures:
+      - name: avg_plcs
+        expr: AVG(PLCS_SCORE)
+        data_type: NUMBER
+        synonyms: [average risk, mean risk score]
+      - name: max_plcs
+        expr: MAX(PLCS_SCORE)
+        data_type: NUMBER
+        synonyms: [highest risk, peak risk]
+      - name: high_risk_count
+        expr: COUNT_IF(PLCS_SCORE >= 60)
+        data_type: NUMBER
+        synonyms: [high risk count, number of high-risk drafts]
+      - name: critical_risk_count
+        expr: COUNT_IF(PLCS_SCORE >= 80)
+        data_type: NUMBER
+        synonyms: [critical risk count, number of critical drafts]
+
+  # ---------------------------------------------------------------------------
+  - name: drift_events
+    description: Detected cultural drift events for tracked entities.
+    base_table:
+      database: NUANCE_DB
+      schema: INTERNAL
+      table: DRIFT_EVENTS
+
+    primary_key:
+      columns: [DRIFT_ID]
+
+    dimensions:
+      - name: entity_name
+        expr: ENTITY_NAME
+        data_type: VARCHAR
+        synonyms: [brand, product, tracked entity]
+      - name: language_a
+        expr: LANGUAGE_A
+        data_type: VARCHAR
+      - name: language_b
+        expr: LANGUAGE_B
+        data_type: VARCHAR
+      - name: notified
+        expr: NOTIFIED
+        data_type: BOOLEAN
+
+    time_dimensions:
+      - name: detected_date
+        expr: DATE(DETECTED_AT)
+        data_type: DATE
+
+    measures:
+      - name: drift_count
+        expr: COUNT(DRIFT_ID)
+        data_type: NUMBER
+        synonyms: [alerts fired, number of drift events]
+      - name: avg_delta_cds
+        expr: AVG(DELTA_CDS)
+        data_type: NUMBER
+
+  # ---------------------------------------------------------------------------
+  - name: tracked_entities
+    description: Customer subscriptions to ongoing drift monitoring.
+    base_table:
+      database: NUANCE_DB
+      schema: LIBRARY
+      table: TRACKED_ENTITIES
+
+    primary_key:
+      columns: [ENTITY_ID]
+
+    dimensions:
+      - name: entity_name
+        expr: ENTITY_NAME
+        data_type: VARCHAR
+      - name: entity_type
+        expr: ENTITY_TYPE
+        data_type: VARCHAR
+        sample_values: [brand, product, campaign, event]
+      - name: active
+        expr: ACTIVE
+        data_type: BOOLEAN
+
+    time_dimensions:
+      - name: created_date
+        expr: DATE(CREATED_AT)
+        data_type: DATE
+
+    measures:
+      - name: entity_count
+        expr: COUNT(ENTITY_ID)
+        data_type: NUMBER
+
+# ---------------------------------------------------------------------------
+# Verified queries — Cortex Analyst uses these as canonical examples.
+# ---------------------------------------------------------------------------
+verified_queries:
+  - name: max_cds_pair_last_30_days
+    question: What was the highest Cultural Divergence Score in the last 30 days, and which event?
+    sql: |
+      SELECT event_tag, language_a, language_b, cds_score
+      FROM NUANCE_DB.OUTPUTS.CULTURAL_DIVERGENCE_SCORES
+      WHERE computed_at >= DATEADD('day', -30, CURRENT_TIMESTAMP())
+      ORDER BY cds_score DESC
+      LIMIT 1;
+  - name: high_risk_plcs_last_14_days
+    question: Which Pre-Launch Risk scores returned at least 80 in the last 14 days?
+    sql: |
+      SELECT inference_timestamp, target_market, plcs_score,
+             SUBSTR(draft_content, 1, 80) AS preview
+      FROM NUANCE_DB.OUTPUTS.PRE_LAUNCH_RISK_SCORES
+      WHERE plcs_score >= 80
+        AND inference_timestamp >= DATEADD('day', -14, CURRENT_TIMESTAMP())
+      ORDER BY inference_timestamp DESC;
+  - name: drift_alerts_last_week
+    question: How many drift alerts fired in the last week, by entity?
+    sql: |
+      SELECT entity_name, COUNT(*) AS alerts
+      FROM NUANCE_DB.INTERNAL.DRIFT_EVENTS
+      WHERE detected_at >= DATEADD('day', -7, CURRENT_TIMESTAMP())
+      GROUP BY entity_name
+      ORDER BY alerts DESC;
+
+relationships:
+  - name: content_to_cds_by_event
+    left_table: enriched_content
+    right_table: cds_scores
+    join_type: LEFT_OUTER
+    relationship_type: MANY_TO_MANY
+    relationship_columns:
+      - left_column: event_tag
+        right_column: event_tag

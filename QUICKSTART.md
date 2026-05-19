@@ -11,6 +11,19 @@ If you remember nothing else from this repo, remember this single page.
 
 3. In Snowflake UI, open a SQL worksheet. Paste **`snowflake/00_bootstrap.sql`**. Click **Run All**.
 
+## Before Day 2 — verify Cortex is enabled ⚠️
+
+Before loading data, confirm Cortex AI is available on your account. Run these in a Snowflake worksheet:
+
+```sql
+USE ROLE ACCOUNTADMIN;
+USE WAREHOUSE nuance_dev_wh;
+SELECT SNOWFLAKE.CORTEX.COMPLETE('mistral-7b', 'Say OK.') AS test;
+SELECT SNOWFLAKE.CORTEX.EMBED_TEXT_1024('snowflake-arctic-embed-l-v2.0', 'test') AS test;
+```
+
+Both must return a result (not an error) before proceeding. If you get "not available for trial accounts", contact Snowflake support and ask them to enable Cortex on your account. Cortex is required for the entire pipeline.
+
 ## Day 2 — load demo data (10 min)
 
 4. From your laptop terminal, in this folder:

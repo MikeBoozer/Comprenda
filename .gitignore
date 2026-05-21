@@ -48,3 +48,6 @@ Thumbs.db
 
 # Snowflake / app local artifacts
 .streamlit/secrets.toml
+
+# Claude Code internal state
+.claude/

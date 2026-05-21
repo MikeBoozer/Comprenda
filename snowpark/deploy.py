@@ -122,14 +122,16 @@ def register_vector_avg(session: Session) -> None:
                 return None
             return [s / self._n for s in self._sum]
 
+    # Snowflake Python UDAFs do not support VECTOR type — use ARRAY instead.
+    # Callers must cast: embedding::ARRAY going in, result::VECTOR(FLOAT,1024) coming out.
     session.udaf.register(
         VectorAvg,
         name="NUANCE_DB.OUTPUTS.VECTOR_AVG",
         replace=True,
         is_permanent=True,
         stage_location="@NUANCE_DB.INTERNAL.UDF_STAGE",
-        input_types=[VectorType(float, 1024)],
-        return_type=VectorType(float, 1024),
+        input_types=[ArrayType(FloatType())],
+        return_type=ArrayType(FloatType()),
         packages=[],
     )
     print("[OK]Registered NUANCE_DB.OUTPUTS.VECTOR_AVG")

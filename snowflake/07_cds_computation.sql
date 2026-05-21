@@ -15,26 +15,30 @@
 USE DATABASE nuance_db;
 USE WAREHOUSE nuance_dev_wh;
 
-SET min_posts = (SELECT TO_NUMBER(config_value)
-                 FROM internal.config WHERE config_key='min_posts_for_centroid');
-
-SET run_id = UUID_STRING();
+-- Pipeline run tracking (INSERT...SELECT avoids the SET subquery limitation).
 INSERT INTO internal.pipeline_runs (run_id, pipeline_name, started_at, status)
-VALUES ($run_id, 'cds_computation', CURRENT_TIMESTAMP(), 'running');
+SELECT UUID_STRING(), 'cds_computation', CURRENT_TIMESTAMP(), 'running';
 
 -- ---------------------------------------------------------------------------
 -- 1. Per-(event_tag, language) centroid.
+--    VECTOR_AVG accepts ARRAY (Snowflake UDAFs don't support VECTOR type),
+--    so we cast embedding::ARRAY going in and ::VECTOR(FLOAT,1024) coming out.
+--    min_posts threshold read inline from config to avoid SET subquery issue.
 -- ---------------------------------------------------------------------------
 CREATE OR REPLACE TABLE enriched.language_centroids AS
 SELECT
     pe.event_tag,
     pe.detected_language,
     COUNT(*) AS post_count,
-    nuance_db.outputs.vector_avg(pe.embedding) AS centroid
+    nuance_db.outputs.vector_avg(pe.embedding::ARRAY)::VECTOR(FLOAT, 1024) AS centroid
 FROM enriched.post_embeddings pe
 WHERE pe.event_tag IS NOT NULL
 GROUP BY pe.event_tag, pe.detected_language
-HAVING COUNT(*) >= $min_posts;
+HAVING COUNT(*) >= (
+    SELECT TO_NUMBER(config_value)
+    FROM internal.config
+    WHERE config_key = 'min_posts_for_centroid'
+);
 
 -- ---------------------------------------------------------------------------
 -- 2. Pairwise CDS across language pairs per event.
@@ -70,7 +74,8 @@ UPDATE internal.pipeline_runs
 SET ended_at = CURRENT_TIMESTAMP(),
     status   = 'completed',
     rows_processed = (SELECT COUNT(*) FROM outputs.cultural_divergence_scores)
-WHERE run_id = $run_id;
+WHERE pipeline_name = 'cds_computation'
+  AND status = 'running';
 
 -- ---------------------------------------------------------------------------
 -- 4. Top divergences for sanity check.

@@ -13,22 +13,22 @@
 USE DATABASE nuance_db;
 USE WAREHOUSE nuance_dev_wh;
 
-SET model_small  = (SELECT config_value FROM internal.config WHERE config_key='model_small');
-SET model_large  = (SELECT config_value FROM internal.config WHERE config_key='model_large');
+-- Model names hardcoded as literals (CORTEX.COMPLETE requires a string literal,
+-- not a column reference). If you change model names in internal.config, update
+-- these two lines to match.
+SET model_small = 'mistral-7b';
+SET model_large = 'claude-4-sonnet';
 
-SET run_id = UUID_STRING();
+-- Pipeline run tracking (INSERT...SELECT avoids VALUES + function call limitation).
 INSERT INTO internal.pipeline_runs (run_id, pipeline_name, started_at, status)
-VALUES ($run_id, 'frame_classification', CURRENT_TIMESTAMP(), 'running');
+SELECT UUID_STRING(), 'frame_classification', CURRENT_TIMESTAMP(), 'running';
 
 -- ---------------------------------------------------------------------------
 -- 1. Pass 1: classify with mistral-7b. Insert into a staging table so we can
 --    triage low-quality outputs before they hit the final table.
 -- ---------------------------------------------------------------------------
 CREATE OR REPLACE TABLE enriched._frame_staging AS
-WITH valid_frames AS (
-    SELECT ARRAY_AGG(frame_name) AS frames FROM library.frame_taxonomy
-),
-prompt AS (
+WITH prompt AS (
     SELECT
         sp.post_id,
         sp.post_text,
@@ -59,7 +59,6 @@ SELECT
     p.detected_language,
     p.event_tag,
     p.raw_response,
-    -- Robust JSON extraction with fallback: try parse_json, fall back to regex
     TRY_PARSE_JSON(p.raw_response) AS parsed_json,
     LOWER(COALESCE(
         TRY_PARSE_JSON(p.raw_response):"frame"::STRING,
@@ -68,7 +67,7 @@ SELECT
             1, 1, 'i')
     )) AS frame_candidate,
     TRY_PARSE_JSON(p.raw_response):"confidence"::FLOAT AS confidence_candidate,
-    $model_small AS model_used,
+    $model_small::VARCHAR(100) AS model_used,
     'v1' AS prompt_version
 FROM prompt p;
 
@@ -171,7 +170,8 @@ UPDATE internal.pipeline_runs
 SET ended_at = CURRENT_TIMESTAMP(),
     status   = 'completed',
     rows_processed = (SELECT COUNT(*) FROM enriched.cultural_frames)
-WHERE run_id = $run_id;
+WHERE pipeline_name = 'frame_classification'
+  AND status = 'running';
 
 -- ---------------------------------------------------------------------------
 -- 7. Sanity check.

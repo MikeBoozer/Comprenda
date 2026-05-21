@@ -155,14 +155,14 @@ DECLARE
     v_email     VARCHAR;
 BEGIN
     OPEN c;
-    FOR row IN c DO
-        v_drift_id := row.drift_id;
-        v_name     := row.entity_name;
-        v_lang_a   := row.language_a;
-        v_lang_b   := row.language_b;
-        v_prev     := row.prev_cds;
-        v_new      := row.new_cds;
-        v_email    := row.owner_email;
+    FOR rec IN c DO
+        v_drift_id := rec.drift_id;
+        v_name     := rec.entity_name;
+        v_lang_a   := rec.language_a;
+        v_lang_b   := rec.language_b;
+        v_prev     := rec.prev_cds;
+        v_new      := rec.new_cds;
+        v_email    := rec.owner_email;
 
         CALL SYSTEM$SEND_EMAIL(
             'nuance_alert_email',
@@ -180,7 +180,7 @@ BEGIN
         WHERE drift_id = v_drift_id;
 
         sent_count := sent_count + 1;
-    END FOR;
+    END FOR rec;
     CLOSE c;
 
     RETURN 'Notifications sent: ' || sent_count::STRING;

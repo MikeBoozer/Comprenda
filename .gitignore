@@ -49,5 +49,8 @@ Thumbs.db
 # Snowflake / app local artifacts
 .streamlit/secrets.toml
 
+# MCP server config (contains Snowflake credentials)
+.mcp.json
+
 # Claude Code internal state
 .claude/

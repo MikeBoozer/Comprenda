@@ -61,7 +61,7 @@ if st.button("Score cultural risk", type="primary", use_container_width=True,
             try:
                 r = call_plcs(
                     session, draft.strip(), source_language, market,
-                    requested_by=getattr(st.experimental_user, "user_name", "unknown"),
+                    requested_by=getattr(getattr(st, "user", None), "user_name", "unknown"),
                 )
                 results_by_market[market] = r
             except Exception as exc:

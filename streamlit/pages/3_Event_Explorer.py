@@ -1,7 +1,7 @@
 """Event Explorer — overview map and summary stats for a selected event_tag."""
 import streamlit as st
 from snowflake.snowpark.context import get_active_session
-import plotly.express as px
+import altair as alt
 
 from lib.nuance_queries import list_event_tags, get_event_summary
 
@@ -35,15 +35,27 @@ with left:
 
 with right:
     st.subheader("Sentiment distribution")
-    fig = px.bar(
-        summary,
-        x="DETECTED_LANGUAGE", y="AVG_SENTIMENT",
-        color="AVG_SENTIMENT",
-        color_continuous_scale="RdYlGn", range_color=[-1, 1],
-        labels={"DETECTED_LANGUAGE": "Language", "AVG_SENTIMENT": "Avg sentiment"},
+    chart = (
+        alt.Chart(summary)
+        .mark_bar()
+        .encode(
+            x=alt.X("DETECTED_LANGUAGE:N", title="Language", sort="-y"),
+            y=alt.Y("AVG_SENTIMENT:Q", title="Avg sentiment",
+                    scale=alt.Scale(domain=[-1, 1])),
+            color=alt.Color(
+                "AVG_SENTIMENT:Q",
+                scale=alt.Scale(scheme="redyellowgreen", domain=[-1, 1]),
+                legend=None,
+            ),
+            tooltip=[
+                alt.Tooltip("DETECTED_LANGUAGE:N", title="Language"),
+                alt.Tooltip("AVG_SENTIMENT:Q", title="Avg sentiment", format=".3f"),
+                alt.Tooltip("N_POSTS:Q", title="Posts"),
+            ],
+        )
+        .properties(height=420)
     )
-    fig.update_layout(height=420, showlegend=False)
-    st.plotly_chart(fig, use_container_width=True)
+    st.altair_chart(chart, use_container_width=True)
 
 st.divider()
 

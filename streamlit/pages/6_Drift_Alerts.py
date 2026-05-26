@@ -18,6 +18,12 @@ st.caption(
 )
 
 # ---------------------------------------------------------------------------
+# Flash messages carried across the post-subscribe rerun
+# ---------------------------------------------------------------------------
+for level, msg in st.session_state.pop("drift_flash", []):
+    getattr(st, level)(msg)
+
+# ---------------------------------------------------------------------------
 # Existing subscriptions
 # ---------------------------------------------------------------------------
 st.subheader("Current subscriptions")
@@ -53,24 +59,29 @@ with st.form("add_entity"):
             try:
                 add_tracked_entity(session, name.strip(), email.strip(), langs,
                                    float(delta), float(abs_t))
-                st.success(f"Subscribed: {name}")
                 # Immediately check whether this entity matches any existing
                 # event_tags — warn the user if it matches nothing, so they
                 # know to check their naming before assuming alerts will fire.
                 matched = find_matching_events(session, name.strip())
+                flash = [("success", f"Subscribed: {name}")]
                 if matched:
-                    st.info(
+                    flash.append((
+                        "info",
                         f"✅ Matched {len(matched)} existing event(s): "
                         + ", ".join(f"`{e}`" for e in matched)
-                        + ". Alerts will fire once CDS crosses your threshold."
-                    )
+                        + ". Alerts will fire once CDS crosses your threshold.",
+                    ))
                 else:
-                    st.warning(
+                    flash.append((
+                        "warning",
                         f"⚠️ No existing events match **{name}**. "
                         "Alerts will only fire once matching event data is loaded "
                         "into the corpus. Check that your entity name resembles "
-                        "an `event_tag` in your data (e.g. spaces become underscores)."
-                    )
+                        "an `event_tag` in your data (e.g. spaces become underscores).",
+                    ))
+                # Stash messages so they survive the rerun that refreshes the
+                # subscriptions table above.
+                st.session_state["drift_flash"] = flash
                 st.rerun()
             except Exception as exc:
                 st.error(f"Failed: {exc}")

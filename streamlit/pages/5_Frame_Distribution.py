@@ -1,7 +1,7 @@
 """Frame Distribution — side-by-side cultural frame breakdown per language."""
 import streamlit as st
 from snowflake.snowpark.context import get_active_session
-import plotly.express as px
+import altair as alt
 
 from lib.nuance_queries import list_event_tags, get_frame_distribution
 
@@ -30,17 +30,24 @@ if df.empty:
 totals = df.groupby("DETECTED_LANGUAGE")["N"].transform("sum")
 df["PCT"] = (df["N"] / totals * 100).round(1)
 
-fig = px.bar(
-    df, x="CULTURAL_FRAME", y="PCT",
-    color="CULTURAL_FRAME",
-    facet_col="DETECTED_LANGUAGE",
-    facet_col_wrap=3,
-    labels={"PCT": "% of posts", "CULTURAL_FRAME": "Frame"},
+chart = (
+    alt.Chart(df)
+    .mark_bar()
+    .encode(
+        x=alt.X("CULTURAL_FRAME:N", title="Frame", axis=alt.Axis(labelAngle=-45)),
+        y=alt.Y("PCT:Q", title="% of posts"),
+        color=alt.Color("CULTURAL_FRAME:N", legend=None),
+        tooltip=[
+            alt.Tooltip("DETECTED_LANGUAGE:N", title="Language"),
+            alt.Tooltip("CULTURAL_FRAME:N", title="Frame"),
+            alt.Tooltip("PCT:Q", title="% of posts"),
+            alt.Tooltip("N:Q", title="Count"),
+        ],
+    )
+    .properties(width=180, height=180)
+    .facet(facet=alt.Facet("DETECTED_LANGUAGE:N", title=None), columns=3)
 )
-fig.update_layout(height=200 * (df["DETECTED_LANGUAGE"].nunique() // 3 + 1),
-                  showlegend=False)
-fig.update_xaxes(tickangle=45)
-st.plotly_chart(fig, use_container_width=True)
+st.altair_chart(chart, use_container_width=True)
 
 st.divider()
 st.subheader("Raw counts")

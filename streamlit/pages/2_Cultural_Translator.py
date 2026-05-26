@@ -52,7 +52,7 @@ if st.button("Generate adapted variants", type="primary",
             r = call_translator(
                 session, source_content.strip(), source_language, target_market,
                 target_frame_hint=None if frame_override.startswith("(") else frame_override,
-                requested_by=getattr(st.experimental_user, "user_name", "unknown"),
+                requested_by=getattr(getattr(st, "user", None), "user_name", "unknown"),
             )
         except Exception as exc:
             st.error(f"Failed: {exc}")

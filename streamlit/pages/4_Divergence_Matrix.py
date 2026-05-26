@@ -1,7 +1,7 @@
 """Divergence Matrix — CDS heatmap across language pairs for an event."""
 import streamlit as st
 from snowflake.snowpark.context import get_active_session
-import plotly.express as px
+import altair as alt
 import pandas as pd
 
 from lib.nuance_queries import list_event_tags, get_cds_matrix
@@ -27,22 +27,29 @@ if df.empty:
     st.info(f"No CDS yet for `{event_tag}`. Run snowflake/07_cds_computation.sql.")
     st.stop()
 
-# Mirror the matrix (CDS is symmetric)
+# Mirror the matrix (CDS is symmetric) and add a zero diagonal so the grid
+# renders as a complete square.
 mirror = df.rename(columns={"LANGUAGE_A": "LANGUAGE_B", "LANGUAGE_B": "LANGUAGE_A"})
-full = pd.concat([df, mirror], ignore_index=True)
+langs = sorted(set(df["LANGUAGE_A"]) | set(df["LANGUAGE_B"]))
+diag = pd.DataFrame({"LANGUAGE_A": langs, "LANGUAGE_B": langs, "CDS_SCORE": 0.0})
+full = pd.concat([df, mirror, diag], ignore_index=True)
 
-# Pivot into a square matrix
-pivot = full.pivot_table(
-    index="LANGUAGE_A", columns="LANGUAGE_B",
-    values="CDS_SCORE", aggfunc="mean",
-).fillna(0)
-
-fig = px.imshow(
-    pivot, color_continuous_scale="Reds", aspect="equal",
-    labels={"x": "Language B", "y": "Language A", "color": "CDS"},
+heatmap = (
+    alt.Chart(full)
+    .mark_rect()
+    .encode(
+        x=alt.X("LANGUAGE_B:N", title="Language B"),
+        y=alt.Y("LANGUAGE_A:N", title="Language A"),
+        color=alt.Color("CDS_SCORE:Q", scale=alt.Scale(scheme="reds"), title="CDS"),
+        tooltip=[
+            alt.Tooltip("LANGUAGE_A:N", title="Language A"),
+            alt.Tooltip("LANGUAGE_B:N", title="Language B"),
+            alt.Tooltip("CDS_SCORE:Q", title="CDS", format=".3f"),
+        ],
+    )
+    .properties(height=600)
 )
-fig.update_layout(height=600)
-st.plotly_chart(fig, use_container_width=True)
+st.altair_chart(heatmap, use_container_width=True)
 
 st.subheader("Top divergences (sorted)")
 st.dataframe(

@@ -14,6 +14,10 @@ st.caption(
 )
 
 events = list_event_tags(session)
+if not events:
+    st.warning("No events found. Load demo data first (see docs/03_runbook.md).")
+    st.stop()
+
 languages = list_languages(session)
 
 c1, c2 = st.columns([1, 2])
@@ -31,7 +35,7 @@ if st.button("Generate brief", type="primary", use_container_width=True,
         try:
             r = call_generate_brief(
                 session, event_tag, target_langs,
-                requested_by=getattr(st.experimental_user, "user_name", "unknown"),
+                requested_by=getattr(getattr(st, "user", None), "user_name", "unknown"),
             )
         except Exception as exc:
             st.error(f"Failed: {exc}")

@@ -257,9 +257,9 @@ def narrative_search(
     if languages or frames:
         filt = {"@and": []}
         if languages:
-            filt["@and"].append({"@in": {"detected_language": languages}})
+            filt["@and"].append({"@or": [{"@eq": {"detected_language": l}} for l in languages]})
         if frames:
-            filt["@and"].append({"@in": {"cultural_frame": frames}})
+            filt["@and"].append({"@or": [{"@eq": {"cultural_frame": f}} for f in frames]})
         body["filter"] = filt
     row = session.sql(
         "SELECT SNOWFLAKE.CORTEX.SEARCH_PREVIEW("

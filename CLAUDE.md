@@ -32,6 +32,7 @@ The other top-level directories are:
 - **Prompts** are versioned in `prompts/`. The `prompt_version` is recorded on every inference row.
 - **Idempotency**: every SQL script is safe to re-run. Snowpark deploy scripts use `replace=True`.
 - **Credit guard**: a resource monitor caps total trial spend at 300 of the 400 credits.
+- **Architecture decisions** are recorded as ADRs in `docs/decisions/` (numbered, append-only). Read them to recover *why* a structural choice was made; when a decision changes, add a new ADR that supersedes the old one rather than editing it.
 
 ## When something fails
 

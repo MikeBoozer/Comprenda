@@ -19,3 +19,6 @@ the *why* behind structural choices, which code and git history don't preserve.
 
 - [0001](0001-native-app-distribution-with-demo-data.md) — Distribute Nuance as a
   self-contained Snowflake Native App with bundled synthetic demo data. *(Accepted)*
+- [0002](0002-reconcile-workspace-repo-divergence.md) — The deployed app (Snowsight
+  workspace) and the git repo have diverged; ship current fixes into the workspace now,
+  reconcile to a single source of truth during native-app packaging. *(Accepted)*

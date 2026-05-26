@@ -22,3 +22,7 @@ the *why* behind structural choices, which code and git history don't preserve.
 - [0002](0002-reconcile-workspace-repo-divergence.md) — The deployed app (Snowsight
   workspace) and the git repo have diverged; ship current fixes into the workspace now,
   reconcile to a single source of truth during native-app packaging. *(Accepted)*
+- [0003](0003-multi-axis-divergence-profile.md) — Replace the single text-embedding CDS
+  (which measures topic, not stance, and shows zero divergence) with a multi-axis profile —
+  topical overlap + frame divergence (JSD) + sentiment — with a one-headline-number UX.
+  *(Accepted)*

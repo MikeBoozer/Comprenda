@@ -11,6 +11,7 @@ Welcome. This is Project Nuance — a Snowflake-native cultural intelligence Saa
 7. **`docs/06_architecture.md`** — technical architecture and the reasoning behind key decisions.
 8. **`docs/07_audit_and_fixes.md`** — bugs caught in pre-flight audit and the fixes applied. Read this if you hit any unexpected behavior during deployment.
 9. **`docs/08_build_session_transcript.md`** — full transcript of the chat session that produced this repo. Use this to recover *why* a decision was made.
+10. **`docs/09_streamlit_ops_runbook.md`** — how to inspect/edit/**deploy** the live Streamlit app from the CLI. **Read this before changing the running app** — editing repo or workspace files does NOT update it.
 
 The other top-level directories are:
 
@@ -33,10 +34,12 @@ The other top-level directories are:
 - **Idempotency**: every SQL script is safe to re-run. Snowpark deploy scripts use `replace=True`.
 - **Credit guard**: a resource monitor caps total trial spend at 300 of the 400 credits.
 - **Architecture decisions** are recorded as ADRs in `docs/decisions/` (numbered, append-only). Read them to recover *why* a structural choice was made; when a decision changes, add a new ADR that supersedes the old one rather than editing it.
+- **Deploying the live Streamlit app**: the running app serves from the Streamlit object's own stage — editing `streamlit/` or the Snowsight workspace does NOT update it. Follow the CLI deploy sequence in `docs/09_streamlit_ops_runbook.md` (`ALTER STREAMLIT … ABORT → ADD LIVE VERSION FROM LAST → PUT → COMMIT`).
 
 ## When something fails
 
 - "Function CORTEX.X does not exist" → Cortex AI not enabled. Snowflake UI → Admin → Cortex → enable.
 - "Model 'claude-4-sonnet' not found" → swap the model name in `nuance_db.internal.config` after checking `SELECT * FROM TABLE(SNOWFLAKE.CORTEX.LIST_MODELS())`.
 - Streamlit import error → confirm `streamlit/lib/__init__.py` made it into the Snowflake-side file tree.
+- Deployed app won't update / shows old behavior / Deploy button missing / `ModuleNotFoundError` → see `docs/09_streamlit_ops_runbook.md` (covers stale SPCS container, the CLI deploy sequence, and the package set).
 - Any other error → check `docs/07_audit_and_fixes.md` for the residual-risks section first; many gotchas are pre-documented.

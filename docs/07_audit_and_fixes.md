@@ -61,6 +61,67 @@ These are not bugs in the code — they are environmental sensitivities you may 
 
 ---
 
+## Data-quality findings (live demo data, measured 2026-05-26)
+
+These were found by querying the *live* data after the pipeline ran — they are not in
+the original static audit. They concern **demo-data fitness**, and the fix belongs to the
+ADR-0002 reconciliation / native-app data-bundling work, not a piecemeal patch.
+**Numbers are point-in-time; re-run the queries below after any data rebuild.**
+
+### Finding A — the demo corpus is heavily and *unevenly* duplicated
+
+`raw_data.social_posts` / `enriched.cultural_frames` hold **24,960 rows but only ~1,434
+distinct `post_text`** (≈17× average duplication; same text, distinct `post_id`). The
+duplication is **not uniform**: by language **10.4× (ru) → 28.1× (en)**; by frame
+**10.8× (historical_grievance) → 22.4× (opportunity_framing)**. Root cause: the generator
+in `data/generate_demo_data.py` draws from an unbalanced template pool.
+
+Impact by feature:
+- **Narrative Search** — returns visually-identical rows (the user-facing symptom). Being
+  addressed with result-level dedup; the underlying data is the real fix.
+- **Frame Distribution** — *mildly* skewed: `opportunity_framing` 18.4% raw vs 13.9%
+  deduped (**+33% relative overstatement**); `historical_grievance` 5.6% vs 8.8%
+  (**−36% understatement**); `ambiguous` 30.9%→33.7%; all others move <1.5pp. Frame
+  *ranking* is preserved, so the qualitative story holds; exact percentages do not.
+- **Per-language mean sentiment** — robust except **English** (raw 0.331 vs deduped 0.239,
+  Δ 0.092 ≈ 28%); all other languages Δ ≤ 0.015. Matters only for features that surface
+  mean sentiment directly (CDS does not — see Finding B).
+
+### Finding B — CDS is robust to duplication, but the demo shows NO meaningful divergence
+
+CDS (`snowflake/07_cds_computation.sql`) is **embedding-centroid cosine distance**, not
+sentiment. Recomputing all **528** language pairs on *deduplicated* embeddings vs the
+stored scores: average |Δ| **0.008**, max |Δ| **0.065**, and **0 → 0** pairs cross the
+0.35 "meaningful" threshold either way. So **the Divergence Matrix is robust to the
+duplication.**
+
+The larger problem: **every CDS value is < 0.20 (max 0.196)**, well under the product's own
+0.35 "meaningful" / 0.55 "risk" thresholds. The headline feature — cultural *divergence* —
+currently shows none on the demo data. This is a **demo-fitness / possibly methodology**
+issue (candidates: multilingual posts embedding close together; English-centric embedding
+model; centroid-cosine insensitivity; mis-calibrated thresholds) and is **more important
+than the duplication** for product credibility. Root cause not yet diagnosed.
+
+### Re-measurement queries
+
+```sql
+-- Duplication overall + by language / frame
+SELECT COUNT(*) total, COUNT(DISTINCT post_text) distinct_texts FROM NUANCE_DB.RAW_DATA.SOCIAL_POSTS;
+SELECT detected_language, COUNT(*) total, COUNT(DISTINCT post_text) distinct_texts FROM NUANCE_DB.ENRICHED.CULTURAL_FRAMES GROUP BY 1 ORDER BY 2 DESC;
+SELECT cultural_frame, COUNT(*) total, COUNT(DISTINCT post_text) distinct_texts FROM NUANCE_DB.ENRICHED.CULTURAL_FRAMES GROUP BY 1 ORDER BY 2 DESC;
+
+-- CDS spread (are any pairs "meaningful"?) — should have rows >= 0.35 once data is fit
+SELECT ROUND(MAX(cds_score),3) max_cds,
+       SUM(CASE WHEN cds_score>=0.35 THEN 1 ELSE 0 END) meaningful_pairs,
+       COUNT(*) total_pairs
+FROM NUANCE_DB.OUTPUTS.CULTURAL_DIVERGENCE_SCORES;
+```
+
+(The full deduped-CDS recompute uses `outputs.vector_avg` + `outputs.cosine_distance` over
+`enriched.post_embeddings` grouped by distinct `post_text` — see session history if needed.)
+
+---
+
 ## Verification path before going live
 
 Before sharing a demo with a real prospect, run this end-to-end test in order:

@@ -64,6 +64,12 @@ Two-part:
   what is deployed: any repo-only edit is NOT live until pushed into the workspace.
 - The native-app packaging session **MUST** perform this reconciliation — it is a
   prerequisite of that work, not optional cleanup. This ADR is the binding reminder.
+- **Demo-data fitness is in scope of that same data-bundling work.** Live-data findings
+  (uneven ~17× duplication; and — more importantly — all CDS scores < 0.20, so the
+  headline divergence feature shows nothing "meaningful") are recorded in
+  `docs/07_audit_and_fixes.md` → "Data-quality findings (2026-05-26)". The flat-CDS root
+  cause must be diagnosed and the demo corpus rebuilt to demonstrate real divergence
+  before the marketplace listing.
 
 ## Notes
 

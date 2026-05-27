@@ -49,7 +49,11 @@ as state changes.
   "Open items for Mike" (Cortex model verification, prompt polish on real data, the email
   placeholder in `09_alerts_and_tasks.sql`, the decorative Translator "Copy" button). Some
   may already be done — verify against current state.
-- UI/UX design-system pass (`streamlit/lib/ui.py`) before the Marketplace launch.
+- **UI/UX design-system pass** before the Marketplace launch — direction now locked in
+  [`11_ui_ux_design_brief.md`](11_ui_ux_design_brief.md) (editorial aesthetic, CMO/Brand-VP
+  persona, priority screens, SiS guardrails). Next: Claude Design delivers mockups + a handoff
+  spec → build a local mock-data preview harness → implement into `streamlit/lib/ui.py` with a
+  critique loop on the Claude Code side. Target file: `streamlit/lib/ui.py`.
 - Distributional sentiment divergence (vs the current scaled mean-difference).
 - A one-command deploy script — sensible only **after** the ADR-0002 reconciliation makes
   the repo a clean deploy source (flagged in [`09_streamlit_ops_runbook.md`](09_streamlit_ops_runbook.md)).

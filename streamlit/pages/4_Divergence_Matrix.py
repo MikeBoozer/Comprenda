@@ -4,7 +4,7 @@ from snowflake.snowpark.context import get_active_session
 import altair as alt
 import pandas as pd
 
-from lib.nuance_queries import list_event_tags, get_cds_matrix
+from lib.nuance_queries import list_event_tags
 
 st.set_page_config(page_title="Divergence Matrix — Nuance", page_icon="🔥", layout="wide")
 session = get_active_session()
@@ -22,7 +22,22 @@ if not events:
     st.stop()
 
 event_tag = st.selectbox("Event", options=events)
-df = get_cds_matrix(session, event_tag)
+
+# NOTE: query inlined here (not via lib.get_cds_matrix) on purpose. Streamlit-in-
+# Snowflake re-executes page files every run but caches imported lib modules on a
+# warm container, so a lib change can stay stale after a deploy until the container
+# cold-starts. Inlining keeps this page correct on the next rerun. (lib.get_cds_matrix
+# holds the same query for non-SiS / server-side use.)
+df = session.sql(
+    "SELECT language_a, language_b, headline_score, frame_divergence, "
+    "       sentiment_divergence, topical_overlap, situation_label, cds_confidence "
+    "FROM NUANCE_DB.OUTPUTS.CULTURAL_DIVERGENCE_SCORES "
+    "WHERE event_tag = ? AND frame_divergence IS NOT NULL "
+    "QUALIFY ROW_NUMBER() OVER (PARTITION BY language_a, language_b "
+    "                           ORDER BY computed_at DESC) = 1 "
+    "ORDER BY headline_score DESC",
+    params=[event_tag],
+).to_pandas()
 
 if df.empty:
     st.info(f"No divergence profile yet for `{event_tag}`. Run snowflake/07_cds_computation.sql.")

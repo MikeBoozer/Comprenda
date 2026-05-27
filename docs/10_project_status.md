@@ -19,9 +19,11 @@ as state changes.
 
 ## Binding open items (before the native-app / Marketplace build)
 
+*Data & metric (this round of work):*
 1. **Reconcile the three diverged trees** (git repo / Snowsight workspace / Streamlit object
    stage) to one source of truth —
-   [ADR-0002](decisions/0002-reconcile-workspace-repo-divergence.md). Binding.
+   [ADR-0002](decisions/0002-reconcile-workspace-repo-divergence.md). Binding. (Includes
+   moving the SPCS `USE WAREHOUSE`/`USE DATABASE` fix into the repo's home file.)
 2. **Rebuild the demo corpus** — it is ~17× unevenly duplicated; verify the divergence
    signal. See [`07_audit_and_fixes.md`](07_audit_and_fixes.md) "Data-quality findings"
    (includes re-measurement queries).
@@ -29,7 +31,25 @@ as state changes.
 4. **Update CDS references** in `semantic_model/nuance_semantic_model.yaml` and
    `native_app/setup_script.sql` to the multi-axis model.
 
+*Native-app packaging (from [ADR-0001](decisions/0001-native-app-distribution-with-demo-data.md)):*
+5. **Re-target schemas** — procedures + Streamlit from `NUANCE_DB.*` to `app_data.*`,
+   parameterized so one codebase serves both the dev instance and the app.
+6. **Apply the security / data-privacy guardrails** (ADR-0001, "binding for the build"):
+   bundle only synthetic data + enrichment + analog corpus; **exclude** `tracked_entities`
+   (real owner email), `pre_launch_risk_scores`, `cultural_translator_runs`, `ai_briefs`,
+   `drift_events`; tight `snowflake.yml` artifacts allow-list (never glob the project root —
+   it would bundle `.mcp.json` / `~/.snowflake/config.toml`); least-privilege manifest;
+   audit the staged package before publishing.
+
 ## Deferred / nice-to-have
 
+- **Consumer-BYO-data (Option B)** — the customer binds their own content table; the
+  long-term product, a known post-launch milestone (ADR-0001).
+- **Operator setup & polish TODOs** — [`08_build_session_transcript.md`](08_build_session_transcript.md)
+  "Open items for Mike" (Cortex model verification, prompt polish on real data, the email
+  placeholder in `09_alerts_and_tasks.sql`, the decorative Translator "Copy" button). Some
+  may already be done — verify against current state.
 - UI/UX design-system pass (`streamlit/lib/ui.py`) before the Marketplace launch.
 - Distributional sentiment divergence (vs the current scaled mean-difference).
+- A one-command deploy script — sensible only **after** the ADR-0002 reconciliation makes
+  the repo a clean deploy source (flagged in [`09_streamlit_ops_runbook.md`](09_streamlit_ops_runbook.md)).

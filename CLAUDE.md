@@ -1,18 +1,21 @@
 # Claude Code — Project Nuance entry point
 
-Welcome. This is Project Nuance — a Snowflake-native cultural intelligence SaaS. If you (Claude Code) are entering this directory for the first time in a session, read these files in order:
+Welcome. This is Project Nuance — a Snowflake-native cultural intelligence SaaS.
 
-1. **`README.md`** — top-of-stack overview, file layout, quick start.
-2. **`QUICKSTART.md`** — 30-second-read deploy checklist.
-3. **`docs/00_executive_summary.md`** — what the product is and what changed from the predecessor CulturePulse plan.
-4. **`docs/01_product_design.md`** — feature inventory (F1–F10) and ICP definition.
-5. **`docs/02_master_plan.md`** — 29-day build plan.
-6. **`docs/03_runbook.md`** — exact actions Mike (the operator) does, day by day.
-7. **`docs/06_architecture.md`** — technical architecture and the reasoning behind key decisions.
-8. **`docs/07_audit_and_fixes.md`** — bugs caught in pre-flight audit and the fixes applied. Read this if you hit any unexpected behavior during deployment.
-9. **`docs/08_build_session_transcript.md`** — full transcript of the chat session that produced this repo. Use this to recover *why* a decision was made.
-10. **`docs/09_streamlit_ops_runbook.md`** — how to inspect/edit/**deploy** the live Streamlit app from the CLI. **Read this before changing the running app** — editing repo or workspace files does NOT update it.
-11. **`docs/10_project_status.md`** — living snapshot of current state + **binding open items** (read before the native-app build). Kept separate so this file stays lean.
+**New to the repo this session?** Skim two files to orient, then stop: **`README.md`** (overview + file layout) and **`docs/00_executive_summary.md`** (what the product is). Everything else is reference — pull it *when the task calls for it*, using the map below. Don't read it all up front.
+
+**Read when you're about to…**
+
+- **Deploy or change the live Streamlit app** → `docs/09_streamlit_ops_runbook.md`. Editing `streamlit/` or the Snowsight workspace does **not** update the running app.
+- **Touch `streamlit/` styling or the UI redesign** → `docs/11_ui_ux_design_brief.md` (locked design decisions + SiS guardrails).
+- **Debug unexpected behavior or an error** → `docs/07_audit_and_fixes.md` (residual-risks + fixes), plus the "When something fails" section below.
+- **Work on features or check the ICP** → `docs/01_product_design.md` (feature inventory F1–F10, ICP).
+- **Check current state / before the native-app build** → `docs/10_project_status.md` (living snapshot + **binding open items**).
+- **Recover *why* a decision was made** → `docs/decisions/` (ADRs) and `docs/08_build_session_transcript.md` (build-session transcript).
+- **Understand the architecture** → `docs/06_architecture.md` (technical decisions + reasoning).
+- **See the plan / operator steps** → `docs/02_master_plan.md` (29-day plan), `docs/03_runbook.md` (day-by-day operator actions), `QUICKSTART.md` (deploy checklist).
+
+Background, rarely needed inline: `docs/04_business_model.md`, `docs/05_credit_budget.md`, `archive/` (read-only history).
 
 The other top-level directories are:
 

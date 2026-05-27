@@ -17,7 +17,7 @@ from snowflake.snowpark.types import StringType, VariantType
 from deploy import get_session
 
 
-BRIEF_PROMPT_VERSION = "ai-brief-v1"
+BRIEF_PROMPT_VERSION = "ai-brief-v2"
 
 
 def generate_brief(
@@ -61,20 +61,26 @@ def generate_brief(
     if not target_languages:
         raise ValueError(f"No language has ≥10 posts for event_tag={event_tag}")
 
-    # 1. CDS summary for this event.
+    # 1. Multi-axis divergence profile for this event (latest computed batch).
     cds_rows = session.sql(
-        "SELECT language_a, language_b, cds_score, cds_confidence "
+        "SELECT language_a, language_b, frame_divergence, sentiment_divergence, "
+        "       topical_overlap, situation_label, cds_confidence "
         "FROM NUANCE_DB.OUTPUTS.CULTURAL_DIVERGENCE_SCORES "
-        "WHERE event_tag = ? "
+        "WHERE event_tag = ? AND frame_divergence IS NOT NULL "
         "  AND (language_a IN (SELECT value::STRING FROM TABLE(FLATTEN(input => PARSE_JSON(?)))) "
         "       OR language_b IN (SELECT value::STRING FROM TABLE(FLATTEN(input => PARSE_JSON(?))))) "
-        "ORDER BY cds_score DESC",
+        "QUALIFY ROW_NUMBER() OVER (PARTITION BY language_a, language_b "
+        "                           ORDER BY computed_at DESC) = 1 "
+        "ORDER BY frame_divergence DESC",
         params=[event_tag, json.dumps(target_languages), json.dumps(target_languages)],
     ).collect()
     cds_summary = [
         {
             "lang_a": r["LANGUAGE_A"], "lang_b": r["LANGUAGE_B"],
-            "cds": round(float(r["CDS_SCORE"]), 3),
+            "situation": r["SITUATION_LABEL"],
+            "frame_divergence": round(float(r["FRAME_DIVERGENCE"]), 3),
+            "sentiment_divergence": round(float(r["SENTIMENT_DIVERGENCE"]), 3),
+            "topical_overlap": round(float(r["TOPICAL_OVERLAP"]), 3),
             "confidence": round(float(r["CDS_CONFIDENCE"]), 2),
         }
         for r in cds_rows[:15]
@@ -139,9 +145,18 @@ def generate_brief(
         "Intelligence Brief for a marketing executive. The data below summarizes how "
         f"the event \"{event_tag}\" was discussed across language communities.\n\n"
         f"DATA:\n{summary_payload}\n\n"
+        "Divergence is measured on three axes per language pair: topical_overlap "
+        "(how much they discuss the same thing — high across the board), "
+        "frame_divergence (how differently they frame it — the headline signal), and "
+        "sentiment_divergence (how differently they feel). 'situation' summarizes the "
+        "pair: Aligned / Divergent / 'Shared lens, split mood' / "
+        "'Same verdict, different reasons'.\n\n"
         "Write the brief in Markdown with exactly these sections:\n"
         "1. **Executive Summary** (2-3 sentences)\n"
-        "2. **Key Cultural Divergences** (table: lang pair, CDS, interpretation)\n"
+        "2. **Key Cultural Divergences** (table: language pair, situation, frame "
+        "divergence, sentiment divergence, interpretation). Topical overlap is high "
+        "everywhere — focus on how framing and sentiment differ, not whether they "
+        "discuss the same event.\n"
         "3. **Dominant Frames by Region** (one line per language)\n"
         "4. **Risk Flags** (3-5 bullet points of specific cultural risks)\n"
         "5. **Messaging Recommendations** (one paragraph per target language)\n"

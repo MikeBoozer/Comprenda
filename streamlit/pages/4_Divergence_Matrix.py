@@ -1,4 +1,4 @@
-"""Divergence Matrix — CDS heatmap across language pairs for an event."""
+"""Divergence Matrix — multi-axis cultural divergence across language pairs for an event."""
 import streamlit as st
 from snowflake.snowpark.context import get_active_session
 import altair as alt
@@ -11,8 +11,9 @@ session = get_active_session()
 
 st.title("🔥 Cultural Divergence Matrix")
 st.caption(
-    "Heatmap of Cultural Divergence Score (CDS) between language communities "
-    "for a selected event. Darker red = more culturally divergent."
+    "How differently language communities **frame** the same event. Color = frame "
+    "divergence (the headline signal); the table breaks each pair into three axes — "
+    "topical overlap, frame divergence, and sentiment divergence."
 )
 
 events = list_event_tags(session)
@@ -24,14 +25,18 @@ event_tag = st.selectbox("Event", options=events)
 df = get_cds_matrix(session, event_tag)
 
 if df.empty:
-    st.info(f"No CDS yet for `{event_tag}`. Run snowflake/07_cds_computation.sql.")
+    st.info(f"No divergence profile yet for `{event_tag}`. Run snowflake/07_cds_computation.sql.")
     st.stop()
 
-# Mirror the matrix (CDS is symmetric) and add a zero diagonal so the grid
-# renders as a complete square.
+# Mirror (all axes are symmetric) and add a zero diagonal so the grid is a full square.
 mirror = df.rename(columns={"LANGUAGE_A": "LANGUAGE_B", "LANGUAGE_B": "LANGUAGE_A"})
 langs = sorted(set(df["LANGUAGE_A"]) | set(df["LANGUAGE_B"]))
-diag = pd.DataFrame({"LANGUAGE_A": langs, "LANGUAGE_B": langs, "CDS_SCORE": 0.0})
+diag = pd.DataFrame({
+    "LANGUAGE_A": langs, "LANGUAGE_B": langs,
+    "HEADLINE_SCORE": 0.0, "FRAME_DIVERGENCE": 0.0,
+    "SENTIMENT_DIVERGENCE": 0.0, "TOPICAL_OVERLAP": 1.0,
+    "SITUATION_LABEL": "—",
+})
 full = pd.concat([df, mirror, diag], ignore_index=True)
 
 heatmap = (
@@ -40,26 +45,37 @@ heatmap = (
     .encode(
         x=alt.X("LANGUAGE_B:N", title="Language B"),
         y=alt.Y("LANGUAGE_A:N", title="Language A"),
-        color=alt.Color("CDS_SCORE:Q", scale=alt.Scale(scheme="reds"), title="CDS"),
+        color=alt.Color("HEADLINE_SCORE:Q", scale=alt.Scale(scheme="reds"),
+                        title="Frame divergence"),
         tooltip=[
             alt.Tooltip("LANGUAGE_A:N", title="Language A"),
             alt.Tooltip("LANGUAGE_B:N", title="Language B"),
-            alt.Tooltip("CDS_SCORE:Q", title="CDS", format=".3f"),
+            alt.Tooltip("SITUATION_LABEL:N", title="Situation"),
+            alt.Tooltip("FRAME_DIVERGENCE:Q", title="Frame divergence", format=".3f"),
+            alt.Tooltip("SENTIMENT_DIVERGENCE:Q", title="Sentiment divergence", format=".3f"),
+            alt.Tooltip("TOPICAL_OVERLAP:Q", title="Topical overlap", format=".3f"),
         ],
     )
     .properties(height=600)
 )
 st.altair_chart(heatmap, use_container_width=True)
 
-st.subheader("Top divergences (sorted)")
+st.subheader("Divergence profile by language pair")
+table = df.rename(columns={
+    "LANGUAGE_A": "Lang A", "LANGUAGE_B": "Lang B",
+    "FRAME_DIVERGENCE": "Frame div", "SENTIMENT_DIVERGENCE": "Sentiment div",
+    "TOPICAL_OVERLAP": "Topical overlap", "SITUATION_LABEL": "Situation",
+})[["Lang A", "Lang B", "Situation", "Frame div", "Sentiment div", "Topical overlap"]]
 st.dataframe(
-    df.sort_values("CDS_SCORE", ascending=False).head(20),
+    table.sort_values("Frame div", ascending=False).head(25),
     use_container_width=True, hide_index=True,
 )
 
-# Confidence note
 st.caption(
-    "💡 CDS values >0.55 are significant cultural risk signals. "
-    "Values 0.35-0.55 indicate meaningful divergence worth investigating. "
-    "Below 0.35 = communities are interpreting the event similarly."
+    "**Reading it:** topical overlap is high across the board — every community is "
+    "discussing the same event, so the cultural signal lives in the other two axes. "
+    "**Frame divergence ≥ 0.23** = meaningfully different framing; **≥ 0.34** = cultural "
+    "risk. **Situations:** *Aligned* (same lens, same mood) · *Divergent* (different lens "
+    "and mood) · *Shared lens, split mood* (same framing, opposite feeling) · "
+    "*Same verdict, different reasons* (different framing, similar feeling)."
 )

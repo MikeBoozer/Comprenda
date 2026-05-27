@@ -83,7 +83,11 @@ USING (
         ('plcs_critical',    '80',                      'PLCS >= this triggers urgent alert'),
         ('batch_size',       '5000',                    'Pipeline batch size'),
         ('min_posts_for_centroid', '10',                'Min posts/lang/event for valid CDS'),
-        ('drift_alert_default_delta', '0.15',           'Default drift alert threshold')
+        ('drift_alert_default_delta', '0.10',           'Default drift alert threshold on the headline (frame_divergence) scale'),
+        ('frame_div_threshold', '0.23',                 'frame_divergence (JSD) >= this = meaningful divergence (HEADLINE). Calibrated 2026-05-26 (~top third); re-derive after a data rebuild'),
+        ('frame_div_risk',      '0.34',                 'frame_divergence (JSD) >= this = cultural risk signal. Calibrated 2026-05-26 (~top 10%)'),
+        ('sentiment_div_threshold', '0.13',             'sentiment_divergence >= this = markets feel differently. Calibrated 2026-05-26 (~top 25%)'),
+        ('frame_smoothing_alpha', '0.5',                'Dirichlet/Laplace alpha added to each frame count before normalizing (tames sparse-data JSD inflation). Read with TO_DOUBLE, not TO_NUMBER')
     AS s(config_key, config_value, notes)
 ) s
 ON t.config_key = s.config_key
@@ -147,8 +151,13 @@ CREATE TABLE IF NOT EXISTS nuance_db.outputs.cultural_divergence_scores (
     language_b          VARCHAR(8),
     posts_lang_a        INTEGER,
     posts_lang_b        INTEGER,
-    cds_score           FLOAT,        -- 0..1, higher = more culturally divergent
-    cds_confidence      FLOAT,        -- bootstrap-resampled CI half-width
+    cds_score           FLOAT,        -- = headline_score (frame_divergence); kept for back-compat
+    cds_confidence      FLOAT,        -- scales with smaller sample size, capped at 1.0
+    topical_overlap      FLOAT,       -- axis 1: cosine similarity of text-embedding centroids ("same conversation")
+    frame_divergence     FLOAT,       -- axis 2 (HEADLINE): Jensen-Shannon divergence of frame distributions
+    sentiment_divergence FLOAT,       -- axis 3: scaled |mean-sentiment difference| in [0,1]
+    headline_score       FLOAT,       -- = frame_divergence (the primary metric shown in the UI)
+    situation_label      VARCHAR,     -- Aligned / Divergent / Shared lens, split mood / Same verdict, different reasons
     computed_at         TIMESTAMP_NTZ DEFAULT CURRENT_TIMESTAMP()
 );
 

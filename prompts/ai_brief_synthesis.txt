@@ -1,5 +1,5 @@
-VERSION: ai-brief-v1
-LAST_UPDATED: 2026-05-17
+VERSION: ai-brief-v2
+LAST_UPDATED: 2026-05-26
 INTENDED_MODEL: claude-4-sonnet
 INTENDED_TEMP: 0.4
 
@@ -12,10 +12,18 @@ the event "{event_tag}" was discussed across language communities.
 DATA:
 {summary_payload}
 
+Divergence is measured on three axes per language pair: topical_overlap (how much
+they discuss the same thing — high across the board), frame_divergence (how
+differently they frame it — the headline signal), and sentiment_divergence (how
+differently they feel). 'situation' summarizes the pair: Aligned / Divergent /
+'Shared lens, split mood' / 'Same verdict, different reasons'.
+
 Write the brief in Markdown with exactly these sections:
 
 1. **Executive Summary** (2-3 sentences)
-2. **Key Cultural Divergences** (table: lang pair, CDS, interpretation)
+2. **Key Cultural Divergences** (table: language pair, situation, frame divergence,
+   sentiment divergence, interpretation). Topical overlap is high everywhere — focus
+   on how framing and sentiment differ, not whether they discuss the same event.
 3. **Dominant Frames by Region** (one line per language)
 4. **Risk Flags** (3-5 bullet points of specific cultural risks)
 5. **Messaging Recommendations** (one paragraph per target language)

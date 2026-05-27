@@ -90,11 +90,16 @@ def get_event_summary(session: Session, event_tag: str) -> pd.DataFrame:
 # Divergence Matrix
 # ---------------------------------------------------------------------------
 def get_cds_matrix(session: Session, event_tag: str) -> pd.DataFrame:
+    # headline_score = frame_divergence (the primary axis). Select only the latest
+    # computed batch per language pair, since the table appends a batch each run.
     df = session.sql(
-        "SELECT language_a, language_b, cds_score, cds_confidence "
+        "SELECT language_a, language_b, headline_score, frame_divergence, "
+        "       sentiment_divergence, topical_overlap, situation_label, cds_confidence "
         "FROM NUANCE_DB.OUTPUTS.CULTURAL_DIVERGENCE_SCORES "
-        "WHERE event_tag = ? "
-        "ORDER BY cds_score DESC",
+        "WHERE event_tag = ? AND frame_divergence IS NOT NULL "
+        "QUALIFY ROW_NUMBER() OVER (PARTITION BY language_a, language_b "
+        "                           ORDER BY computed_at DESC) = 1 "
+        "ORDER BY headline_score DESC",
         params=[event_tag],
     ).to_pandas()
     return df

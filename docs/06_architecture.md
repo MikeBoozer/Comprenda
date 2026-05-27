@@ -45,7 +45,7 @@
 
 ### Native-language embedding-first (vs. translate-first)
 
-Every social-listening incumbent runs `translate(post, src→en) → sentiment(en_text)`. This destroys cultural framing: sarcasm, irony, in-group references, historical grievance invocations are all lost in translation. Nuance uses Snowflake's `EMBED_TEXT_1024('snowflake-arctic-embed-l-v2.0', post)` which produces a 1024-dim vector *in the native language* and is shared semantic space across languages by design (it's a multilingual model trained on parallel data). The Cultural Divergence Score works because we can compare centroids across languages in the same vector space without translating either.
+Every social-listening incumbent runs `translate(post, src→en) → sentiment(en_text)`. This destroys cultural framing: sarcasm, irony, in-group references, historical grievance invocations are all lost in translation. Nuance uses Snowflake's `EMBED_TEXT_1024('snowflake-arctic-embed-l-v2.0', post)` which produces a 1024-dim vector *in the native language* and is shared semantic space across languages by design (it's a multilingual model trained on parallel data). The embeddings are language-comparable in a shared vector space, so we can compare centroids across languages without translating either. **(Update — ADR-0003:** centroid cosine distance turned out to capture *topic*, not cultural stance — within a given event all languages cluster together, so that metric showed near-zero divergence everywhere. The Cultural Divergence Score is now a **multi-axis profile**: *topical overlap* (this centroid similarity — "same conversation"), *frame divergence* (Jensen-Shannon divergence over cultural-frame distributions — the headline signal), and *sentiment divergence*. See `docs/decisions/0003-multi-axis-divergence-profile.md`.)
 
 When we need natural-language outputs *about* a non-English post (e.g., explaining the frame to an English-speaking user), `claude-4-sonnet` reads the native text directly — Claude is strong multilingual and doesn't need a translation hop. The translation only happens at the final "show the user" step, never in the analytical pipeline.
 
@@ -94,7 +94,7 @@ This is non-negotiable for an enterprise product where wrong outputs damage the 
 
 1. **Home / Dashboard** — KPIs across tracked events, recent drift alerts, recent PLCS scores.
 2. **Event Explorer** — world map (Pydeck) colored by sentiment for a selected event_tag; per-language summary cards.
-3. **Divergence Matrix** — CDS heatmap (Plotly) for selected event across language pairs.
+3. **Divergence Matrix** — frame-divergence heatmap (Altair) for a selected event across language pairs, with the full multi-axis profile (topical overlap / frame / sentiment) and a situation label per pair.
 4. **Frame Distribution** — side-by-side bar charts per language showing cultural frame breakdown.
 5. **Pre-Launch Risk** — input box for draft content, target market multiselect, runs PLCS, renders risk report.
 6. **Cultural Translator** — input box for source content, target market multiselect, renders 2–3 adapted variants.

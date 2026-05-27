@@ -13,6 +13,25 @@ Welcome. This is Project Nuance — a Snowflake-native cultural intelligence Saa
 9. **`docs/08_build_session_transcript.md`** — full transcript of the chat session that produced this repo. Use this to recover *why* a decision was made.
 10. **`docs/09_streamlit_ops_runbook.md`** — how to inspect/edit/**deploy** the live Streamlit app from the CLI. **Read this before changing the running app** — editing repo or workspace files does NOT update it.
 
+## Current status & binding next steps (as of 2026-05-26)
+
+The Streamlit app is **live and working**, deployed via the CLI sequence in `docs/09` (the
+Snowsight Deploy button broke on a main-file rename). Before related work, **read the ADRs
+in `docs/decisions/`** — they hold decisions code/history don't:
+
+- **ADR-0003** — the Cultural Divergence Score is now a **multi-axis profile** (topical
+  overlap + frame-divergence JSD + sentiment divergence), *not* the old text-embedding
+  centroid distance (which measured topic, not stance, and showed zero divergence).
+  Thresholds + smoothing live in `nuance_db.internal.config`. The Divergence Matrix page
+  inlines its query on purpose (Streamlit-in-Snowflake caches `lib/` imports — see `docs/09`).
+- **ADR-0002 — BINDING before the native-app build:** the git repo, the Snowsight
+  workspace, and the Streamlit object's stage are three separately-diverged trees; reconcile
+  to one source of truth, **rebuild the demo corpus** (it is ~17× unevenly duplicated; the
+  divergence signal needs verifying — see `docs/07_audit_and_fixes.md` "Data-quality
+  findings"), then **re-derive the divergence thresholds** from the new data.
+- After a data rebuild, also update the CDS references in `semantic_model/nuance_semantic_model.yaml`
+  and `native_app/setup_script.sql`.
+
 The other top-level directories are:
 
 - `snowflake/` — SQL setup pack (bootstrap + per-stage scripts).

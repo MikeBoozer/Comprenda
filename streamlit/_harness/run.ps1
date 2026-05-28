@@ -1,6 +1,6 @@
 # Local preview harness for the Comprenda Streamlit app.
 #
-# Renders the app in a browser with fixture data — NO Snowflake connection,
+# Renders the app in a browser with fixture data - NO Snowflake connection,
 # NO trial credits, and it sidesteps the Norton TLS issue entirely (nothing
 # ever talks to snowflakecomputing.com).
 #
@@ -20,7 +20,7 @@ $VenvDir    = Join-Path $HarnessDir ".venv"
 $VenvPy     = Join-Path $VenvDir "Scripts\python.exe"
 
 if (-not (Test-Path $VenvPy)) {
-    Write-Host "[harness] creating venv (first run)…" -ForegroundColor Cyan
+    Write-Host "[harness] creating venv (first run)..." -ForegroundColor Cyan
     python -m venv --system-site-packages $VenvDir
     & $VenvPy -m pip install --upgrade pip
     & $VenvPy -m pip install streamlit altair
@@ -30,6 +30,6 @@ if (-not (Test-Path $VenvPy)) {
 # the session + query module before any app code runs.
 $env:PYTHONPATH = $HarnessDir
 
-Write-Host "[harness] launching Comprenda in MOCK MODE — http://localhost:8501" -ForegroundColor Green
+Write-Host "[harness] launching Comprenda in MOCK MODE - http://localhost:8501" -ForegroundColor Green
 Set-Location $AppDir
 & $VenvPy -m streamlit run comprenda_app.py

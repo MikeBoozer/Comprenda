@@ -82,12 +82,6 @@ h3 { font-size: 16px; line-height: 1.3; font-family: var(--sans); font-weight: 6
 
 /* Sidebar */
 [data-testid="stSidebar"] { background: var(--paper-card); border-right: 1px solid var(--rule); }
-
-/* Lift our wordmark (sidebar "user content") ABOVE the auto page nav.
-   Reorder the sidebar's flex children via stable testids. */
-[data-testid="stSidebar"] > div:first-of-type { display: flex; flex-direction: column; }
-[data-testid="stSidebarUserContent"] { order: 1; }
-[data-testid="stSidebarNav"] { order: 2; }
 """
 
 # Custom component classes — used by st.markdown(unsafe_allow_html=True).

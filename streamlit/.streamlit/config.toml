@@ -1,0 +1,6 @@
+[theme]
+primaryColor             = "#8B2A1F"   # risk / oxblood — st.button primary, focus
+backgroundColor          = "#F5F1E8"   # paper-bg
+secondaryBackgroundColor = "#ECE6D7"   # paper-deep (sidebar, inset)
+textColor                = "#1C1A17"   # ink
+font                     = "serif"     # body falls back to system serif stack

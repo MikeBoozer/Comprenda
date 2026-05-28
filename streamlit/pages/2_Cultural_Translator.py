@@ -2,7 +2,7 @@
 import streamlit as st
 from snowflake.snowpark.context import get_active_session
 
-from lib.nuance_queries import call_translator, list_languages
+from lib.comprenda_queries import call_translator, list_languages
 
 st.set_page_config(page_title="Cultural Translator — Nuance", page_icon="🌍", layout="wide")
 session = get_active_session()

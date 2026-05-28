@@ -4,7 +4,7 @@ from snowflake.snowpark.context import get_active_session
 import altair as alt
 import pandas as pd
 
-from lib.nuance_queries import list_event_tags
+from lib.comprenda_queries import list_event_tags
 
 st.set_page_config(page_title="Divergence Matrix — Nuance", page_icon="🔥", layout="wide")
 session = get_active_session()

@@ -3,7 +3,7 @@ import streamlit as st
 from snowflake.snowpark.context import get_active_session
 import altair as alt
 
-from lib.nuance_queries import list_event_tags, get_event_summary
+from lib.comprenda_queries import list_event_tags, get_event_summary
 
 st.set_page_config(page_title="Event Explorer — Nuance", page_icon="🗺️", layout="wide")
 session = get_active_session()

@@ -2,7 +2,7 @@
 import streamlit as st
 from snowflake.snowpark.context import get_active_session
 
-from lib.nuance_queries import narrative_search, list_languages
+from lib.comprenda_queries import narrative_search, list_languages
 
 FRAMES = [
     "individualist", "collectivist", "nationalist", "globalist",

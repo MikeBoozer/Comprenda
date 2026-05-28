@@ -3,7 +3,7 @@ similar to your current content or event."""
 import streamlit as st
 from snowflake.snowpark.context import get_active_session
 
-from lib.nuance_queries import call_find_analogs, list_languages
+from lib.comprenda_queries import call_find_analogs, list_languages
 
 st.set_page_config(page_title="Analog Retrieval — Nuance", page_icon="🧭", layout="wide")
 session = get_active_session()

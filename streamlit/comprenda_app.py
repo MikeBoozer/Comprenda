@@ -8,7 +8,7 @@ import streamlit as st
 from snowflake.snowpark.context import get_active_session
 import pandas as pd
 
-from lib.nuance_queries import (
+from lib.comprenda_queries import (
     get_recent_drift_events,
     get_recent_plcs_scores,
     get_kpi_summary,

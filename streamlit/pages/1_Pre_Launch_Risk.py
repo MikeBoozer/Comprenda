@@ -6,7 +6,7 @@ The killer feature. Marketer pastes draft content + target markets, gets a
 import streamlit as st
 from snowflake.snowpark.context import get_active_session
 
-from lib.nuance_queries import call_plcs, list_languages, call_find_analogs
+from lib.comprenda_queries import call_plcs, list_languages, call_find_analogs
 
 st.set_page_config(page_title="Pre-Launch Risk — Nuance", page_icon="⚠️", layout="wide")
 session = get_active_session()

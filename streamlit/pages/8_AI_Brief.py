@@ -2,7 +2,7 @@
 import streamlit as st
 from snowflake.snowpark.context import get_active_session
 
-from lib.nuance_queries import list_event_tags, list_languages, call_generate_brief
+from lib.comprenda_queries import list_event_tags, list_languages, call_generate_brief
 
 st.set_page_config(page_title="AI Brief — Nuance", page_icon="📄", layout="wide")
 session = get_active_session()

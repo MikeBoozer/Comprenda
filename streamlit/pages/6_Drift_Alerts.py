@@ -2,7 +2,7 @@
 import streamlit as st
 from snowflake.snowpark.context import get_active_session
 
-from lib.nuance_queries import (
+from lib.comprenda_queries import (
     list_tracked_entities, add_tracked_entity, list_languages,
     find_matching_events,
 )

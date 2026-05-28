@@ -26,7 +26,7 @@ workflow + this repo's existing direct-to-main pattern).
 | — | Local preview harness (`streamlit/_harness/`) | ✅ done (extra) |
 | 4 | Home `comprenda_app.py` → §6.1 (+ empty state) | ✅ done |
 | 5 | `pages/1_Pre_Launch_Risk.py` → §6.2 (+ empty state) | ✅ done |
-| 6 | `pages/4_Divergence_Matrix.py` → §6.3 (Altair) | ⬜ todo |
+| 6 | `pages/4_Divergence_Matrix.py` → §6.3 (Altair) | ✅ done |
 | 7 | `pages/8_AI_Brief.py` → §6.4 | ⬜ todo |
 | 8 | Other 5 pages: `inject_css()` + `page_header()` only | ⬜ todo |
 
@@ -103,7 +103,15 @@ which are done on the spot because they propagate everywhere.
    or switching to the `st.navigation` API (re-architects the router). Decide
    deliberately; don't hack.
 3. Items A–D in §3 above (real-data gaps) also surface in any final pass.
-4. **DONE in-stream** (kept here for the record): sidebar subtitle →
+4. **Divergence Matrix cell-click selection** (§6.3 "clicking a cell rerenders
+   the aside") replaced with a **selectbox** for the pair. Altair cell-click via
+   `st.altair_chart(on_select=...)` varies across Streamlit/SiS versions; the
+   selectbox achieves the same outcome reliably. Revisit if SiS Streamlit is
+   confirmed to support `on_select`.
+5. **Matrix empty-state "three events"** lists real event tags but with a
+   generic one-line description (no per-event post/lang counts — that data needs
+   a query the redesign step doesn't add). Artboard shows specific counts.
+6. **DONE in-stream** (kept here for the record): sidebar subtitle →
    "Don't translate. Understand." in sentence case.
 
 ---

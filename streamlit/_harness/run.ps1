@@ -32,4 +32,7 @@ $env:PYTHONPATH = $HarnessDir
 
 Write-Host "[harness] launching Comprenda in MOCK MODE - http://localhost:8501" -ForegroundColor Green
 Set-Location $AppDir
-& $VenvPy -m streamlit run comprenda_app.py
+# --server.headless true suppresses the first-run email prompt (which otherwise
+# blocks startup waiting on stdin) and skips auto-opening a browser. Open the
+# URL above yourself.
+& $VenvPy -m streamlit run comprenda_app.py --server.headless true --browser.gatherUsageStats false

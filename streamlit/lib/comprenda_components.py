@@ -58,7 +58,8 @@ def sidebar_brand():
     st.sidebar.markdown(
         "<div style='font:700 32px/1 var(--serif); letter-spacing:-0.01em;"
         " color:var(--ink-strong); padding:12px 6px 2px;'>Comprenda</div>"
-        "<div class='nu-kicker' style='padding:0 6px 10px;'>Don't translate. Understand.</div>",
+        "<div class='nu-kicker' style='padding:0 6px 10px; text-transform:none;"
+        " letter-spacing:0;'>Don't translate. Understand.</div>",
         unsafe_allow_html=True)
 
 

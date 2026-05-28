@@ -8,6 +8,7 @@ Welcome. This is Project Nuance — a Snowflake-native cultural intelligence Saa
 
 - **Deploy or change the live Streamlit app** → `docs/09_streamlit_ops_runbook.md`. Editing `streamlit/` or the Snowsight workspace does **not** update the running app.
 - **Touch `streamlit/` styling or the UI redesign** → `docs/11_ui_ux_design_brief.md` (locked design decisions + SiS guardrails).
+- **Continue or review the UI redesign build** → `design/IMPLEMENTATION_NOTES.md` (step status, deliberate deviations, real-data gaps, and the local preview harness). The full spec is `design/Claude-Code-Handoff.md`.
 - **Debug unexpected behavior or an error** → `docs/07_audit_and_fixes.md` (residual-risks + fixes), plus the "When something fails" section below.
 - **Work on features or check the ICP** → `docs/01_product_design.md` (feature inventory F1–F10, ICP).
 - **Check current state / before the native-app build** → `docs/10_project_status.md` (living snapshot + **binding open items**).

@@ -11,8 +11,12 @@ the harness PYTHONPATH is active. Production keeps the real session + queries.
 """
 from __future__ import annotations
 
+import os
 import types
 import pandas as pd
+
+# Set HARNESS_EMPTY=1 before launching to preview first-run / empty states.
+EMPTY = bool(os.environ.get("HARNESS_EMPTY"))
 
 # ---------------------------------------------------------------------------
 # Scalar / list fixtures
@@ -292,9 +296,17 @@ class FakeSession:
 def build_query_module():
     m = types.ModuleType("lib.comprenda_queries")
 
-    m.get_kpi_summary = lambda session: dict(KPI)
-    m.get_recent_drift_events = lambda session, limit=10: drift_events_df(limit)
-    m.get_recent_plcs_scores = lambda session, limit=10: plcs_scores_df(limit)
+    _empty_kpi = {"events": 0, "languages": 0, "posts": 0, "drift_24h": 0}
+    _empty_df = lambda cols: pd.DataFrame(columns=cols)
+
+    m.get_kpi_summary = lambda session: (dict(_empty_kpi) if EMPTY else dict(KPI))
+    m.get_recent_drift_events = lambda session, limit=10: (
+        _empty_df(["ENTITY_NAME", "LANGUAGE_A", "LANGUAGE_B", "PREV_CDS",
+                   "NEW_CDS", "DELTA_CDS", "DETECTED_AT"]) if EMPTY
+        else drift_events_df(limit))
+    m.get_recent_plcs_scores = lambda session, limit=10: (
+        _empty_df(["TARGET_MARKET", "PLCS_SCORE", "CONFIDENCE", "DRAFT_PREVIEW",
+                   "INFERENCE_TIMESTAMP"]) if EMPTY else plcs_scores_df(limit))
     m.list_event_tags = lambda session: list(EVENT_TAGS)
     m.list_languages = lambda session: list(LANGUAGES)
     m.get_event_summary = lambda session, event_tag: event_summary_df(event_tag)

@@ -15,13 +15,21 @@ import sys
 
 # Activate the same stubs sitecustomize installs, in-process.
 _HARNESS = os.path.dirname(os.path.abspath(__file__))
-if _HARNESS not in sys.path:
-    sys.path.insert(0, _HARNESS)
+_APP_DIR = os.path.dirname(_HARNESS)  # streamlit/
+for _p in (_HARNESS, _APP_DIR):
+    if _p not in sys.path:
+        sys.path.insert(0, _p)
 import fixtures  # noqa: E402
 
 import snowflake.snowpark.context as _ctx  # noqa: E402
 _ctx.get_active_session = lambda: fixtures.FakeSession()
-sys.modules["lib.comprenda_queries"] = fixtures.build_query_module()
+
+# Import the real lib package first so its __path__ is set and the real
+# theme/components submodules resolve, then override only the queries submodule.
+import lib  # noqa: E402,F401
+_fake_q = fixtures.build_query_module()
+sys.modules["lib.comprenda_queries"] = _fake_q
+lib.comprenda_queries = _fake_q
 
 from streamlit.testing.v1 import AppTest  # noqa: E402
 

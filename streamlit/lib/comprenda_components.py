@@ -50,6 +50,19 @@ def badge(score):
 
 
 # ---------------------------------------------------------------------------
+# Sidebar wordmark — the typographic brand mark (§2.2). Never an image.
+# ---------------------------------------------------------------------------
+
+def sidebar_brand():
+    """Render the Comprenda wordmark above the page nav. Serif, roman, 700."""
+    st.sidebar.markdown(
+        "<div style='font:700 32px/1 var(--serif); letter-spacing:-0.01em;"
+        " color:var(--ink-strong); padding:12px 6px 2px;'>Comprenda</div>"
+        "<div class='nu-kicker' style='padding:0 6px 10px;'>Cultural intelligence</div>",
+        unsafe_allow_html=True)
+
+
+# ---------------------------------------------------------------------------
 # Page header — kicker → h1 → lede → divider (§5.1).
 # ---------------------------------------------------------------------------
 

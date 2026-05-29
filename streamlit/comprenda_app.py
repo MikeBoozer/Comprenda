@@ -10,9 +10,10 @@ DEPLOY NOTE: st.navigation requires the Streamlit-in-Snowflake runtime to be
 st.navigation and the app will not start. (Harness runs 1.58, so dev is fine.)
 """
 import streamlit as st
+from snowflake.snowpark.context import get_active_session
 
 from lib.comprenda_theme import inject_css
-from lib.comprenda_components import render_sidebar
+from lib.comprenda_components import render_sidebar, omnibar
 
 st.set_page_config(page_title="Comprenda — Cultural Intelligence",
                    layout="wide", initial_sidebar_state="expanded")
@@ -53,4 +54,5 @@ ordered_pages = [page for _section, items in groups for page, _glyph in items]
 pg = st.navigation(ordered_pages, position="hidden")
 inject_css()
 render_sidebar(groups)
+omnibar(get_active_session())
 pg.run()

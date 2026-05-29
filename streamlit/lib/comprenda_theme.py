@@ -184,8 +184,21 @@ _SIDEBAR = """
   background: var(--safe); margin-right: 6px; vertical-align: middle; }
 """
 
+# Cortex omnibar — the popover trigger styled as a full-width search bar.
+# Scoped to stPopover, which is unique to the omnibar (no other popovers).
+_OMNI = """
+[data-testid="stPopover"] > button {
+  width: 100%; justify-content: flex-start; text-align: left;
+  background: var(--paper-card); border: 1px solid var(--rule-strong);
+  color: var(--ink-faint); font-family: var(--sans); font-weight: 400;
+  font-size: 13px; border-radius: 2px; padding: 9px 14px; letter-spacing: 0.01em; }
+[data-testid="stPopover"] > button:hover {
+  border-color: var(--ink-muted); background: var(--paper-card);
+  color: var(--ink-muted); }
+"""
+
 
 def inject_css():
     """Call once per page, right after st.set_page_config()."""
-    st.markdown(f"<style>{_TOKENS}{_BASE}{_COMPONENTS}{_SIDEBAR}</style>",
+    st.markdown(f"<style>{_TOKENS}{_BASE}{_COMPONENTS}{_SIDEBAR}{_OMNI}</style>",
                 unsafe_allow_html=True)

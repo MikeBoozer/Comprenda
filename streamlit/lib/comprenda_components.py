@@ -91,6 +91,60 @@ def render_sidebar(groups):
             "</div>", unsafe_allow_html=True)
 
 
+def omnibar(session):
+    """Cortex search command bar — rendered once by the router, above every page.
+
+    Wired to the existing Cortex Search (``narrative_search``). The artboard's
+    synthesized-answer + generated-SQL view is Cortex Analyst, a deferred
+    follow-up (no backend yet). No keyboard shortcut: Streamlit has no key API
+    and the no-JS rule forbids a shim, so the bar opens on click. A form gates
+    the query so a Cortex call only fires on submit, not on every rerun.
+    """
+    from lib.comprenda_queries import narrative_search  # lazy: avoid load-order coupling
+
+    with st.popover("⌕  Search the corpus…", use_container_width=True):
+        with st.form("omni_form", clear_on_submit=False, border=False):
+            q = st.text_input(
+                "Search the corpus", label_visibility="collapsed",
+                placeholder="e.g. what Japanese users said about the launch")
+            submitted = st.form_submit_button("Search", type="primary",
+                                              use_container_width=True)
+        if submitted:
+            query = q.strip()
+            if not query:
+                st.session_state.pop("omni_results", None)
+            else:
+                with st.spinner("Searching the corpus…"):
+                    try:
+                        df = narrative_search(session, query, None, None, 8)
+                    except Exception as exc:
+                        df = None
+                        st.error(f"Search failed: {exc}")
+                st.session_state["omni_results"] = df  # df or None
+
+        res = st.session_state.get("omni_results")
+        if res is None:
+            return
+        if res.empty:
+            st.caption("No matches in the corpus.")
+            return
+        df = res.copy()
+        df.columns = [c.lower() for c in df.columns]
+        st.caption(f"{len(df)} result{'s' if len(df) != 1 else ''}")
+        for _, r in df.iterrows():
+            chips = pill(r.get("detected_language", "?"))
+            if r.get("cultural_frame"):
+                chips += pill(frame_label(r["cultural_frame"]))
+            st.markdown(
+                "<div style='padding:8px 0; border-bottom:1px solid var(--rule);'>"
+                f"<div style='font:400 14px/1.5 var(--serif); color:var(--ink);'>"
+                f"“{r.get('post_text', '')}”</div>"
+                f"<div style='margin-top:4px;'>{chips}"
+                "<span style='font-family:var(--mono); font-size:10px; "
+                f"color:var(--ink-muted); margin-left:6px;'>{r.get('post_id', '')}</span>"
+                "</div></div>", unsafe_allow_html=True)
+
+
 # ---------------------------------------------------------------------------
 # Page header — kicker → h1 → lede → divider (§5.1).
 # ---------------------------------------------------------------------------

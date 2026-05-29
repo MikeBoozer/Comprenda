@@ -54,10 +54,18 @@ the `st.navigation` API, so the app moved off Streamlit's filename auto-router:
   The harness is 1.58 (verified: `AppTest` runs the router clean), but the
   *deployed* SiS version is unverifiable until push — an older runtime will
   fail to start. Confirm at deploy time. (See §6.)
-- Pending: the **Cortex omnibar** search box (operator approved: wire to the
-  existing Cortex Search now; `/` and `⌘K` shortcuts are **not feasible** under
-  the no-JS rule and were dropped — Streamlit has no keyboard API and strips
-  injected `<script>`).
+- ✅ **Cortex omnibar (done).** `omnibar()` renders once in the router (above
+  every page) as an `st.popover` command bar wired to the existing **Cortex
+  Search** (`narrative_search`). A `st.form` gates the query so a Cortex call
+  only fires on submit (not every rerun); results persist in `session_state`.
+  Styling is scoped to `[data-testid="stPopover"]` (unique to the omnibar).
+  - `/` and `⌘K` shortcuts **dropped — not feasible** under the no-JS rule
+    (Streamlit has no keyboard API and strips injected `<script>`); the bar
+    opens on click.
+  - The artboard's synthesized **answer + generated-SQL** view is **Cortex
+    Analyst**, a **deferred follow-up**: no Python backend exists, it needs the
+    `semantic_model/` deployed, and it can't be validated in the harness. The
+    shipped omnibar returns matching posts (search), not an NL answer.
 
 Step 8 gave all six remaining pages the shared chrome (theme + `page_header`)
 but left their **bodies** as raw Streamlit. Step 9 promoted Translator out of
@@ -195,6 +203,8 @@ open item from `docs/11`.
   - `python _harness/probe_search.py` — exercises the button-gated result
     paths on Analog Retrieval (sample → Find → cards) and Narrative Search
     (query → Search → cards), where card-rendering reads real fields.
+  - `python _harness/probe_omnibar.py` — drives the router: opens the Cortex
+    omnibar, submits a query through the form, renders search results.
 
 ### Harness gotchas worth knowing
 - The `_harness/check.py` import order matters: it puts the app dir on

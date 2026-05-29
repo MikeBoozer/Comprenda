@@ -178,61 +178,61 @@ APP_VERSION = "1.0"
 
 
 def session_diagnostics(session):
-    """Subtle, click-gated 'Session & environment' footer — rendered once by the
-    router at the very bottom of every page, for support and buyer-side devs.
+    """Small, click-gated 'Session & environment' popover at the bottom of the
+    sidebar — for customer support and buyer-side devs.
 
-    Queries fire only on the 'Load details' click: Streamlit expanders compute
-    their body on every rerun even while collapsed, so gating avoids spending a
-    query on each page navigation. Shows only the user's own non-sensitive
-    operational context (no CURRENT_USER / CURRENT_ACCOUNT, no secrets).
+    Queries fire only on the 'Load details' click (popover bodies are computed
+    every rerun, so gating avoids a query per page navigation). Shows only the
+    user's own non-sensitive context (no CURRENT_USER / CURRENT_ACCOUNT, no
+    secrets); the floating panel keeps it readable despite the narrow sidebar.
     """
     from lib.comprenda_queries import (  # lazy: avoid load-order coupling
         get_session_context, get_corpus_freshness, get_kpi_summary)
 
-    st.markdown("<div style='height:32px;'></div>", unsafe_allow_html=True)
-    with st.expander("Session & environment", expanded=False):
-        st.caption("Diagnostics for support and integration — your own session "
-                   "context and corpus status. Nothing here is private to other users.")
-        if st.button("Load details", key="diag_load"):
-            diag = {}
-            try:
-                diag["ctx"] = get_session_context(session)
-            except Exception as exc:
-                diag["ctx"] = {}
-                diag["ctx_err"] = str(exc)
-            try:
-                diag["kpi"] = get_kpi_summary(session) or {}
-            except Exception:
-                diag["kpi"] = {}
-            try:
-                diag["fresh"] = get_corpus_freshness(session)
-            except Exception:
-                diag["fresh"] = None
-            st.session_state["diag"] = diag
+    with st.sidebar:
+        with st.popover("Session & environment", use_container_width=True):
+            st.caption("Your own session context and corpus status — for support "
+                       "and integration.")
+            if st.button("Load details", key="diag_load"):
+                diag = {}
+                try:
+                    diag["ctx"] = get_session_context(session)
+                except Exception as exc:
+                    diag["ctx"], diag["ctx_err"] = {}, str(exc)
+                try:
+                    diag["kpi"] = get_kpi_summary(session) or {}
+                except Exception:
+                    diag["kpi"] = {}
+                try:
+                    diag["fresh"] = get_corpus_freshness(session)
+                except Exception:
+                    diag["fresh"] = None
+                st.session_state["diag"] = diag
 
-        diag = st.session_state.get("diag")
-        if not diag:
-            return
-        rows = [("App version", APP_VERSION), ("Streamlit", st.__version__)]
-        rows += list(diag.get("ctx", {}).items())
-        kpi = diag.get("kpi") or {}
-        if kpi:
-            rows.append(("Corpus", f"{kpi.get('events', '—')} events · "
-                                   f"{kpi.get('languages', '—')} languages · "
-                                   f"{kpi.get('posts', '—')} posts"))
-        rows.append(("Corpus updated", str(diag["fresh"]) if diag.get("fresh") else "—"))
-        if diag.get("ctx_err"):
-            st.caption(f"Session context unavailable: {diag['ctx_err']}")
-        html = "".join(
-            "<div style='display:flex; gap:12px; padding:3px 0; "
-            "border-bottom:1px solid var(--rule);'>"
-            f"<span style='min-width:130px; font:600 11px/1.5 var(--sans); "
-            "color:var(--ink-muted); text-transform:uppercase; letter-spacing:0.06em;'>"
-            f"{label}</span><span style='font:400 12px/1.5 var(--mono); color:var(--ink); "
-            f"word-break:break-all;'>{val}</span></div>"
-            for label, val in rows)
-        st.markdown(html, unsafe_allow_html=True)
-        st.code("\n".join(f"{label}: {val}" for label, val in rows), language=None)
+            diag = st.session_state.get("diag")
+            if not diag:
+                return
+            rows = [("App version", APP_VERSION), ("Streamlit", st.__version__)]
+            rows += list(diag.get("ctx", {}).items())
+            kpi = diag.get("kpi") or {}
+            if kpi:
+                rows.append(("Corpus", f"{kpi.get('events', '—')} events · "
+                                       f"{kpi.get('languages', '—')} languages · "
+                                       f"{kpi.get('posts', '—')} posts"))
+            rows.append(("Corpus updated",
+                         str(diag["fresh"]) if diag.get("fresh") else "—"))
+            if diag.get("ctx_err"):
+                st.caption(f"Session context unavailable: {diag['ctx_err']}")
+            html = "".join(
+                "<div style='display:flex; gap:12px; padding:3px 0; "
+                "border-bottom:1px solid var(--rule);'>"
+                "<span style='min-width:120px; font:600 11px/1.5 var(--sans); "
+                "color:var(--ink-muted); text-transform:uppercase; letter-spacing:0.06em;'>"
+                f"{label}</span><span style='font:400 12px/1.5 var(--mono); "
+                f"color:var(--ink); word-break:break-all;'>{val}</span></div>"
+                for label, val in rows)
+            st.markdown(html, unsafe_allow_html=True)
+            st.code("\n".join(f"{label}: {val}" for label, val in rows), language=None)
 
 
 # ---------------------------------------------------------------------------

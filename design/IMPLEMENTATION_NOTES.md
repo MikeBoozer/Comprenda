@@ -73,11 +73,12 @@ the `st.navigation` API, so the app moved off Streamlit's filename auto-router:
     Analyst**, a **deferred follow-up**: no Python backend exists, it needs the
     `semantic_model/` deployed, and it can't be validated in the harness. The
     shipped omnibar returns matching posts (search), not an NL answer.
-- ✅ **Session diagnostics footer (done).** `session_diagnostics()` renders a
-  subtle, collapsed **"Session & environment"** expander once in the router at
-  the bottom of every page, for support / buyer-side devs. It is **click-gated**
-  (a "Load details" button) so the metadata queries fire only on demand, not on
-  every navigation. Shows only the user's own non-sensitive context — role,
+- ✅ **Session diagnostics (done).** `session_diagnostics()` renders a small,
+  quiet **"Session & environment"** popover at the **bottom of the sidebar**
+  (utility chrome belongs with the nav, reachable without scrolling a long
+  page; the floating panel stays readable despite the narrow sidebar). For
+  support / buyer-side devs. **Click-gated** (a "Load details" button) so the
+  metadata queries fire only on demand, not on every navigation. Shows only the user's own non-sensitive context — role,
   warehouse, database, schema, region, Snowflake + Streamlit version, session ID,
   last query ID — plus corpus counts and `MAX(ingested_at)` freshness, and a
   copy-paste block. Deliberately **omits** `CURRENT_USER` / `CURRENT_ACCOUNT`

@@ -40,9 +40,11 @@ if at.exception:
 # Fill the omnibar query and submit the form.
 assert at.text_input, "no text inputs found (omnibar form missing?)"
 at.text_input[0].set_value("launch reaction")
-assert at.button, "no submit button found"
-# The omnibar form submit is the first button in the router chrome.
-at.button[0].click().run()
+# Find the omnibar's form submit by label (the sidebar diagnostics popover also
+# renders a button, so index-0 is no longer reliable).
+submit = [b for b in at.button if b.label == "Search"]
+assert submit, "omnibar Search submit not found"
+submit[0].click().run()
 if at.exception:
     _fail(at, "omnibar search submit")
 

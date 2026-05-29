@@ -56,6 +56,7 @@ inject_css()
 render_sidebar(groups)
 
 session = get_active_session()
+session_diagnostics(session)  # small popover at the bottom of the sidebar
 
 # Top utility bar: breadcrumb (left) + quiet Cortex search pill (right), per the
 # artboard topbar — keeps each page's headline the dominant element.
@@ -68,4 +69,3 @@ crumb_l.markdown(
 with crumb_r:
     omnibar(session)
 pg.run()
-session_diagnostics(session)

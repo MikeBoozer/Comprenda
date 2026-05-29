@@ -188,6 +188,13 @@ _SIDEBAR = """
 [data-testid="stSidebar"] .nu-nav-footer .nu-dot {
   display: inline-block; width: 7px; height: 7px; border-radius: 50%;
   background: var(--safe); margin-right: 6px; vertical-align: middle; }
+
+/* Diagnostics popover trigger — small + quiet at the bottom of the sidebar. */
+[data-testid="stSidebar"] [data-testid="stPopover"] > button {
+  font-size: 11px; padding: 5px 10px; color: var(--ink-faint);
+  border-color: var(--rule); margin-top: 10px; }
+[data-testid="stSidebar"] [data-testid="stPopover"] > button:hover {
+  color: var(--ink-muted); }
 """
 
 # Cortex omnibar — the popover trigger styled as a full-width search bar.

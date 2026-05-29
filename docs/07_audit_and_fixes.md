@@ -102,6 +102,27 @@ issue (candidates: multilingual posts embedding close together; English-centric 
 model; centroid-cosine insensitivity; mis-calibrated thresholds) and is **more important
 than the duplication** for product credibility. Root cause not yet diagnosed.
 
+### Finding C — multi-axis CDS resolved Finding B; now `cds_confidence` is degenerate (measured 2026-05-29)
+
+Since [ADR-0003](decisions/0003-multi-axis-divergence-profile.md) replaced the embedding-centroid
+CDS with the multi-axis frame-JSD profile (now live), **Finding B's "no meaningful divergence" is
+resolved**: `headline_score` (= frame JSD) spans **0.01–0.48** with ~58–62 distinct values across
+the 66 pairs per event — real dynamic range.
+
+**The residual degenerate metric is `cds_confidence` — exactly 1.0 on every pair, every event.**
+Its formula in `snowflake/07_cds_computation.sql` is `LEAST(LEAST(posts_a, posts_b)/100.0, 1.0)`
+over **raw** post counts. With Finding A's ~17–28× duplication every language's count far exceeds
+100, so it always clamps to 1.0. The true *distinct* counts (~15–20 per event/language) would give
+~0.15–0.20 — informative and varied. The JSD headline is unaffected because it uses **normalized**
+frame distributions (uniform duplication cancels), so score and confidence meet opposite fates on
+the same corpus.
+
+**Fix (data-rebuild scope):** dedup the corpus (one row per distinct `post_text` per
+event/language), recompute `cds_confidence` on distinct-text counts, and re-derive the `/100`
+saturation threshold (100 is too high for a ~15–20-post regime). The Divergence Matrix's uniform
+"confidence 100%" is **deliberately left faithful** in the UI (not special-cased) — it becomes
+meaningful once the data is fixed.
+
 ### Re-measurement queries
 
 ```sql

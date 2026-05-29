@@ -40,9 +40,16 @@ the `st.navigation` API, so the app moved off Streamlit's filename auto-router:
 - `comprenda_app.py` is now a **router** — it declares every page with
   `st.Page(...)`, calls `st.navigation(ordered_pages, position="hidden")`, then
   renders the whole sidebar itself via `render_sidebar()` and `pg.run()`.
-- The home/Overview content moved to **`pages/0_Overview.py`** (the `default`
-  page). The numeric filenames are unchanged (no rename); order/grouping/labels
-  now come from `_NAV_SPEC` in the router, not from filenames.
+- The page files moved from `pages/` to **`views/`** (folder renamed, filenames
+  unchanged). **This is load-bearing:** Streamlit auto-discovers a folder named
+  literally `pages/` and builds its own multipage nav from it — which ran
+  *alongside* `st.navigation` and served each file directly at its old URL
+  **without the router's chrome** (symptom: a lone page, no sidebar, no wide
+  layout). Renaming the folder disables that auto-MPA so `st.navigation` is the
+  only router. ⚠️ Do not recreate a `pages/` folder. (AppTest did **not** catch
+  this — it runs one file at a time; only the real server double-routes.)
+- The home/Overview content moved to **`views/0_Overview.py`** (the `default`
+  page). Order/grouping/labels come from `_NAV_SPEC` in the router.
 - Every page **dropped `st.set_page_config` and `sidebar_brand()`** — the router
   owns global config and the sidebar (a page calling `set_page_config` under the
   router would error). Pages still call `inject_css()` (idempotent).
@@ -243,10 +250,13 @@ open item from `docs/11`.
   `.st-emotion-cache-*` (rotates per Streamlit version).
 - **Altair only** for charts; no Plotly/JS components; no pip packages beyond
   `environment.yml` (the harness venv is local-only and never deployed).
-- **Don't upload `_harness/` to Snowflake.** It's dev tooling; leading underscore
-  keeps it out of Streamlit's `pages/` auto-router.
-- **Don't change page filenames or reorder pages** (auto-router + onboarding
-  order depend on them).
+- **Don't upload `_harness/` to Snowflake.** It's dev tooling.
+- **Page files live in `views/`, NOT `pages/` (since step 11).** A folder named
+  `pages/` triggers Streamlit's auto-multipage discovery, which double-routes
+  against `st.navigation` (see step 11). Routing/order/labels are controlled
+  entirely by `_NAV_SPEC` in `comprenda_app.py`. To add a page: drop it in
+  `views/`, add an `st.Page(...)` + glyph to `_NAV_SPEC`, and a `check.py`
+  target. Filenames are still numbered for human ordering only.
 - **LF→CRLF git warnings on commit are benign** on this Windows checkout; ignore.
 - **Mutating a widget-keyed `session_state` value must happen in an `on_click`
   callback**, never inline after the widget is instantiated (Streamlit raises

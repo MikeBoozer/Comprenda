@@ -272,7 +272,7 @@ def render_results(state):
     def _open_translator():
         st.session_state["translator_prefill"] = state["draft"]
         st.session_state["translator_target_markets"] = action or [worst]
-        st.switch_page("pages/2_Cultural_Translator.py")
+        st.switch_page("views/2_Cultural_Translator.py")
 
     if action:
         names = ", ".join(market_name(m) for m in action)

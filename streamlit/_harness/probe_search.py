@@ -34,7 +34,7 @@ def _fail(at, where):
 
 
 # --- Analog Retrieval: sample (callback) -> Find -> analog cards -----------
-at = AppTest.from_file("pages/7_Analog_Retrieval.py", default_timeout=60).run()
+at = AppTest.from_file("views/7_Analog_Retrieval.py", default_timeout=60).run()
 if at.exception:
     _fail(at, "Analog initial render")
 sample = [b for b in at.button if "example" in b.label.lower()]
@@ -50,7 +50,7 @@ if at.exception:
 assert "analog_results" in at.session_state, "analog results not persisted"
 
 # --- Narrative Search: type query -> Search -> result cards ----------------
-at2 = AppTest.from_file("pages/9_Narrative_Search.py", default_timeout=60).run()
+at2 = AppTest.from_file("views/9_Narrative_Search.py", default_timeout=60).run()
 if at2.exception:
     _fail(at2, "Narrative initial render")
 at2.text_input(key="nsearch_q").set_value("launch reaction").run()

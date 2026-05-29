@@ -35,7 +35,7 @@ def _fail(at, where):
 
 
 # 1. Fresh empty state, then click the sample button (widget-key callback path).
-at = AppTest.from_file("pages/2_Cultural_Translator.py", default_timeout=60).run()
+at = AppTest.from_file("views/2_Cultural_Translator.py", default_timeout=60).run()
 if at.exception:
     _fail(at, "initial empty render")
 sample_btns = [b for b in at.button if "sample" in b.label.lower()]

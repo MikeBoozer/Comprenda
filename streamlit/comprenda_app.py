@@ -2,7 +2,7 @@
 
 Uses st.navigation (Streamlit >= 1.36) to register every page explicitly and
 render the editorial grouped sidebar (Workbench / Analysis / Synthesis) via
-render_sidebar(). The Overview/home content lives in pages/0_Overview.py; this
+render_sidebar(). The Overview/home content lives in views/0_Overview.py; this
 file is now purely the router + shared chrome.
 
 DEPLOY NOTE: st.navigation requires the Streamlit-in-Snowflake runtime to be
@@ -23,20 +23,20 @@ st.set_page_config(page_title="Comprenda — Cultural Intelligence",
 # Streamlit's filename-derived labels.
 _NAV_SPEC = [
     ("Workbench", [
-        ("pages/0_Overview.py", "Overview", "◉"),
-        ("pages/1_Pre_Launch_Risk.py", "Pre-launch risk", "◐"),
-        ("pages/2_Cultural_Translator.py", "Cultural translator", "⇄"),
-        ("pages/3_Event_Explorer.py", "Event explorer", "◇"),
+        ("views/0_Overview.py", "Overview", "◉"),
+        ("views/1_Pre_Launch_Risk.py", "Pre-launch risk", "◐"),
+        ("views/2_Cultural_Translator.py", "Cultural translator", "⇄"),
+        ("views/3_Event_Explorer.py", "Event explorer", "◇"),
     ]),
     ("Analysis", [
-        ("pages/4_Divergence_Matrix.py", "Divergence matrix", "▦"),
-        ("pages/5_Frame_Distribution.py", "Frame distribution", "▥"),
-        ("pages/6_Drift_Alerts.py", "Drift alerts", "◔"),
-        ("pages/7_Analog_Retrieval.py", "Analog retrieval", "◊"),
+        ("views/4_Divergence_Matrix.py", "Divergence matrix", "▦"),
+        ("views/5_Frame_Distribution.py", "Frame distribution", "▥"),
+        ("views/6_Drift_Alerts.py", "Drift alerts", "◔"),
+        ("views/7_Analog_Retrieval.py", "Analog retrieval", "◊"),
     ]),
     ("Synthesis", [
-        ("pages/8_AI_Brief.py", "AI brief", "▤"),
-        ("pages/9_Narrative_Search.py", "Narrative search", "∃"),
+        ("views/8_AI_Brief.py", "AI brief", "▤"),
+        ("views/9_Narrative_Search.py", "Narrative search", "∃"),
     ]),
 ]
 
@@ -45,7 +45,7 @@ groups = []
 for _section, _items in _NAV_SPEC:
     _built = []
     for _path, _title, _glyph in _items:
-        _page = st.Page(_path, title=_title, default=(_path == "pages/0_Overview.py"))
+        _page = st.Page(_path, title=_title, default=(_path == "views/0_Overview.py"))
         _built.append((_page, _glyph))
     groups.append((_section, _built))
 

@@ -299,7 +299,7 @@ with aside_col:
     """, unsafe_allow_html=True)
     if st.button("Open in event explorer →", type="primary", use_container_width=True):
         st.session_state["explorer_event"] = chosen
-        st.switch_page("pages/3_Event_Explorer.py")
+        st.switch_page("views/3_Event_Explorer.py")
 
 st.divider()
 

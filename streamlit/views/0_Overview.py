@@ -131,13 +131,13 @@ if is_empty:
         if st.button("Score this draft →", type="primary", use_container_width=True):
             st.session_state["plcs_prefill"] = (
                 "Live Free, Drive Fast — the new electric sports car that puts you first.")
-            st.switch_page("pages/1_Pre_Launch_Risk.py")
+            st.switch_page("views/1_Pre_Launch_Risk.py")
         st.markdown("<div class='nu-kicker' style='margin-top:16px;'>Or start clean</div>",
                     unsafe_allow_html=True)
         if st.button("Open Pre-Launch Risk", use_container_width=True):
-            st.switch_page("pages/1_Pre_Launch_Risk.py")
+            st.switch_page("views/1_Pre_Launch_Risk.py")
         if st.button("Open AI Brief", use_container_width=True):
-            st.switch_page("pages/8_AI_Brief.py")
+            st.switch_page("views/8_AI_Brief.py")
 
     st.divider()
 
@@ -281,16 +281,16 @@ with onward[0]:
                  "A two-page synthesis across a recent event in your priority "
                  "markets. Source-cited, about forty seconds.")
     if st.button("Generate →", use_container_width=True, key="onward_brief"):
-        st.switch_page("pages/8_AI_Brief.py")
+        st.switch_page("views/8_AI_Brief.py")
 with onward[1]:
     _onward_card("02", "Translate the elevated draft",
                  "Take the highest-scoring draft into the Cultural Translator for "
                  "frame-preserving variants per market.")
     if st.button("Open translator →", use_container_width=True, key="onward_translate"):
-        st.switch_page("pages/2_Cultural_Translator.py")
+        st.switch_page("views/2_Cultural_Translator.py")
 with onward[2]:
     _onward_card("03", "Subscribe a new entity",
                  "Add a brand, product, or campaign to ongoing drift monitoring "
                  "across language communities.")
     if st.button("Add subscription →", use_container_width=True, key="onward_subscribe"):
-        st.switch_page("pages/6_Drift_Alerts.py")
+        st.switch_page("views/6_Drift_Alerts.py")

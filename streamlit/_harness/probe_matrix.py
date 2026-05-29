@@ -32,7 +32,7 @@ def _fail(at, where):
 
 
 # Empty state by default (placeholder event).
-at = AppTest.from_file("pages/4_Divergence_Matrix.py", default_timeout=60).run()
+at = AppTest.from_file("views/4_Divergence_Matrix.py", default_timeout=60).run()
 if at.exception:
     _fail(at, "initial empty render")
 

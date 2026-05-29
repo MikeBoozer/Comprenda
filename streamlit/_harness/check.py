@@ -8,7 +8,7 @@ design/index.html.
 
 Usage (from the streamlit/ directory, with the harness venv python):
     python _harness/check.py            # all pages
-    python _harness/check.py comprenda_app.py pages/1_Pre_Launch_Risk.py
+    python _harness/check.py comprenda_app.py views/1_Pre_Launch_Risk.py
 """
 import os
 import sys
@@ -35,16 +35,16 @@ from streamlit.testing.v1 import AppTest  # noqa: E402
 
 DEFAULT_TARGETS = [
     "comprenda_app.py",
-    "pages/0_Overview.py",
-    "pages/1_Pre_Launch_Risk.py",
-    "pages/2_Cultural_Translator.py",
-    "pages/3_Event_Explorer.py",
-    "pages/4_Divergence_Matrix.py",
-    "pages/5_Frame_Distribution.py",
-    "pages/6_Drift_Alerts.py",
-    "pages/7_Analog_Retrieval.py",
-    "pages/8_AI_Brief.py",
-    "pages/9_Narrative_Search.py",
+    "views/0_Overview.py",
+    "views/1_Pre_Launch_Risk.py",
+    "views/2_Cultural_Translator.py",
+    "views/3_Event_Explorer.py",
+    "views/4_Divergence_Matrix.py",
+    "views/5_Frame_Distribution.py",
+    "views/6_Drift_Alerts.py",
+    "views/7_Analog_Retrieval.py",
+    "views/8_AI_Brief.py",
+    "views/9_Narrative_Search.py",
 ]
 
 

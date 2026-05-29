@@ -34,7 +34,7 @@ def _fail(at, where):
 
 
 # 1. Fresh empty state, then click the sample button (widget-key callback path).
-at = AppTest.from_file("pages/1_Pre_Launch_Risk.py", default_timeout=60).run()
+at = AppTest.from_file("views/1_Pre_Launch_Risk.py", default_timeout=60).run()
 if at.exception:
     _fail(at, "initial empty render")
 sample_btns = [b for b in at.button if "sample" in b.label.lower()]

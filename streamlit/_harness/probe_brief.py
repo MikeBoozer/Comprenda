@@ -32,7 +32,7 @@ def _fail(at, where):
 
 
 # Pre-gen: panel + inputs.
-at = AppTest.from_file("pages/8_AI_Brief.py", default_timeout=60).run()
+at = AppTest.from_file("views/8_AI_Brief.py", default_timeout=60).run()
 if at.exception:
     _fail(at, "pre-gen render")
 

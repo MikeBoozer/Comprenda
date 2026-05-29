@@ -97,6 +97,14 @@ else:
 # ---------------------------------------------------------------------------
 # Input zone
 # ---------------------------------------------------------------------------
+languages = list_languages(session)
+if not languages:
+    st.warning(
+        "No languages found in the corpus yet, so there are no markets to score "
+        "against. Load demo data first (see `docs/03_runbook.md`), then reload "
+        "this page.")
+    st.stop()
+
 left, right = st.columns([2, 1], gap="large")
 
 with left:
@@ -113,7 +121,6 @@ with left:
     meta_r.button("Try a sample →", use_container_width=True, on_click=_use_sample)
 
 with right:
-    languages = list_languages(session)
     st.markdown("<div class='nu-kicker'>Target markets</div>", unsafe_allow_html=True)
     target_markets = st.multiselect(
         "Target markets", options=languages, label_visibility="collapsed",

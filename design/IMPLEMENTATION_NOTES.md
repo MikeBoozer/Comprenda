@@ -334,6 +334,12 @@ running app).
 `cds_confidence=1.0` and the duplicated sample sizes (562/312/250) as a credibility *strength* —
 another reason the data rebuild matters (see `docs/07` Finding C). Layouts are unaffected.
 
+**Verification scope (honest):** Part C was checked at the **contract level** — each proc's real
+JSON matches the view-parsing code, run via CLI. The in-browser **render** of these specific real
+outputs was NOT eyeballed (agent can't screenshot; not driven in-app this pass). Low residual
+risk; a ~5-min operator click-through of Score / Translate / Brief would fully close it. Item 8
+(re-score) is likewise verified by inference (PLCS resolves `ja`), not by an actual ja→ja run.
+
 **D. Operational:**
 12. ✅ **Credit guard** — ~41 credits used of the ~$400 trial ($281 left); the WAREHOUSE resource
     monitor (300) does NOT meter SPCS/Cortex, so the real driver is SPCS container uptime.

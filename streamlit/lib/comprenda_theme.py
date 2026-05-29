@@ -189,7 +189,12 @@ _SIDEBAR = """
   display: inline-block; width: 7px; height: 7px; border-radius: 50%;
   background: var(--safe); margin-right: 6px; vertical-align: middle; }
 
-/* Diagnostics popover trigger — small + quiet at the bottom of the sidebar. */
+/* Always-visible legal microcopy in the sidebar footer. */
+[data-testid="stSidebar"] .nu-legal {
+  display: block; margin-top: 8px; font: 400 10px/1.5 var(--sans);
+  color: var(--ink-faint); }
+
+/* Sidebar popover triggers (diagnostics, legal) — small + quiet. */
 [data-testid="stSidebar"] [data-testid="stPopover"] > button {
   font-size: 11px; padding: 5px 10px; color: var(--ink-faint);
   border-color: var(--rule); margin-top: 10px; }

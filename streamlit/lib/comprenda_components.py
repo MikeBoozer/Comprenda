@@ -116,7 +116,25 @@ def render_sidebar(groups):
         st.markdown(
             "<div class='nu-nav-footer'>"
             "<span class='nu-dot'></span>Snowflake-native · Cortex"
+            "<div class='nu-legal'>AI-generated — verify before acting. "
+            "© 2026 Comprenda</div>"
             "</div>", unsafe_allow_html=True)
+        # Legal scaffold. The disclaimer + data-handling lines are factual
+        # defaults; the Terms / Privacy / AUP items are PLACEHOLDERS — replace
+        # with counsel-approved text (or links) before launch.
+        with st.popover("Terms & disclaimers", use_container_width=True):
+            st.markdown(
+                "**Disclaimer.** Comprenda's scores, briefs, and translations are "
+                "AI-generated and probabilistic — decision support, not guarantees "
+                "of outcome. Review before acting on them.")
+            st.markdown(
+                "**Data handling.** Analysis runs inside Snowflake via Cortex; your "
+                "corpus is not sent to external LLM providers.")
+            st.caption("Placeholders below — replace with counsel-approved text "
+                       "(or links) before launch.")
+            st.markdown("- **Terms of Service** — _[placeholder]_")
+            st.markdown("- **Privacy Policy** — _[placeholder]_")
+            st.markdown("- **Acceptable Use Policy** — _[placeholder]_")
 
 
 def omnibar(session):

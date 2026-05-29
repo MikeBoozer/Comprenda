@@ -11,7 +11,7 @@ import altair as alt
 from lib.comprenda_queries import list_event_tags, get_event_summary
 from lib.comprenda_theme import inject_css
 from lib.comprenda_components import (
-    page_header, section_head, kpi, pill, frame_label,
+    page_header, section_head, kpi, pill, frame_label, event_label,
 )
 
 inject_css()
@@ -30,7 +30,8 @@ if not events:
 
 st.markdown("<div class='nu-kicker'>Event</div>", unsafe_allow_html=True)
 _evcol, _ = st.columns([1, 2])
-event_tag = _evcol.selectbox("Event", options=events, label_visibility="collapsed")
+event_tag = _evcol.selectbox("Event", options=events, label_visibility="collapsed",
+                             format_func=event_label)
 
 summary = get_event_summary(session, event_tag)
 if summary.empty:

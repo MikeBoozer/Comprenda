@@ -44,7 +44,7 @@ if at.exception:
     _fail(at, "click 'Open ->' (callback)")
 # AppTest session_state has no .get(); access by key.
 ev = at.session_state["matrix_event"]
-assert ev and ev != "— pick an event tag —", f"event not selected after click: {ev!r}"
+assert ev and ev != "— pick an event —", f"event not selected after click: {ev!r}"
 
 print(f"ok — open-event click + populated render clean. "
       f"markdown blocks: {sum(1 for _ in at.markdown)}, event: {ev}")

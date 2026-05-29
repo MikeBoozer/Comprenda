@@ -19,7 +19,7 @@ from lib.comprenda_queries import (
     get_frame_distribution, get_cds_matrix,
 )
 from lib.comprenda_theme import inject_css
-from lib.comprenda_components import page_header, frame_share_bar
+from lib.comprenda_components import page_header, frame_share_bar, event_label
 
 inject_css()
 
@@ -35,11 +35,6 @@ def _section_head(kicker, headline, dek=None):
     st.markdown(
         f"<div class='nu-kicker'>{kicker}</div><h2>{headline}</h2>{dek_html}",
         unsafe_allow_html=True)
-
-
-def prettify_event(ev):
-    s = ev[3:] if ev.startswith("ev_") else ev
-    return s.replace("_", " ").strip().capitalize()
 
 
 def parse_brief(md):
@@ -149,7 +144,7 @@ languages = list_languages(session)
 
 def render_inputs():
     c1, c2 = st.columns([1, 2])
-    ev = c1.selectbox("Event", options=events)
+    ev = c1.selectbox("Event", options=events, format_func=event_label)
     langs = c2.multiselect(
         "Target languages", options=languages,
         default=[l for l in ["en", "ja", "zh", "de", "es"] if l in languages][:5])
@@ -164,11 +159,11 @@ if have_result:
     state = st.session_state["brief_result"]
     title, sections = parse_brief(state["result"].get("brief_markdown", ""))
     if not title:
-        title = f"Reading the room: {prettify_event(state['event'])}."
+        title = f"Reading the room: {event_label(state['event'])}."
     lede = first_paragraph(sections[0][1]) if sections else ""
     _now = datetime.datetime.now()
     date = f"{_now.day} {_now:%b %Y}"
-    page_header(f"AI cultural intelligence brief · {state['event']} · {date}",
+    page_header(f"AI cultural intelligence brief · {event_label(state['event'])} · {date}",
                 title, lede)
     with st.expander("Generate a different brief", expanded=False):
         ev, langs, gen = render_inputs()

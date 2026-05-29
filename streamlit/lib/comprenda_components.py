@@ -33,6 +33,34 @@ def frame_label(token: str) -> str:
     return token.replace("_", " ").replace("-", " ").capitalize()
 
 
+_EVENT_ACRONYMS = {"ev": "EV", "ai": "AI", "us": "US", "uk": "UK", "eu": "EU"}
+
+
+def event_label(tag: str) -> str:
+    """Readable label for an event_tag — display only; the raw tag stays the
+    underlying value (selectbox options / query keys are unchanged).
+
+    ``ev_automotive_ev_launch`` -> ``Automotive EV launch``. The leading ``ev_``
+    is the event namespace and is dropped; a remaining ``ev`` token is the EV
+    acronym. Non-tag strings pass through sentence-cased.
+    """
+    if not tag or not isinstance(tag, str):
+        return tag
+    body = tag[3:] if tag.startswith("ev_") else tag
+    parts = [p for p in body.split("_") if p]
+    if not parts:
+        return tag
+    out = []
+    for i, p in enumerate(parts):
+        if p.lower() in _EVENT_ACRONYMS:
+            out.append(_EVENT_ACRONYMS[p.lower()])
+        elif i == 0:
+            out.append(p[:1].upper() + p[1:])
+        else:
+            out.append(p)
+    return " ".join(out)
+
+
 # ---------------------------------------------------------------------------
 # Small composable chips — return HTML strings (§5, pill/badge).
 # ---------------------------------------------------------------------------

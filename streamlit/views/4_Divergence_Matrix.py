@@ -13,13 +13,13 @@ import pandas as pd
 
 from lib.comprenda_queries import list_event_tags
 from lib.comprenda_theme import inject_css
-from lib.comprenda_components import page_header, pill
+from lib.comprenda_components import page_header, pill, event_label
 
 inject_css()
 
 session = get_active_session()
 
-PLACEHOLDER = "— pick an event tag —"
+PLACEHOLDER = "— pick an event —"
 _WORDS = {0: "No", 1: "One", 2: "Two", 3: "Three", 4: "Four", 5: "Five",
           6: "Six", 7: "Seven", 8: "Eight", 9: "Nine", 10: "Ten"}
 
@@ -159,7 +159,8 @@ ctrl = st.columns([2, 2, 3], gap="large")
 with ctrl[0]:
     st.markdown("<div class='nu-kicker'>Event</div>", unsafe_allow_html=True)
     event_sel = st.selectbox("Event", options=options, key="matrix_event",
-                             label_visibility="collapsed")
+                             label_visibility="collapsed",
+                             format_func=lambda t: t if t == PLACEHOLDER else event_label(t))
 with ctrl[1]:
     st.markdown("<div class='nu-kicker'>Color axis</div>", unsafe_allow_html=True)
     axis = st.radio("Color axis", list(_AXES.keys()), horizontal=True,
@@ -192,8 +193,9 @@ def render_empty():
             row = st.columns([4, 1])
             row[0].markdown(
                 f"<div style='font:600 14px/1.3 var(--sans); color:var(--ink-strong);'>"
-                f"<span style='font-family:var(--mono);'>{ev}</span></div>"
-                f"<div style='font:400 13px/1.5 var(--sans); color:var(--ink-muted);'>"
+                f"{event_label(ev)}</div>"
+                f"<div style='font:400 11px/1.4 var(--mono); color:var(--ink-faint);'>{ev}</div>"
+                f"<div style='font:400 13px/1.5 var(--sans); color:var(--ink-muted); margin-top:2px;'>"
                 f"Open to see how language communities frame this event.</div>",
                 unsafe_allow_html=True)
             row[1].button("Open →", key=f"open_{ev}", use_container_width=True,
@@ -211,14 +213,14 @@ def render_empty():
             </p>
           </div>
         """, unsafe_allow_html=True)
-        st.button(f"Open {events[0]} →", type="primary", use_container_width=True,
+        st.button(f"Open {event_label(events[0])} →", type="primary", use_container_width=True,
                   on_click=_choose_event, args=(events[0],))
 
 
 if chosen is None:
     page_header("Cultural divergence matrix", "Pick an event. Read the room.",
                 "How differently each language community frames the same event. Color "
-                "encodes frame divergence — the lens-mismatch axis. Pick an event tag "
+                "encodes frame divergence — the lens-mismatch axis. Pick an event "
                 "above, or start with one below.")
     render_empty()
     st.stop()
@@ -246,7 +248,7 @@ n_langs = len(set(df["LANGUAGE_A"]) | set(df["LANGUAGE_B"])) if not df.empty els
 n_faults = int((df["HEADLINE_SCORE"] >= 0.34).sum()) if not df.empty else 0
 
 page_header(
-    f"Cultural divergence matrix · {chosen}",
+    f"Cultural divergence matrix · {event_label(chosen)}",
     (f"{_word(n_langs)} languages, one event, "
      f"{_word(n_faults).lower() if n_faults == 0 else _word(n_faults)} "
      f"fault line{'s' if n_faults != 1 else ''}.") if not df.empty

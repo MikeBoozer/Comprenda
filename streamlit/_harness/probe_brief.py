@@ -44,4 +44,9 @@ if at.exception:
     _fail(at, "generate + brief render")
 
 assert "brief_result" in at.session_state, "brief not stored"
-print(f"ok — generate + brief render clean. markdown blocks: {sum(1 for _ in at.markdown)}")
+
+blob = " ".join(m.value.lower() for m in at.markdown)
+assert "dominant frames" in blob, "frame-distribution figure missing"
+assert "fault lines" in blob, "divergence figure missing"
+print(f"ok — generate + brief render clean (both figures present). "
+      f"markdown blocks: {sum(1 for _ in at.markdown)}")

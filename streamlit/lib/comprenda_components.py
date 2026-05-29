@@ -228,6 +228,12 @@ def rec_band(kicker, headline, body, primary_label, primary_action,
 # Frame-share bar — per-language frame distribution (§5.8).
 # ---------------------------------------------------------------------------
 
+# Graded ink→paper neutrals so adjacent segments are distinguishable. The
+# risk_frame segment overrides to oxblood. All §2 palette tokens:
+# ink · ink-muted · ink-faint · rule-strong · paper-deeper · paper-deep.
+_SEG_SHADES = ["#1C1A17", "#6E665B", "#9C9586", "#C3B99F", "#E2DAC5", "#ECE6D7"]
+
+
 def frame_share_bar(language, share_dict, risk_frame=None):
     """A horizontal stacked bar of frame shares for one language.
 
@@ -235,25 +241,30 @@ def frame_share_bar(language, share_dict, risk_frame=None):
     risk_frame: the frame your content is being absorbed into — that segment
                 gets the oxblood treatment (§5.8).
     """
+    items = list(share_dict.items())
+
+    def _color(i, tok):
+        return "var(--risk)" if tok == risk_frame else _SEG_SHADES[i % len(_SEG_SHADES)]
+
     segments = "".join(
         f"<div title='{frame_label(tok)} · {share*100:.0f}%' "
-        f"style='width:{share*100:.1f}%; height:100%; "
-        f"background: var(--{'risk' if tok == risk_frame else 'paper-deeper'}); "
-        f"border-right:1px solid var(--paper-bg);'></div>"
-        for tok, share in share_dict.items())
-    legend = " · ".join(
+        f"style='width:{share*100:.1f}%; height:100%; background: {_color(i, tok)}; "
+        f"border-right:1px solid var(--paper-card);'></div>"
+        for i, (tok, share) in enumerate(items))
+    legend = "".join(
+        "<span style='display:inline-flex; align-items:center; gap:4px; margin-right:10px;'>"
+        f"<span style='width:9px; height:9px; border-radius:2px; background:{_color(i, tok)};'></span>"
         f"<span style=\"color: var(--{'risk' if tok == risk_frame else 'ink-muted'});\">"
-        f"{frame_label(tok)} {share*100:.0f}%</span>"
-        for tok, share in share_dict.items())
+        f"{frame_label(tok)} {share*100:.0f}%</span></span>"
+        for i, (tok, share) in enumerate(items))
     st.markdown(f"""
-      <div style='margin: 8px 0;'>
+      <div style='margin: 10px 0;'>
         <div style='display:flex; justify-content:space-between;
                     align-items:baseline; margin-bottom:4px;'>
           <span style='font:600 13px/1.2 var(--sans); color:var(--ink-strong);'>{language}</span>
         </div>
-        <div style='display:flex; height:20px; border:1px solid var(--rule);
+        <div style='display:flex; height:22px; border:1px solid var(--rule-strong);
                     border-radius:2px; overflow:hidden;'>{segments}</div>
-        <div style='margin-top:4px; font:400 11px/1.4 var(--mono);
-                    color:var(--ink-muted);'>{legend}</div>
+        <div style='margin-top:5px; font:400 11px/1.4 var(--mono);'>{legend}</div>
       </div>
     """, unsafe_allow_html=True)

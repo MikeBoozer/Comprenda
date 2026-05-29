@@ -248,6 +248,7 @@ def render_results(state):
             "Scores the original draft and each variant through the same "
             "Pre-Launch Risk model so you can compare on one scale. Runs a few "
             "Cortex inferences — only when you ask.")
+        st.markdown("<div style='height:16px'></div>", unsafe_allow_html=True)
         if st.button(f"Re-score {_word(n_var).lower()} variant"
                      f"{'s' if n_var != 1 else ''} for risk →", type="primary"):
             scored = {"variants": []}

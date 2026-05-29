@@ -29,6 +29,15 @@ workflow + this repo's existing direct-to-main pattern).
 | 6 | `pages/4_Divergence_Matrix.py` → §6.3 (Altair) | ✅ done |
 | 7 | `pages/8_AI_Brief.py` → §6.4 | ✅ done |
 | 8 | Other 6 pages: `inject_css()` + `page_header()` only | ✅ done |
+| 9 | `pages/2_Cultural_Translator.py` → full `ScreenTranslator` artboard | ✅ done |
+
+Step 8 gave all six remaining pages the shared chrome (theme + `page_header`)
+but left their **bodies** as raw Streamlit. Step 9 promoted Translator out of
+that set — it has a full `ScreenTranslator` artboard (variant cards, risk
+comparison, CTA) and was mis-bucketed into the header-only group. The other
+five (Event Explorer, Frame Distribution, Drift Alerts, Analog Retrieval,
+Narrative Search) have **no artboard**; their bodies are a consistency-pass
+candidate (extrapolate the established design language), not a §9 fidelity loop.
 
 ---
 
@@ -78,7 +87,17 @@ redesign steps) or revise the design.
 The PLCS **three-analogs column IS real** (from `call_find_analogs`:
 case_name / company / year / outcome_summary / distance→gap).
 
-| E | AI Brief (§6.4) | Structured sections + inline frame bars + dot-chart | `call_generate_brief` → one `brief_markdown` blob + `source_post_ids` | Parse the markdown into title + sections (TOC, §-numbered article). Editorial per-section h2 sentence isn't separable, so the section heading is the h2. Figures drawn from **existing** query helpers instead of the blob: frame bars from `get_frame_distribution`, divergence dot-chart from `get_cds_matrix` — placed after the article (markdown is opaque to inline injection). Title falls back to a derived "Reading the room: {event}." when the blob has no leading `# H1`. Meta shows sources-cited count + language count (no total post count — not returned). PDF/Share omitted; Download Markdown + raw-markdown copy are real.
+| E | AI Brief (§6.4) | Structured sections + inline frame bars + dot-chart | `call_generate_brief` → one `brief_markdown` blob + `source_post_ids` | Parse the markdown into title + sections (TOC, §-numbered article). Editorial per-section h2 sentence isn't separable, so the section heading is the h2. Figures drawn from **existing** query helpers instead of the blob: frame bars from `get_frame_distribution`, divergence dot-chart from `get_cds_matrix` — placed after the article (markdown is opaque to inline injection). Title falls back to a derived "Reading the room: {event}." when the blob has no leading `# H1`. Meta shows sources-cited count + language count (no total post count — not returned). PDF/Share omitted; Download Markdown + raw-markdown copy are real. |
+| F | Translator (`ScreenTranslator`) | Per-variant **re-scored risk** (0–100) + confidence + "original vs. adapted" comparison + "Adapt for Korea (61)" handoff + Export PDF / Share | `call_translator` → `text` / `frame_shift` / `rationale` per variant only — no risk, no confidence | Re-scoring made **real** by composing the existing `call_plcs` proc (no signature change), but **opt-in** behind a button so the default generate spends no extra trial credits. When invoked it scores the original (source→target, as PLCS did) + each variant (target→target, since variants are written in-market) and renders them on the signature `risk_band`. Cross-market "Adapt for Korea (61)" CTA dropped (needs the original PLCS run's per-market scores, not carried into this page) — replaced by the in-page market selector. Export PDF / Share omitted (no dead buttons, per item D). Per-variant "Copy text" → a real `st.code` block in a "Copy variants" expander (native copy button) rather than a fake button. |
+
+**Round-trip / QA flags for item F:** (1) the re-score adds *N+1* Cortex
+inferences per click on the live app — bounded and opt-in, but worth watching
+against the 300-credit cap. (2) The re-score *semantics* (original scored
+source→target; variants scored target→target) is a deliberate modeling choice,
+not from the spec — confirm it reads correctly against real `SCORE_CONTENT`
+output in the manual deploy QA. One-line knobs: make re-scoring always-on by
+calling it inside the `generate` block; or remove it entirely and drop the
+comparison section.
 
 ---
 
@@ -140,6 +159,8 @@ open item from `docs/11`.
     in-process; reports uncaught exceptions (no visual check).
   - `python _harness/probe_plcs.py` — exercises the button-gated PLCS scored
     path (fill draft → click Score → render results).
+  - `python _harness/probe_translator.py` — exercises the Translator path
+    (sample callback → Generate → opt-in Re-score → risk comparison).
 
 ### Harness gotchas worth knowing
 - The `_harness/check.py` import order matters: it puts the app dir on

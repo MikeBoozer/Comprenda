@@ -281,3 +281,51 @@ open item from `docs/11`.
   pairs. The heatmap layers a neutral "not computed" base cell under every
   (a,b) pair so the grid is a full square and hover works everywhere; missing
   pairs are deliberately NOT colored 0.00 (that reads as "aligned", not unknown).
+
+---
+
+## 8 · Deploy-QA checklist (the one real-Snowflake pass)
+
+The harness verifies structure/wiring with fixtures; it can NOT verify these.
+Run this once on a real SiS deploy, in order — blockers first. Deploy via the
+CLI sequence in `docs/09` (editing the workspace file tree does NOT update the
+running app).
+
+**A. Blockers (app won't start / core breaks):**
+1. **`st.navigation` support** — SiS Streamlit runtime must be **≥ 1.36**
+   (router uses `st.navigation(position="hidden")` + `st.Page` + `st.page_link`).
+   Harness is 1.58; if SiS is older the app won't start. Check first.
+2. **Model config resolves** — `nuance_db.internal.config` model names exist in
+   `SNOWFLAKE.CORTEX.LIST_MODELS()` (the "claude-4-sonnet not found" gotcha).
+3. **App-role privileges** — the trial/app role can run every page's SQL, all
+   Cortex functions (COMPLETE / SEARCH_PREVIEW), and the diagnostics
+   `CURRENT_*` + `MAX(ingested_at)` query.
+
+**B. CSS that targets version-specific testids (visual check):**
+4. Content cap (`stMainBlockContainer`/`.block-container` → 1280px centered),
+   omnibar + diagnostics panel width (`stPopoverBody` → 460px), active nav
+   highlight (`stPageLink` `a[aria-current="page"]` oxblood), hidden auto-nav
+   (`stSidebarNav`). If SiS's Streamlit differs from 1.58, any of these may
+   need a selector tweak.
+5. **Serif fallback** — confirm the wordmark/headings don't fall past
+   Iowan/Palatino to Georgia on a Windows VDI.
+6. **Snowsight chrome** — our layout/CSS doesn't collide with the Snowsight
+   wrapper.
+
+**C. Real proc/query output fits the layouts (fixtures were grounded but real
+output varies):**
+7. PLCS `SCORE_CONTENT`, Translator `TRANSLATE_CONTENT`, AI Brief
+   `GENERATE_BRIEF` (markdown parses into title + sections), `FIND_ANALOGS`.
+8. **Translator re-score** path (composes `call_plcs`) — works, cost acceptable,
+   and the source→target vs target→target semantics read correctly (§3 item F).
+9. **Omnibar** — `SEARCH_PREVIEW` returns the expected lowercase columns; results
+   render in the popover.
+10. **Diagnostics** — `CURRENT_*` + freshness render; values look right.
+11. **Corpus loaded** — `list_languages` / `list_event_tags` non-empty (else the
+    empty-state guards fire, which is correct, but confirm data is present for
+    the demo); `event_label` prettifies real tags sensibly.
+
+**D. Operational:**
+12. **Credit guard** active; watch spend during QA (re-score + brief gen are the
+    costly paths).
+13. **Legal footer** (if added) — disclaimer + Terms/Privacy text finalized.

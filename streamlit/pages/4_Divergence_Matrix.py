@@ -38,6 +38,12 @@ def _word(n):
     return _WORDS.get(n, str(n))
 
 
+def _choose_event(ev):
+    # Mutating a widget-keyed session_state value is only allowed from a
+    # callback (runs before the next rerun instantiates the widget).
+    st.session_state["matrix_event"] = ev
+
+
 def _section_head(kicker, headline, dek=None):
     dek_html = (f"<p style='font:400 14px/1.5 var(--serif); color:var(--ink-muted);"
                 f" max-width:680px; margin:6px 0 0;'>{dek}</p>" if dek else "")
@@ -82,22 +88,41 @@ def _aside_rows(row):
         for label, val in items)
 
 
-def build_heatmap(chart_df, axis):
+def build_heatmap(chart_df, langs, axis):
+    """Layered heatmap. A base grid renders EVERY language pair as a neutral
+    'not computed' cell (so the grid is a full square and hover works
+    everywhere); the real colored cells layer on top. Missing pairs are NOT
+    colored as 0.00 — that would falsely read as 'perfectly aligned'."""
     field, domain, legend_title = _AXES[axis]
-    return (
+    xenc = alt.X("language_b:N", title=None, sort=langs,
+                 axis=alt.Axis(orient="top", labelAngle=0, labelFontWeight="bold",
+                               labelFont="ui-monospace, SF Mono, Menlo",
+                               labelFontSize=12, labelColor="#1C1A17",
+                               ticks=False, domain=False))
+    yenc = alt.Y("language_a:N", title=None, sort=langs,
+                 axis=alt.Axis(labelFontWeight="bold",
+                               labelFont="ui-monospace, SF Mono, Menlo",
+                               labelFontSize=12, labelColor="#1C1A17",
+                               ticks=False, domain=False))
+
+    # Base: a cell for every (a, b) combination, neutral + "not computed".
+    combos = pd.DataFrame([(a, b) for a in langs for b in langs],
+                          columns=["language_a", "language_b"])
+    combos["status"] = "Not computed"
+    base = (
+        alt.Chart(combos)
+        .mark_rect(fill="#F0EBDF", stroke="#F5F1E8", strokeWidth=2)
+        .encode(x=xenc, y=yenc,
+                tooltip=[alt.Tooltip("language_a:N", title="A"),
+                         alt.Tooltip("language_b:N", title="B"),
+                         alt.Tooltip("status:N", title="")]))
+
+    # Data: the computed pairs (+ mirror + diagonal), colored.
+    data = (
         alt.Chart(chart_df)
         .mark_rect(stroke="#F5F1E8", strokeWidth=2)
         .encode(
-            x=alt.X("language_b:N", title=None,
-                    axis=alt.Axis(orient="top", labelAngle=0, labelFontWeight="bold",
-                                  labelFont="ui-monospace, SF Mono, Menlo",
-                                  labelFontSize=12, labelColor="#1C1A17",
-                                  ticks=False, domain=False)),
-            y=alt.Y("language_a:N", title=None,
-                    axis=alt.Axis(labelFontWeight="bold",
-                                  labelFont="ui-monospace, SF Mono, Menlo",
-                                  labelFontSize=12, labelColor="#1C1A17",
-                                  ticks=False, domain=False)),
+            x=xenc, y=yenc,
             color=alt.Color(
                 f"{field}:Q",
                 scale=alt.Scale(domain=domain, range=_RAMP),
@@ -109,8 +134,10 @@ def build_heatmap(chart_df, axis):
                 alt.Tooltip("headline_score:Q", title="Frame div.", format=".2f"),
                 alt.Tooltip("sentiment_divergence:Q", title="Sentiment div.", format=".2f"),
                 alt.Tooltip("topical_overlap:Q", title="Topical overlap", format=".2f"),
-            ],
-        )
+            ]))
+
+    return (
+        alt.layer(base, data)
         .properties(height=520)
         .configure_view(strokeWidth=0)
         .configure_axis(grid=False)
@@ -167,9 +194,8 @@ def render_empty():
                 f"<div style='font:400 13px/1.5 var(--sans); color:var(--ink-muted);'>"
                 f"Open to see how language communities frame this event.</div>",
                 unsafe_allow_html=True)
-            if row[1].button("Open →", key=f"open_{ev}", use_container_width=True):
-                st.session_state["matrix_event"] = ev
-                st.rerun()
+            row[1].button("Open →", key=f"open_{ev}", use_container_width=True,
+                          on_click=_choose_event, args=(ev,))
             st.markdown("<div style='border-bottom:1px solid var(--rule); margin:8px 0;'></div>",
                         unsafe_allow_html=True)
     with e_r:
@@ -183,9 +209,8 @@ def render_empty():
             </p>
           </div>
         """, unsafe_allow_html=True)
-        if st.button(f"Open {events[0]} →", type="primary", use_container_width=True):
-            st.session_state["matrix_event"] = events[0]
-            st.rerun()
+        st.button(f"Open {events[0]} →", type="primary", use_container_width=True,
+                  on_click=_choose_event, args=(events[0],))
 
 
 if chosen is None:
@@ -251,7 +276,7 @@ chart_df["topical_gap"] = 1.0 - chart_df["topical_overlap"]
 grid_col, aside_col = st.columns([5, 2], gap="large")
 
 with grid_col:
-    st.altair_chart(build_heatmap(chart_df, axis), use_container_width=True)
+    st.altair_chart(build_heatmap(chart_df, langs, axis), use_container_width=True)
 
 with aside_col:
     # Pair selection (reliable across SiS Streamlit versions; replaces the

@@ -43,6 +43,12 @@ def market_name(code):
     return MARKET_NAMES.get(code, code.upper())
 
 
+def _use_sample():
+    # Mutating a widget-keyed session_state value (plcs_draft) is only allowed
+    # from a callback, which runs before the next rerun instantiates the widget.
+    st.session_state["plcs_draft"] = SAMPLE
+
+
 def _section_head(kicker, headline, dek=None):
     dek_html = (f"<p style='font:400 14px/1.5 var(--serif); color:var(--ink-muted);"
                 f" max-width:680px; margin:6px 0 0;'>{dek}</p>" if dek else "")
@@ -104,9 +110,7 @@ with left:
     meta_l.markdown(
         f"<span style='font-family:var(--mono); font-size:11px; color:var(--ink-faint);'>"
         f"{len(draft)} / 2,000 · ⌘↩ to score</span>", unsafe_allow_html=True)
-    if meta_r.button("Try a sample →", use_container_width=True):
-        st.session_state["plcs_draft"] = SAMPLE
-        st.rerun()
+    meta_r.button("Try a sample →", use_container_width=True, on_click=_use_sample)
 
 with right:
     languages = list_languages(session)
@@ -330,9 +334,8 @@ def render_empty_body():
             </div>
           </div>
         """, unsafe_allow_html=True)
-        if st.button("Use this sample →", type="primary", use_container_width=True):
-            st.session_state["plcs_draft"] = SAMPLE
-            st.rerun()
+        st.button("Use this sample →", type="primary", use_container_width=True,
+                  on_click=_use_sample)
 
 
 # ---------------------------------------------------------------------------

@@ -1,4 +1,5 @@
-"""Exercise the PLCS scored path: fill the draft, click Score, render results.
+"""Exercise the PLCS interactions: click the sample button (callback path),
+then click Score and render results.
 
 Run from streamlit/ with the harness venv python:
     python _harness/probe_plcs.py
@@ -24,22 +25,32 @@ from streamlit.testing.v1 import AppTest  # noqa: E402
 
 SAMPLE = "Live Free, Drive Fast — the new electric sports car that puts you first."
 
-at = AppTest.from_file("pages/1_Pre_Launch_Risk.py", default_timeout=60)
-at.session_state["plcs_draft"] = SAMPLE
-at.run()
 
-btns = [b for b in at.button if "Score cultural risk" in b.label]
-assert btns, "Score button not found"
-btns[0].click().run()
-
-if at.exception:
-    print("FAIL — exceptions on scored render:")
+def _fail(at, where):
+    print(f"FAIL — exceptions on {where}:")
     for e in at.exception:
         print("   ", e.value)
     raise SystemExit(1)
 
-# Surface what rendered, as a sanity check.
-heads = [h.value for h in at.subheader] if hasattr(at, "subheader") else []
-mds = sum(1 for _ in at.markdown)
-print(f"ok — scored render clean. markdown blocks: {mds}, "
+
+# 1. Fresh empty state, then click the sample button (widget-key callback path).
+at = AppTest.from_file("pages/1_Pre_Launch_Risk.py", default_timeout=60).run()
+if at.exception:
+    _fail(at, "initial empty render")
+sample_btns = [b for b in at.button if "sample" in b.label.lower()]
+assert sample_btns, "no sample button found"
+sample_btns[0].click().run()
+if at.exception:
+    _fail(at, "click 'use sample' (callback)")
+assert at.session_state["plcs_draft"] == SAMPLE, "sample did not fill draft"
+
+# 2. Click Score → results render.
+score = [b for b in at.button if "Score cultural risk" in b.label]
+assert score, "Score button not found"
+score[0].click().run()
+if at.exception:
+    _fail(at, "scored render")
+
+print(f"ok — sample click + scored render clean. "
+      f"markdown blocks: {sum(1 for _ in at.markdown)}, "
       f"results in state: {'plcs_results' in at.session_state}")

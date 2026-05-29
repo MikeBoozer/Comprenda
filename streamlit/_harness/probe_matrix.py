@@ -1,4 +1,5 @@
-"""Exercise the Divergence Matrix populated path (an event selected).
+"""Exercise the Divergence Matrix interactions: from the empty state, click an
+"Open ->" button (widget-key callback path) and render the populated view.
 
 Run from streamlit/ with the harness venv python:
     python _harness/probe_matrix.py
@@ -22,14 +23,28 @@ lib.comprenda_queries = _fake_q
 
 from streamlit.testing.v1 import AppTest  # noqa: E402
 
-at = AppTest.from_file("pages/4_Divergence_Matrix.py", default_timeout=60)
-at.session_state["matrix_event"] = fixtures.EVENT_TAGS[0]
-at.run()
 
-if at.exception:
-    print("FAIL — exceptions on populated render:")
+def _fail(at, where):
+    print(f"FAIL — exceptions on {where}:")
     for e in at.exception:
         print("   ", e.value)
     raise SystemExit(1)
 
-print(f"ok — matrix populated render clean. markdown blocks: {sum(1 for _ in at.markdown)}")
+
+# Empty state by default (placeholder event).
+at = AppTest.from_file("pages/4_Divergence_Matrix.py", default_timeout=60).run()
+if at.exception:
+    _fail(at, "initial empty render")
+
+# Click the first "Open ->" button (callback sets the widget-keyed event).
+opens = [b for b in at.button if "Open" in b.label and "explorer" not in b.label.lower()]
+assert opens, "no Open button found"
+opens[0].click().run()
+if at.exception:
+    _fail(at, "click 'Open ->' (callback)")
+# AppTest session_state has no .get(); access by key.
+ev = at.session_state["matrix_event"]
+assert ev and ev != "— pick an event tag —", f"event not selected after click: {ev!r}"
+
+print(f"ok — open-event click + populated render clean. "
+      f"markdown blocks: {sum(1 for _ in at.markdown)}, event: {ev}")

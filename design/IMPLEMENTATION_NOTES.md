@@ -186,3 +186,11 @@ open item from `docs/11`.
 - **Don't change page filenames or reorder pages** (auto-router + onboarding
   order depend on them).
 - **LF→CRLF git warnings on commit are benign** on this Windows checkout; ignore.
+- **Mutating a widget-keyed `session_state` value must happen in an `on_click`
+  callback**, never inline after the widget is instantiated (Streamlit raises
+  `StreamlitAPIException`). Bit us on the matrix "Open" + PLCS "sample" buttons;
+  both now use `on_click=`. The probes click these buttons to guard the path.
+- **The Divergence Matrix grid is sparse** — real CDS data only has the computed
+  pairs. The heatmap layers a neutral "not computed" base cell under every
+  (a,b) pair so the grid is a full square and hover works everywhere; missing
+  pairs are deliberately NOT colored 0.00 (that reads as "aligned", not unknown).

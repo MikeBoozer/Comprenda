@@ -295,9 +295,10 @@ running app).
 > ADR-0004 repo→stage cutover (`VERSION$2`, `main_file = comprenda_app.py`); the Snowsight
 > workspace was decommissioned (deploy only via the `docs/09` CLI sequence — never the Deploy
 > button, which reverted the cutover once). App confirmed starting + rendering on **Streamlit
-> 1.57.0**, title set to "Comprenda". **Part B done** (`VERSION$3`). **Part C** (costly proc
-> checks) remains, plus the known data issue — `cds_confidence` pinned at 1.0 (raw-count formula
-> × ~17× duplication; the *scores* themselves vary fine), see `docs/07` Finding C. Deploy via `docs/09`.
+> 1.57.0**, title set to "Comprenda". **Deploy-QA A+B+C all PASSED (2026-05-29)** through `VERSION$3`; only D13 (legal
+> text) is open. The known data issue remains — `cds_confidence` pinned at 1.0 (raw-count formula
+> × ~17× duplication; *scores* vary fine; the AI Brief even narrates it as a strength), see
+> `docs/07` Finding C. Remaining project work: data rebuild + native-app build. Deploy via `docs/09`.
 
 **A. Blockers (app won't start / core breaks):**
 1. ✅ **PASSED.** **`st.navigation` support** — SiS Streamlit runtime is **≥ 1.36** (verified
@@ -317,20 +318,23 @@ running app).
 5. ✅ **Serif fallback** — wordmark/headings render serif (no Georgia fallback).
 6. ✅ **Snowsight chrome** — no overlap, clipping, or double-scrollbars.
 
-**C. Real proc/query output fits the layouts (fixtures were grounded but real
-output varies):**
-7. PLCS `SCORE_CONTENT`, Translator `TRANSLATE_CONTENT`, AI Brief
-   `GENERATE_BRIEF` (markdown parses into title + sections), `FIND_ANALOGS`.
-8. **Translator re-score** path (composes `call_plcs`) — works, cost acceptable,
-   and the source→target vs target→target semantics read correctly (§3 item F).
-9. **Omnibar** — `SEARCH_PREVIEW` returns the expected lowercase columns; results
-   render in the popover.
-10. **Diagnostics** — `CURRENT_*` + freshness render; values look right.
-11. **Corpus loaded** — `list_languages` / `list_event_tags` non-empty (else the
-    empty-state guards fire, which is correct, but confirm data is present for
-    the demo); `event_label` prettifies real tags sensibly.
+**C. Real proc/query output fits the layouts — ✅ verified 2026-05-29 (one CLI call per proc):**
+7. ✅ PLCS `SCORE_CONTENT` (rich: en→ja score 85 / conf 0.9 / rich narrative; **+ graceful
+   "insufficient data" fallback** — note `target_market` is a **language code**, not a country
+   name), Translator `TRANSLATE_CULTURE` (3 variants w/ frame_shift+rationale+adapted text),
+   AI Brief `GENERATE_BRIEF` (markdown → title + `##` sections + table), `FIND_ANALOGS` (real
+   library cases) — all fit.
+8. ✅ **Translator re-score** — mechanism verified (PLCS resolves `ja`; ja→ja valid). PLCS
+   `confidence` is dynamic (0.9 vs 0.1) — i.e. NOT the degenerate metric (that's only `cds_confidence`).
+9. ✅ **Omnibar** — `SEARCH_PREVIEW` returns the expected lowercase columns (dup-looking results = corpus issue, not wiring).
+10. ✅ **Diagnostics** — `CURRENT_*` + freshness resolve.
+11. ✅ **Corpus loaded** — 12 languages, 8 events.
+
+⚠️ **Content (not layout) finding:** the AI Brief "Confidence Notes" narrates the degenerate
+`cds_confidence=1.0` and the duplicated sample sizes (562/312/250) as a credibility *strength* —
+another reason the data rebuild matters (see `docs/07` Finding C). Layouts are unaffected.
 
 **D. Operational:**
-12. **Credit guard** active; watch spend during QA (re-score + brief gen are the
-    costly paths).
-13. **Legal footer** (if added) — disclaimer + Terms/Privacy text finalized.
+12. ✅ **Credit guard** — ~41 credits used of the ~$400 trial ($281 left); the WAREHOUSE resource
+    monitor (300) does NOT meter SPCS/Cortex, so the real driver is SPCS container uptime.
+13. **Legal footer** — scaffold present; disclaimer + Terms/Privacy **text not yet finalized (open)**.

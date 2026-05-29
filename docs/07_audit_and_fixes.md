@@ -121,7 +121,10 @@ the same corpus.
 event/language), recompute `cds_confidence` on distinct-text counts, and re-derive the `/100`
 saturation threshold (100 is too high for a ~15–20-post regime). The Divergence Matrix's uniform
 "confidence 100%" is **deliberately left faithful** in the UI (not special-cased) — it becomes
-meaningful once the data is fixed.
+meaningful once the data is fixed. (Verified 2026-05-29 during deploy-QA: the live AI Brief
+`GENERATE_BRIEF` narrates this `1.0` confidence and the duplicated sample sizes — "confidence
+high (1.0 across all pairs)… English (562), Japanese (312)…" — as a credibility *strength*, so the
+rebuild also stops the brief from making false confidence claims, not just the matrix column.)
 
 ### Re-measurement queries
 

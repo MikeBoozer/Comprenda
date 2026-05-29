@@ -27,7 +27,7 @@ workflow + this repo's existing direct-to-main pattern).
 | 4 | Home `comprenda_app.py` → §6.1 (+ empty state) | ✅ done |
 | 5 | `pages/1_Pre_Launch_Risk.py` → §6.2 (+ empty state) | ✅ done |
 | 6 | `pages/4_Divergence_Matrix.py` → §6.3 (Altair) | ✅ done |
-| 7 | `pages/8_AI_Brief.py` → §6.4 | ⬜ todo |
+| 7 | `pages/8_AI_Brief.py` → §6.4 | ✅ done |
 | 8 | Other 5 pages: `inject_css()` + `page_header()` only | ⬜ todo |
 
 ---
@@ -78,10 +78,7 @@ redesign steps) or revise the design.
 The PLCS **three-analogs column IS real** (from `call_find_analogs`:
 case_name / company / year / outcome_summary / distance→gap).
 
-Expect more of these in steps 6–7 (Divergence Matrix, AI Brief). Brief note for
-step 7: `call_generate_brief` returns a single `brief_markdown` blob +
-`source_post_ids` — the §6.4 structured TOC / numbered sections / inline figures
-must be derived from that markdown, not from structured fields.
+| E | AI Brief (§6.4) | Structured sections + inline frame bars + dot-chart | `call_generate_brief` → one `brief_markdown` blob + `source_post_ids` | Parse the markdown into title + sections (TOC, §-numbered article). Editorial per-section h2 sentence isn't separable, so the section heading is the h2. Figures drawn from **existing** query helpers instead of the blob: frame bars from `get_frame_distribution`, divergence dot-chart from `get_cds_matrix` — placed after the article (markdown is opaque to inline injection). Title falls back to a derived "Reading the room: {event}." when the blob has no leading `# H1`. Meta shows sources-cited count + language count (no total post count — not returned). PDF/Share omitted; Download Markdown + raw-markdown copy are real.
 
 ---
 

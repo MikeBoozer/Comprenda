@@ -73,6 +73,18 @@ the `st.navigation` API, so the app moved off Streamlit's filename auto-router:
     Analyst**, a **deferred follow-up**: no Python backend exists, it needs the
     `semantic_model/` deployed, and it can't be validated in the harness. The
     shipped omnibar returns matching posts (search), not an NL answer.
+- ✅ **Session diagnostics footer (done).** `session_diagnostics()` renders a
+  subtle, collapsed **"Session & environment"** expander once in the router at
+  the bottom of every page, for support / buyer-side devs. It is **click-gated**
+  (a "Load details" button) so the metadata queries fire only on demand, not on
+  every navigation. Shows only the user's own non-sensitive context — role,
+  warehouse, database, schema, region, Snowflake + Streamlit version, session ID,
+  last query ID — plus corpus counts and `MAX(ingested_at)` freshness, and a
+  copy-paste block. Deliberately **omits** `CURRENT_USER` / `CURRENT_ACCOUNT`
+  (identity/locator) — nothing cross-tenant or secret. New read-only helpers
+  `get_session_context` / `get_corpus_freshness` in `comprenda_queries` (+ harness
+  fixtures). Distinct from the per-run "About this run" panels on PLCS /
+  Translator / AI Brief, which stay (they describe an actual inference run).
 
 Step 8 gave all six remaining pages the shared chrome (theme + `page_header`)
 but left their **bodies** as raw Streamlit. Step 9 promoted Translator out of
@@ -212,6 +224,8 @@ open item from `docs/11`.
     (query → Search → cards), where card-rendering reads real fields.
   - `python _harness/probe_omnibar.py` — drives the router: opens the Cortex
     omnibar, submits a query through the form, renders search results.
+  - `python _harness/probe_diag.py` — drives the router: clicks the diagnostics
+    footer's "Load details" and renders session context + corpus freshness.
 
 ### Harness gotchas worth knowing
 - The `_harness/check.py` import order matters: it puts the app dir on

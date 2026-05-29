@@ -13,7 +13,7 @@ import streamlit as st
 from snowflake.snowpark.context import get_active_session
 
 from lib.comprenda_theme import inject_css
-from lib.comprenda_components import render_sidebar, omnibar
+from lib.comprenda_components import render_sidebar, omnibar, session_diagnostics
 
 st.set_page_config(page_title="Comprenda — Cultural Intelligence",
                    layout="wide", initial_sidebar_state="expanded")
@@ -55,6 +55,8 @@ pg = st.navigation(ordered_pages, position="hidden")
 inject_css()
 render_sidebar(groups)
 
+session = get_active_session()
+
 # Top utility bar: breadcrumb (left) + quiet Cortex search pill (right), per the
 # artboard topbar — keeps each page's headline the dominant element.
 active_section = next(
@@ -64,5 +66,6 @@ crumb_l.markdown(
     f"<div class='nu-crumb'>{active_section}{' / ' if active_section else ''}"
     f"{pg.title}</div>", unsafe_allow_html=True)
 with crumb_r:
-    omnibar(get_active_session())
+    omnibar(session)
 pg.run()
+session_diagnostics(session)

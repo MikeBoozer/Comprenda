@@ -309,6 +309,13 @@ def build_query_module():
                    "INFERENCE_TIMESTAMP"]) if EMPTY else plcs_scores_df(limit))
     m.list_event_tags = lambda session: list(EVENT_TAGS)
     m.list_languages = lambda session: list(LANGUAGES)
+    m.get_session_context = lambda session: {
+        "Role": "NUANCE_APP_ROLE (mock)", "Warehouse": "NUANCE_DEV_WH",
+        "Database": "NUANCE_DB", "Schema": "OUTPUTS", "Region": "AWS_US_WEST_2 (mock)",
+        "Snowflake": "8.x (mock)", "Session ID": "mock-session-0001",
+        "Last query ID": "01b-mock-query-id",
+    }
+    m.get_corpus_freshness = lambda session: "2026-05-28 06:12:00"
     m.get_event_summary = lambda session, event_tag: event_summary_df(event_tag)
     m.get_cds_matrix = lambda session, event_tag: cds_matrix_df(event_tag)
     m.get_frame_distribution = lambda session, event_tag: frame_distribution_df(event_tag)

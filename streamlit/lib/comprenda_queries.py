@@ -72,6 +72,36 @@ def list_languages(session: Session) -> list[str]:
     return [r["DETECTED_LANGUAGE"] for r in rows]
 
 
+def get_session_context(session: Session) -> dict:
+    """Read-only Snowflake session context for the diagnostics footer.
+
+    Only the user's own, non-sensitive operational context — no CURRENT_USER /
+    CURRENT_ACCOUNT. One metadata query; nothing cross-tenant or secret.
+    """
+    rows = session.sql(
+        "SELECT CURRENT_ROLE() AS role, CURRENT_WAREHOUSE() AS wh, "
+        "CURRENT_DATABASE() AS db, CURRENT_SCHEMA() AS sch, "
+        "CURRENT_REGION() AS region, CURRENT_VERSION() AS sfver, "
+        "CURRENT_SESSION() AS sess, LAST_QUERY_ID() AS lastq"
+    ).collect()
+    if not rows:
+        return {}
+    r = rows[0]
+    return {
+        "Role": r["ROLE"], "Warehouse": r["WH"], "Database": r["DB"],
+        "Schema": r["SCH"], "Region": r["REGION"], "Snowflake": r["SFVER"],
+        "Session ID": r["SESS"], "Last query ID": r["LASTQ"],
+    }
+
+
+def get_corpus_freshness(session: Session):
+    """Most recent corpus ingestion timestamp (None if the corpus is empty)."""
+    rows = session.sql(
+        "SELECT MAX(ingested_at) AS latest FROM NUANCE_DB.RAW_DATA.SOCIAL_POSTS"
+    ).collect()
+    return rows[0]["LATEST"] if rows else None
+
+
 def get_event_summary(session: Session, event_tag: str) -> pd.DataFrame:
     df = session.sql(
         "SELECT detected_language, "

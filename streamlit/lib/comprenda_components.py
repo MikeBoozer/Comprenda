@@ -75,6 +75,19 @@ def page_header(kicker, headline, lede):
     st.divider()
 
 
+def section_head(kicker, headline, dek=None):
+    """A mid-page section opener: kicker → serif h2 → optional serif dek (§5.1).
+
+    The shared form of the local ``_section_head`` used on the PLCS / Translator
+    screens, so every page introduces a section the same way.
+    """
+    dek_html = (f"<p style='font:400 14px/1.5 var(--serif); color:var(--ink-muted);"
+                f" max-width:680px; margin:6px 0 0;'>{dek}</p>" if dek else "")
+    st.markdown(
+        f"<div class='nu-kicker'>{kicker}</div><h2>{headline}</h2>{dek_html}",
+        unsafe_allow_html=True)
+
+
 # ---------------------------------------------------------------------------
 # KPI metric — restyled st.metric (§5.2).
 # ---------------------------------------------------------------------------

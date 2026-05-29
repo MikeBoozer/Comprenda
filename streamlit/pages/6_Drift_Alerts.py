@@ -1,4 +1,8 @@
-"""Drift Alerts — subscribe entities to ongoing CDS monitoring."""
+"""Drift Alerts — subscribe entities to ongoing CDS monitoring.
+
+Consistency pass (no artboard): subscriptions render as editorial cards with a
+status pill; the add form keeps its exact logic. Query / proc calls unchanged.
+"""
 import streamlit as st
 from snowflake.snowpark.context import get_active_session
 
@@ -7,7 +11,7 @@ from lib.comprenda_queries import (
     find_matching_events,
 )
 from lib.comprenda_theme import inject_css
-from lib.comprenda_components import sidebar_brand, page_header
+from lib.comprenda_components import sidebar_brand, page_header, section_head, pill
 
 st.set_page_config(page_title="Drift Alerts — Comprenda", page_icon="🔔", layout="wide")
 inject_css()
@@ -30,19 +34,41 @@ for level, msg in st.session_state.pop("drift_flash", []):
 # ---------------------------------------------------------------------------
 # Existing subscriptions
 # ---------------------------------------------------------------------------
-st.subheader("Current subscriptions")
+section_head("Monitoring · active subscriptions", "What you're watching.")
 entities = list_tracked_entities(session)
 if entities.empty:
-    st.info("No tracked entities yet.")
+    st.markdown(
+        "<div class='nu-card'><div style='font:400 15px/1.5 var(--serif); "
+        "color:var(--ink-muted);'>Nothing under watch yet. Add your first "
+        "subscription below — you'll be alerted when divergence between markets "
+        "crosses your threshold.</div></div>", unsafe_allow_html=True)
 else:
-    st.dataframe(entities, use_container_width=True, hide_index=True)
+    for _, r in entities.iterrows():
+        active = bool(r.get("ACTIVE", True))
+        status = (pill("Active", tone="safe") if active else pill("Paused", tone="warn"))
+        created = str(r.get("CREATED_AT", ""))[:10]
+        st.markdown(
+            "<div class='nu-card' style='display:flex; align-items:center; gap:16px; "
+            "margin-bottom:8px;'>"
+            "<div style='flex:1;'>"
+            f"<div style='font:600 16px/1.2 var(--sans); color:var(--ink-strong);'>"
+            f"{r['ENTITY_NAME']}</div>"
+            f"<div style='font:400 11px/1 var(--mono); color:var(--ink-muted); "
+            f"margin-top:4px;'>{r.get('OWNER_EMAIL', '')}</div>"
+            "</div>"
+            f"{pill(str(r.get('ENTITY_TYPE', '')).capitalize())}"
+            f"<div style='font:400 11px/1.5 var(--mono); color:var(--ink-muted); "
+            f"text-align:right;'>Δ {r.get('CDS_THRESHOLD_DELTA', '—')} · "
+            f"abs {r.get('CDS_THRESHOLD_ABS', '—')}<br>since {created}</div>"
+            f"{status}"
+            "</div>", unsafe_allow_html=True)
 
 st.divider()
 
 # ---------------------------------------------------------------------------
 # Add new
 # ---------------------------------------------------------------------------
-st.subheader("Add new tracked entity")
+section_head("Add a subscription", "Put something new under watch.")
 languages = list_languages(session)
 
 with st.form("add_entity"):

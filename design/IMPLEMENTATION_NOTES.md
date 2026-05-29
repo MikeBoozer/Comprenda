@@ -30,14 +30,21 @@ workflow + this repo's existing direct-to-main pattern).
 | 7 | `pages/8_AI_Brief.py` → §6.4 | ✅ done |
 | 8 | Other 6 pages: `inject_css()` + `page_header()` only | ✅ done |
 | 9 | `pages/2_Cultural_Translator.py` → full `ScreenTranslator` artboard | ✅ done |
+| 10 | Consistency pass: bodies of the 5 artboard-less pages | ✅ done |
 
 Step 8 gave all six remaining pages the shared chrome (theme + `page_header`)
 but left their **bodies** as raw Streamlit. Step 9 promoted Translator out of
 that set — it has a full `ScreenTranslator` artboard (variant cards, risk
-comparison, CTA) and was mis-bucketed into the header-only group. The other
-five (Event Explorer, Frame Distribution, Drift Alerts, Analog Retrieval,
-Narrative Search) have **no artboard**; their bodies are a consistency-pass
-candidate (extrapolate the established design language), not a §9 fidelity loop.
+comparison, CTA) and was mis-bucketed into the header-only group. Step 10 did
+the **consistency pass** on the other five (Event Explorer, Frame Distribution,
+Drift Alerts, Analog Retrieval, Narrative Search): they have **no artboard**, so
+rather than a §9 fidelity loop their bodies were restyled by extrapolating the
+established design language — `section_head` (now shared in
+`comprenda_components`), KPI strips, editorial cards, frame/market pills,
+`frame_share_bar`, and result-persistence in `session_state`. No SQL/proc/query
+changes; raw tables and the original facet chart are preserved inside expanders.
+Because these are extrapolation (no pixel target), they need an operator eyeball
+more than the artboard pages did — the §9 critic loop can't score them.
 
 ---
 
@@ -161,6 +168,9 @@ open item from `docs/11`.
     path (fill draft → click Score → render results).
   - `python _harness/probe_translator.py` — exercises the Translator path
     (sample callback → Generate → opt-in Re-score → risk comparison).
+  - `python _harness/probe_search.py` — exercises the button-gated result
+    paths on Analog Retrieval (sample → Find → cards) and Narrative Search
+    (query → Search → cards), where card-rendering reads real fields.
 
 ### Harness gotchas worth knowing
 - The `_harness/check.py` import order matters: it puts the app dir on

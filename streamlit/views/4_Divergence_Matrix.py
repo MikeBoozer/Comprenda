@@ -166,11 +166,15 @@ with ctrl[1]:
                     label_visibility="collapsed")
 with ctrl[2]:
     st.markdown("<div class='nu-kicker'>Scale</div>", unsafe_allow_html=True)
+    _swatches = "".join(
+        f"<span style='flex:1; height:12px; background:{c};'></span>" for c in _RAMP)
     st.markdown(
-        "<div style='display:flex; align-items:center; gap:0; margin-top:4px;'>"
-        + "".join(f"<span style='width:34px; height:14px; background:{c};'></span>" for c in _RAMP)
-        + "<span style='font-family:var(--mono); font-size:11px; color:var(--ink-muted);"
-          " margin-left:8px;'>0.00 &nbsp;·&nbsp; 0.34 risk → &nbsp;·&nbsp; high</span></div>",
+        "<div style='max-width:220px; margin-top:6px;'>"
+        f"<div style='display:flex; border:1px solid var(--rule);'>{_swatches}</div>"
+        "<div style='display:flex; justify-content:space-between; margin-top:4px;"
+        " font-family:var(--mono); font-size:10px; color:var(--ink-muted);'>"
+        "<span>Aligned</span><span>More divergent</span></div>"
+        "</div>",
         unsafe_allow_html=True)
 
 chosen = None if event_sel == PLACEHOLDER else event_sel

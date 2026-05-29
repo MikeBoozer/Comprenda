@@ -86,7 +86,7 @@ h3 { font-size: 16px; line-height: 1.3; font-family: var(--sans); font-weight: 6
 /* Editorial content column — cap + center the main area so the page reads like
    a publication, not a full-bleed dashboard. */
 [data-testid="stMainBlockContainer"], .block-container {
-  max-width: 1100px !important; margin-left: auto !important; margin-right: auto !important;
+  max-width: 1280px !important; margin-left: auto !important; margin-right: auto !important;
 }
 """
 

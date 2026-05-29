@@ -1,6 +1,6 @@
 # ADR-0002: Reconcile the diverged Snowsight-workspace app copy with the git repo during native-app packaging
 
-- **Status:** Accepted
+- **Status:** Superseded by [ADR-0004](0004-repo-canonical-deploy-cutover.md)
 - **Date:** 2026-05-26
 - **Deciders:** Mike (operator)
 

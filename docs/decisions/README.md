@@ -21,8 +21,13 @@ the *why* behind structural choices, which code and git history don't preserve.
   self-contained Snowflake Native App with bundled synthetic demo data. *(Accepted)*
 - [0002](0002-reconcile-workspace-repo-divergence.md) — The deployed app (Snowsight
   workspace) and the git repo have diverged; ship current fixes into the workspace now,
-  reconcile to a single source of truth during native-app packaging. *(Accepted)*
+  reconcile to a single source of truth during native-app packaging.
+  *(Superseded by [0004](0004-repo-canonical-deploy-cutover.md))*
 - [0003](0003-multi-axis-divergence-profile.md) — Replace the single text-embedding CDS
   (which measures topic, not stance, and shows zero divergence) with a multi-axis profile —
   topical overlap + frame divergence (JSD) + sentiment — with a one-headline-number UX.
   *(Accepted)*
+- [0004](0004-repo-canonical-deploy-cutover.md) — The redesign now lives only in the git
+  repo; abandon (don't reconcile) the stale Snowsight workspace and cut the deployed app
+  over to the repo *now*, at deploy-QA, via PUT-into-stage. Defer git-backed deploy to
+  Marketplace-prep. *(Accepted; supersedes 0002)*

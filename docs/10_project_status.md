@@ -20,10 +20,14 @@ as state changes.
 ## Binding open items (before the native-app / Marketplace build)
 
 *Data & metric (this round of work):*
-1. **Reconcile the three diverged trees** (git repo / Snowsight workspace / Streamlit object
-   stage) to one source of truth —
-   [ADR-0002](decisions/0002-reconcile-workspace-repo-divergence.md). Binding. (Includes
-   moving the SPCS `USE WAREHOUSE`/`USE DATABASE` fix into the repo's home file.)
+1. **Cut the deployed app over to the git repo** as the single source of truth —
+   [ADR-0004](decisions/0004-repo-canonical-deploy-cutover.md), which **supersedes**
+   [ADR-0002](decisions/0002-reconcile-workspace-repo-divergence.md). The redesign now lives
+   only in the repo, so this is a one-way **cutover + workspace decommission** (not a
+   reconciliation of peers), executed **now at deploy-QA** rather than at the native-app
+   session. Includes moving the SPCS `USE WAREHOUSE`/`USE DATABASE` fix into
+   `comprenda_app.py`, removing the old `pages/`-structure orphans, and `SET MAIN_FILE`.
+   Git-backed deploy is deferred to Marketplace-prep. Binding.
 2. **Rebuild the demo corpus** — it is ~17× unevenly duplicated; verify the divergence
    signal. See [`07_audit_and_fixes.md`](07_audit_and_fixes.md) "Data-quality findings"
    (includes re-measurement queries).

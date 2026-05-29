@@ -345,21 +345,21 @@ def risk_band(markers, analogs=()):
     Marker pills are nudged apart when two scores fall within 4 points so the
     labels stay legible (§5.4).
     """
-    # Nudge crowding pills: order by score; when a pill would land within 8% of
-    # the previous one, push it right AND alternate it onto a second row, so the
-    # labels never overlap — including exact ties (e.g. two markets both at 85).
+    # Stack crowding pills onto a second row rather than shoving them sideways:
+    # when a pill is within 8 points of the previous (by score), alternate it
+    # onto the other row. Tied pills then sit DIRECTLY above each other (same
+    # left); only two pills that land on the SAME row get pushed apart (>=12%).
     ordered = sorted(enumerate(markers), key=lambda t: t[1][1])
     pill_left, pill_row = {}, {}
-    last, run = -100.0, 0
+    last_score, run = -100.0, 0
+    last_on_row = {0: -100.0, 1: -100.0}
     for idx, (_lbl, score, _band) in ordered:
-        if score < last + 8:
-            run += 1
-            pos = last + 8
-        else:
-            run = 0
-            pos = score
-        pill_left[idx], pill_row[idx] = pos, run % 2
-        last = pos
+        run = run + 1 if score < last_score + 8 else 0
+        row = run % 2
+        pos = max(float(score), last_on_row[row] + 12)
+        pill_left[idx], pill_row[idx] = pos, row
+        last_on_row[row] = pos
+        last_score = score
 
     analog_html = "".join(
         f"<div class='nu-band-analog' style='left:{s}%;' title='{lbl}'></div>"

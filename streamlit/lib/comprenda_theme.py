@@ -179,8 +179,8 @@ _SIDEBAR = """
 [data-testid="stSidebar"] [data-testid="stPageLink"] a:hover {
   background: var(--paper-deep); color: var(--ink-strong); }
 [data-testid="stSidebar"] [data-testid="stPageLink"] a[aria-current="page"] {
-  color: var(--risk); background: var(--risk-bg);
-  border-left: 2px solid var(--risk); font-weight: 600; }
+  color: var(--risk) !important; background: var(--risk-bg) !important;
+  border-left: 2px solid var(--risk) !important; font-weight: 600 !important; }
 
 [data-testid="stSidebar"] .nu-nav-footer {
   margin-top: 20px; padding: 12px; border-top: 1px solid var(--rule);
@@ -203,7 +203,10 @@ _SIDEBAR = """
 """
 
 # Cortex omnibar — the popover trigger styled as a full-width search bar.
-# Scoped to stPopover, which is unique to the omnibar (no other popovers).
+# NOTE: stPopover/stPopoverBody also covers the sidebar diagnostics + legal
+# popovers; the body min-width below therefore applies to every popover. The
+# trigger rule below is overridden for sidebar popovers by the smaller-button
+# rule above (scoped to [data-testid="stSidebar"]).
 _OMNI = """
 [data-testid="stPopover"] > button {
   width: 100%; max-width: 680px; justify-content: flex-start; text-align: left;
@@ -214,8 +217,9 @@ _OMNI = """
   border-color: var(--ink-muted); background: var(--paper-card);
   color: var(--ink-muted); }
 
-/* The popover panel needs room so the placeholder + form hint don't collide. */
-[data-testid="stPopoverBody"] { min-width: 460px; }
+/* The popover panel needs room so the placeholder + form hint don't collide.
+   ~10% wider than the original 460px per operator feedback (applies to all popovers). */
+[data-testid="stPopoverBody"] { min-width: 505px; }
 
 /* Topbar breadcrumb (left of the omnibar) — quiet, so the headline dominates. */
 .nu-crumb { font: 500 12px/1.6 var(--mono); color: var(--ink-faint);

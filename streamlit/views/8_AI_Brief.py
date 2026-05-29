@@ -106,6 +106,7 @@ def render_divergence_figure(event_tag):
         return
     cds = cds.copy()
     cds["pair"] = cds["LANGUAGE_A"] + " ⇄ " + cds["LANGUAGE_B"]
+    st.markdown("<div style='height:28px'></div>", unsafe_allow_html=True)
     _section_head("Figure · pairwise frame divergence", "Where the fault lines are.",
                   "Each pair's frame divergence. Past 0.34 (dashed) = cultural risk. "
                   "Source: CULTURAL_DIVERGENCE_SCORES.")

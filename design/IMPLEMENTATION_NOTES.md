@@ -124,8 +124,13 @@ These are intentional. Don't "fix" them back without reading the reasoning.
    and their imports were renamed. SQL/query logic untouched (hard constraint).
 6. **§5.3 PLCS card CSS fix.** `font:var(--mono)` (malformed shorthand, silently
    dropped) → `font-family:var(--mono)` so the confidence number renders in mono.
-7. **risk_band marker nudging** implemented (the §5.4 *text* asks for it; its
-   sample code omitted it). Markers within 4 points get their pills pushed apart.
+7. **risk_band marker nudging** (the §5.4 *text* asks for it; its sample code omitted it).
+   ⚠️ The original implementation was a **silent no-op** — the pill was nested inside its own
+   2px marker line, so its nudged `left` % resolved against 2px and never moved; tied markets
+   drew on top of each other and one was invisible (found in the 2026-05-29 deploy-QA render
+   check). **Fixed (`VERSION$4`/`$6`):** pills are direct children of the band (band-relative
+   `left`), reserve 48px headroom, and crowding pills (within 8 pts) **stack onto a second row**
+   directly above each other rather than being shoved sideways. Used by PLCS + Translator re-score.
 8. **frame_share_bar** built from prose only (§5.8 gives no code); added an
    optional `risk_frame` arg for the oxblood "absorbing frame" segment.
 
@@ -334,11 +339,16 @@ running app).
 `cds_confidence=1.0` and the duplicated sample sizes (562/312/250) as a credibility *strength* —
 another reason the data rebuild matters (see `docs/07` Finding C). Layouts are unaffected.
 
-**Verification scope (honest):** Part C was checked at the **contract level** — each proc's real
-JSON matches the view-parsing code, run via CLI. The in-browser **render** of these specific real
-outputs was NOT eyeballed (agent can't screenshot; not driven in-app this pass). Low residual
-risk; a ~5-min operator click-through of Score / Translate / Brief would fully close it. Item 8
-(re-score) is likewise verified by inference (PLCS resolves `ja`), not by an actual ja→ja run.
+**Verification scope:** contract-level via CLI, then an operator browser render click-through
+(2026-05-29). **#1 PLCS + #2 Translator confirmed clean** (incl. tied-marker stacking); **#5
+omnibar/diagnostics good**. The check surfaced + fixed render bugs across `VERSION$4`–`$7`:
+risk_band marker nudge was a silent no-op (tied markets hid each other), pills covered the text
+above the band, the re-score button was too tight, AI-Brief figure spacing, and the **analog
+per-character pill bug** (`failure_frames`/`affected_markets` come back as JSON *strings* and were
+iterated per character). **#3 AI Brief + #4 Analogs fixes deployed in `VERSION$7`, pending final
+operator re-confirm.** Item 8 (re-score) is exercised for real. (Caption wrap on the divergence
+figure left as-is: one-lining it needs widening the shared section-head or truncating the table
+name — both worse than a clean two-line caption.)
 
 **D. Operational:**
 12. ✅ **Credit guard** — ~41 credits used of the ~$400 trial ($281 left); the WAREHOUSE resource

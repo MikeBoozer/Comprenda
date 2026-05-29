@@ -5,6 +5,8 @@ Consistency pass (no artboard): PLCS-style input zone + editorial analog cards
 (case name, outcome callout, failure-frame / market pills), results persisted
 across reruns. Query logic (call_find_analogs) is unchanged.
 """
+import json
+
 import streamlit as st
 from snowflake.snowpark.context import get_active_session
 
@@ -13,6 +15,20 @@ from lib.comprenda_theme import inject_css
 from lib.comprenda_components import (
     page_header, section_head, pill, frame_label,
 )
+
+
+def _as_list(v):
+    """FIND_ANALOGS returns failure_frames / affected_markets as JSON-encoded
+    strings on the live app (real lists in the harness). Coerce to a list so the
+    pills render per item, not per character."""
+    if isinstance(v, str):
+        try:
+            parsed = json.loads(v)
+            return parsed if isinstance(parsed, list) else [v]
+        except (ValueError, TypeError):
+            return [v]
+    return v or []
+
 
 inject_css()
 session = get_active_session()
@@ -109,8 +125,8 @@ def render_analogs(state):
             f"<div style='font:400 14px/1.5 var(--serif); color:var(--ink);'>"
             f"{a['outcome_summary']}</div></div>" if a.get("outcome_summary") else "")
         fail = "".join(pill(frame_label(f), tone="warn")
-                       for f in (a.get("failure_frames") or []))
-        mkts = "".join(pill(m) for m in (a.get("affected_markets") or []))
+                       for f in _as_list(a.get("failure_frames")))
+        mkts = "".join(pill(m) for m in _as_list(a.get("affected_markets")))
         fail_html = (
             "<div style='display:flex; flex-wrap:wrap; gap:4px; align-items:center;'>"
             "<span style='font:400 11px/1 var(--mono); color:var(--ink-faint); "

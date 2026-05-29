@@ -291,10 +291,16 @@ Run this once on a real SiS deploy, in order — blockers first. Deploy via the
 CLI sequence in `docs/09` (editing the workspace file tree does NOT update the
 running app).
 
+> **Cutover done + A.1 PASSED (2026-05-29).** The redesign was deployed to real SiS via the
+> ADR-0004 repo→stage cutover (`VERSION$2`, `main_file = comprenda_app.py`); the Snowsight
+> workspace was decommissioned (deploy only via the `docs/09` CLI sequence — never the Deploy
+> button, which reverted the cutover once). App confirmed starting + rendering. Remaining: B–D
+> below, plus the known flat-CDS/duplicate-corpus data issue (ADR-0003) behind the repetitive
+> scores. Deploy via `docs/09`.
+
 **A. Blockers (app won't start / core breaks):**
-1. **`st.navigation` support** — SiS Streamlit runtime must be **≥ 1.36**
-   (router uses `st.navigation(position="hidden")` + `st.Page` + `st.page_link`).
-   Harness is 1.58; if SiS is older the app won't start. Check first.
+1. ✅ **PASSED.** **`st.navigation` support** — SiS Streamlit runtime is **≥ 1.36** (verified
+   live 2026-05-29: app started clean with the `st.navigation` router). Was the top blocker.
 2. **Model config resolves** — `nuance_db.internal.config` model names exist in
    `SNOWFLAKE.CORTEX.LIST_MODELS()` (the "claude-4-sonnet not found" gotcha).
 3. **App-role privileges** — the trial/app role can run every page's SQL, all

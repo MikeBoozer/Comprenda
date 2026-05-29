@@ -49,6 +49,9 @@ Thumbs.db
 # Snowflake / app local artifacts
 .streamlit/secrets.toml
 
+# Dead backup of the pre-redesign workspace app (ADR-0004 cutover safety copy; see its README)
+archive/workspace_nuance_app_snapshot_*/
+
 # MCP server config (contains Snowflake credentials)
 .mcp.json
 

@@ -20,14 +20,14 @@ as state changes.
 ## Binding open items (before the native-app / Marketplace build)
 
 *Data & metric (this round of work):*
-1. **Cut the deployed app over to the git repo** as the single source of truth —
-   [ADR-0004](decisions/0004-repo-canonical-deploy-cutover.md), which **supersedes**
-   [ADR-0002](decisions/0002-reconcile-workspace-repo-divergence.md). The redesign now lives
-   only in the repo, so this is a one-way **cutover + workspace decommission** (not a
-   reconciliation of peers), executed **now at deploy-QA** rather than at the native-app
-   session. Includes moving the SPCS `USE WAREHOUSE`/`USE DATABASE` fix into
-   `comprenda_app.py`, removing the old `pages/`-structure orphans, and `SET MAIN_FILE`.
-   Git-backed deploy is deferred to Marketplace-prep. Binding.
+1. ✅ **DONE (2026-05-29).** Cut the deployed app over to the git repo as the single source of
+   truth — [ADR-0004](decisions/0004-repo-canonical-deploy-cutover.md), which **supersedes**
+   [ADR-0002](decisions/0002-reconcile-workspace-repo-divergence.md). Executed as a one-way
+   **cutover + workspace decommission**: SPCS `USE WAREHOUSE`/`USE DATABASE` fix folded into
+   `comprenda_app.py`, repo tree PUT into the Streamlit object stage, old `pages/`-structure
+   orphans removed, `MAIN_FILE = comprenda_app.py`, committed as `VERSION$2`, and the Snowsight
+   workspace emptied so its Deploy button can't revert it. **Confirmed live + rendering on real
+   SiS** (`st.navigation` runtime ≥1.36 verified). Git-backed deploy deferred to Marketplace-prep.
 2. **Rebuild the demo corpus** — it is ~17× unevenly duplicated; verify the divergence
    signal. See [`07_audit_and_fixes.md`](07_audit_and_fixes.md) "Data-quality findings"
    (includes re-measurement queries).

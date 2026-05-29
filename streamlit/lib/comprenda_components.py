@@ -345,27 +345,38 @@ def risk_band(markers, analogs=()):
     Marker pills are nudged apart when two scores fall within 4 points so the
     labels stay legible (§5.4).
     """
-    # Nudge overlapping pill labels: order by score, push later pills right
-    # when they crowd the previous one.
+    # Nudge crowding pills: order by score; when a pill would land within 8% of
+    # the previous one, push it right AND alternate it onto a second row, so the
+    # labels never overlap — including exact ties (e.g. two markets both at 85).
     ordered = sorted(enumerate(markers), key=lambda t: t[1][1])
-    pill_left = {}
-    last = -100.0
+    pill_left, pill_row = {}, {}
+    last, run = -100.0, 0
     for idx, (_lbl, score, _band) in ordered:
-        pos = max(score, last + 4)
-        pill_left[idx] = pos
+        if score < last + 8:
+            run += 1
+            pos = last + 8
+        else:
+            run = 0
+            pos = score
+        pill_left[idx], pill_row[idx] = pos, run % 2
         last = pos
 
     analog_html = "".join(
         f"<div class='nu-band-analog' style='left:{s}%;' title='{lbl}'></div>"
         for lbl, s in analogs)
+    # Marker lines sit at the true score; pills are SEPARATE children of the band
+    # so their nudged `left` is band-relative. (The old code nested each pill
+    # inside its own 2px marker line, which made the nudge a silent no-op —
+    # colliding pills stacked and hid each other.)
     marker_html = "".join(
-        f"<div class='nu-band-marker' style='left:{s}%;'>"
+        f"<div class='nu-band-marker' style='left:{s}%;'></div>"
+        for _lbl, s, _band in markers)
+    pill_html = "".join(
         f"<div class='nu-band-marker-pill' "
-        f"style='left:{pill_left[i]}%; transform:translateX(-50%);'>{lbl} · {s}</div>"
-        f"</div>"
+        f"style='left:{pill_left[i]}%; top:{-24 - pill_row[i] * 22}px;'>{lbl} · {s}</div>"
         for i, (lbl, s, _band) in enumerate(markers))
     st.markdown(f"""
-      <div class='nu-band'>{analog_html}{marker_html}</div>
+      <div class='nu-band'>{analog_html}{marker_html}{pill_html}</div>
       <div style='display:flex; justify-content:space-between;
                   margin-top:8px; font:500 11px/1 var(--mono);
                   color:var(--ink-muted);'>

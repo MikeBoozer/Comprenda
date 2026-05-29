@@ -124,7 +124,7 @@ _COMPONENTS = """
 .nu-score-n--safe { color: var(--safe); }
 .nu-score-denom { font: 400 22px/1 var(--serif); color: var(--ink-faint); }
 
-.nu-band { position: relative; height: 72px; border: 1px solid var(--rule);
+.nu-band { position: relative; height: 72px; margin-top: 48px; border: 1px solid var(--rule);
            background: linear-gradient(to right,
              var(--safe-bg)    0%,  var(--safe-bg)    35%,
              var(--paper-deep) 35%, var(--paper-deep) 55%,

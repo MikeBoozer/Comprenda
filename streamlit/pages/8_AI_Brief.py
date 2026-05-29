@@ -19,11 +19,9 @@ from lib.comprenda_queries import (
     get_frame_distribution, get_cds_matrix,
 )
 from lib.comprenda_theme import inject_css
-from lib.comprenda_components import sidebar_brand, page_header, frame_share_bar
+from lib.comprenda_components import page_header, frame_share_bar
 
-st.set_page_config(page_title="AI Brief — Comprenda", layout="wide")
 inject_css()
-sidebar_brand()
 
 session = get_active_session()
 

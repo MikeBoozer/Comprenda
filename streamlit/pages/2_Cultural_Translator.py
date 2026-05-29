@@ -16,12 +16,10 @@ from snowflake.snowpark.context import get_active_session
 from lib.comprenda_queries import call_translator, call_plcs, list_languages
 from lib.comprenda_theme import inject_css
 from lib.comprenda_components import (
-    sidebar_brand, page_header, pill, badge, band_of, frame_label, risk_band,
+    page_header, pill, badge, band_of, frame_label, risk_band,
 )
 
-st.set_page_config(page_title="Cultural Translator — Comprenda", page_icon="🌍", layout="wide")
 inject_css()
-sidebar_brand()
 
 session = get_active_session()
 

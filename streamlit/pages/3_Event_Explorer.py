@@ -11,12 +11,10 @@ import altair as alt
 from lib.comprenda_queries import list_event_tags, get_event_summary
 from lib.comprenda_theme import inject_css
 from lib.comprenda_components import (
-    sidebar_brand, page_header, section_head, kpi, pill, frame_label,
+    page_header, section_head, kpi, pill, frame_label,
 )
 
-st.set_page_config(page_title="Event Explorer — Comprenda", page_icon="🗺️", layout="wide")
 inject_css()
-sidebar_brand()
 session = get_active_session()
 
 page_header(

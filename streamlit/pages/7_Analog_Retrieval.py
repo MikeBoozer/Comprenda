@@ -11,12 +11,10 @@ from snowflake.snowpark.context import get_active_session
 from lib.comprenda_queries import call_find_analogs, list_languages
 from lib.comprenda_theme import inject_css
 from lib.comprenda_components import (
-    sidebar_brand, page_header, section_head, pill, frame_label,
+    page_header, section_head, pill, frame_label,
 )
 
-st.set_page_config(page_title="Analog Retrieval — Comprenda", page_icon="🧭", layout="wide")
 inject_css()
-sidebar_brand()
 session = get_active_session()
 
 page_header(

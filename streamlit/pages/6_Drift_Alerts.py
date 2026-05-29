@@ -11,11 +11,9 @@ from lib.comprenda_queries import (
     find_matching_events,
 )
 from lib.comprenda_theme import inject_css
-from lib.comprenda_components import sidebar_brand, page_header, section_head, pill
+from lib.comprenda_components import page_header, section_head, pill
 
-st.set_page_config(page_title="Drift Alerts — Comprenda", page_icon="🔔", layout="wide")
 inject_css()
-sidebar_brand()
 session = get_active_session()
 
 page_header(

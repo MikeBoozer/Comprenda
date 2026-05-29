@@ -149,8 +149,43 @@ _COMPONENTS = """
                  font-family: var(--sans); font-size: 14px; line-height: 1.5; }
 """
 
+# Custom grouped sidebar nav — rendered by render_sidebar() on top of
+# st.navigation(position="hidden"). Targets only stable testids + nu- classes.
+_SIDEBAR = """
+/* No Streamlit auto-nav — render_sidebar() owns the whole sidebar. */
+[data-testid="stSidebarNav"] { display: none; }
+
+[data-testid="stSidebar"] .nu-brand-wm {
+  font: 700 30px/1 var(--serif); letter-spacing: -0.01em;
+  color: var(--ink-strong); padding: 10px 12px 0; }
+[data-testid="stSidebar"] .nu-brand-tag {
+  font: italic 400 13px/1.3 var(--serif); color: var(--ink-muted);
+  padding: 3px 12px 14px; border-bottom: 1px solid var(--rule); }
+[data-testid="stSidebar"] .nu-nav-kicker {
+  font: 600 10px/1 var(--sans); text-transform: uppercase; letter-spacing: 0.14em;
+  color: var(--ink-faint); padding: 16px 12px 4px; }
+
+[data-testid="stSidebar"] [data-testid="stPageLink"] { margin: 0; }
+[data-testid="stSidebar"] [data-testid="stPageLink"] a {
+  font-family: var(--sans); font-size: 14px; color: var(--ink-muted);
+  padding: 6px 12px; border-radius: 2px; border-left: 2px solid transparent;
+  letter-spacing: 0.01em; }
+[data-testid="stSidebar"] [data-testid="stPageLink"] a:hover {
+  background: var(--paper-deep); color: var(--ink-strong); }
+[data-testid="stSidebar"] [data-testid="stPageLink"] a[aria-current="page"] {
+  color: var(--risk); background: var(--risk-bg);
+  border-left: 2px solid var(--risk); font-weight: 600; }
+
+[data-testid="stSidebar"] .nu-nav-footer {
+  margin-top: 20px; padding: 12px; border-top: 1px solid var(--rule);
+  font: 400 11px/1.5 var(--mono); color: var(--ink-muted); }
+[data-testid="stSidebar"] .nu-nav-footer .nu-dot {
+  display: inline-block; width: 7px; height: 7px; border-radius: 50%;
+  background: var(--safe); margin-right: 6px; vertical-align: middle; }
+"""
+
 
 def inject_css():
     """Call once per page, right after st.set_page_config()."""
-    st.markdown(f"<style>{_TOKENS}{_BASE}{_COMPONENTS}</style>",
+    st.markdown(f"<style>{_TOKENS}{_BASE}{_COMPONENTS}{_SIDEBAR}</style>",
                 unsafe_allow_html=True)

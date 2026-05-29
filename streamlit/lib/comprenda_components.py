@@ -54,13 +54,41 @@ def badge(score):
 # ---------------------------------------------------------------------------
 
 def sidebar_brand():
-    """Render the Comprenda wordmark above the page nav. Serif, roman, 700."""
+    """Render the Comprenda wordmark above the page nav. Serif, roman, 700.
+
+    Legacy single-call brand (auto-nav era). The app now uses render_sidebar()
+    on top of st.navigation; kept for any standalone use.
+    """
     st.sidebar.markdown(
         "<div style='font:700 32px/1 var(--serif); letter-spacing:-0.01em;"
         " color:var(--ink-strong); padding:12px 6px 2px;'>Comprenda</div>"
         "<div class='nu-kicker' style='padding:0 6px 10px; text-transform:none;"
         " letter-spacing:0;'>Don't translate. Understand.</div>",
         unsafe_allow_html=True)
+
+
+def render_sidebar(groups):
+    """Render the editorial grouped sidebar: wordmark → sections → footer.
+
+    ``groups`` is a list of ``(section_title, [(st.Page, glyph), ...])``. The
+    pages must already be registered in this run via ``st.navigation`` so
+    ``st.page_link`` can resolve + auto-highlight the active page. The glyph is
+    carried in the link label (st.Page icons reject arbitrary Unicode sigils).
+    """
+    with st.sidebar:
+        st.markdown(
+            "<div class='nu-brand-wm'>Comprenda</div>"
+            "<div class='nu-brand-tag'>Don't translate. Understand.</div>",
+            unsafe_allow_html=True)
+        for section, items in groups:
+            st.markdown(f"<div class='nu-nav-kicker'>{section}</div>",
+                        unsafe_allow_html=True)
+            for page, glyph in items:
+                st.page_link(page, label=f"{glyph} {page.title}")
+        st.markdown(
+            "<div class='nu-nav-footer'>"
+            "<span class='nu-dot'></span>Snowflake-native · Cortex"
+            "</div>", unsafe_allow_html=True)
 
 
 # ---------------------------------------------------------------------------

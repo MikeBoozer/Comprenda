@@ -31,6 +31,33 @@ workflow + this repo's existing direct-to-main pattern).
 | 8 | Other 6 pages: `inject_css()` + `page_header()` only | ✅ done |
 | 9 | `pages/2_Cultural_Translator.py` → full `ScreenTranslator` artboard | ✅ done |
 | 10 | Consistency pass: bodies of the 5 artboard-less pages | ✅ done |
+| 11 | Sidebar re-arch: `st.navigation` router + grouped glyph nav | ✅ done |
+
+**Step 11 — the sidebar re-architecture (operator-requested).** The grouped
+nav (Workbench / Analysis / Synthesis), glyph sigils, and wordmark-above-nav
+from the `screens.jsx` "Sidebar treatments · A" artboard are only reachable via
+the `st.navigation` API, so the app moved off Streamlit's filename auto-router:
+- `comprenda_app.py` is now a **router** — it declares every page with
+  `st.Page(...)`, calls `st.navigation(ordered_pages, position="hidden")`, then
+  renders the whole sidebar itself via `render_sidebar()` and `pg.run()`.
+- The home/Overview content moved to **`pages/0_Overview.py`** (the `default`
+  page). The numeric filenames are unchanged (no rename); order/grouping/labels
+  now come from `_NAV_SPEC` in the router, not from filenames.
+- Every page **dropped `st.set_page_config` and `sidebar_brand()`** — the router
+  owns global config and the sidebar (a page calling `set_page_config` under the
+  router would error). Pages still call `inject_css()` (idempotent).
+- Glyphs ride in the `st.page_link` **label** (`st.Page(icon=…)` rejects
+  arbitrary Unicode sigils); active highlight is `a[aria-current="page"]`.
+- This **resolves deferred-polish #1 and #2** below (wordmark position, Overview
+  label).
+- ⚠️ **DEPLOY RISK:** `st.navigation` needs the SiS Streamlit runtime ≥ 1.36.
+  The harness is 1.58 (verified: `AppTest` runs the router clean), but the
+  *deployed* SiS version is unverifiable until push — an older runtime will
+  fail to start. Confirm at deploy time. (See §6.)
+- Pending: the **Cortex omnibar** search box (operator approved: wire to the
+  existing Cortex Search now; `/` and `⌘K` shortcuts are **not feasible** under
+  the no-JS rule and were dropped — Streamlit has no keyboard API and strips
+  injected `<script>`).
 
 Step 8 gave all six remaining pages the shared chrome (theme + `page_header`)
 but left their **bodies** as raw Streamlit. Step 9 promoted Translator out of
@@ -115,16 +142,13 @@ Working agreement with the operator: small visual/microcopy discrepancies are
 *except* shared-component fixes (in `comprenda_theme.py` / `comprenda_components.py`),
 which are done on the spot because they propagate everywhere.
 
-1. **Sidebar wordmark position** — should sit **above** the auto page-nav, not
-   below. Tried reordering sidebar flex children via
-   `[data-testid="stSidebarUserContent"]`/`stSidebarNav`; **did not work** in
-   this Streamlit version (wrong flex parent) and was reverted. Needs the real
-   rendered sidebar DOM to target. (§10.1 "CSS that leaks under real Streamlit".)
-2. **Entry-page nav label** shows "Comprenda App"; should read "Overview".
-   Streamlit derives nav labels from filenames; `page_title` only sets the tab.
-   Fixing needs either an entry-file rename (spec pins it to `comprenda_app.py`)
-   or switching to the `st.navigation` API (re-architects the router). Decide
-   deliberately; don't hack.
+1. ✅ **RESOLVED (step 11).** Sidebar wordmark now sits above the nav —
+   `render_sidebar()` draws the entire sidebar on top of
+   `st.navigation(position="hidden")`, so order is fully under our control.
+2. ✅ **RESOLVED (step 11).** Nav labels now come from `st.Page(title=…)` in the
+   router (`_NAV_SPEC`), not from filenames — "Overview" reads correctly. This
+   took the `st.navigation` re-architecture, done deliberately at operator
+   request (not a hack).
 3. Items A–D in §3 above (real-data gaps) also surface in any final pass.
 4. **Divergence Matrix cell-click selection** (§6.3 "clicking a cell rerenders
    the aside") replaced with a **selectbox** for the pair. Altair cell-click via

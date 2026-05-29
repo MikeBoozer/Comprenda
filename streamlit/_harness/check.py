@@ -35,6 +35,7 @@ from streamlit.testing.v1 import AppTest  # noqa: E402
 
 DEFAULT_TARGETS = [
     "comprenda_app.py",
+    "pages/0_Overview.py",
     "pages/1_Pre_Launch_Risk.py",
     "pages/2_Cultural_Translator.py",
     "pages/3_Event_Explorer.py",

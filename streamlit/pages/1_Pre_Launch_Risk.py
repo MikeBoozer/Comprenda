@@ -15,13 +15,11 @@ from snowflake.snowpark.context import get_active_session
 from lib.comprenda_queries import call_plcs, list_languages, call_find_analogs
 from lib.comprenda_theme import inject_css
 from lib.comprenda_components import (
-    sidebar_brand, page_header, plcs_card, risk_band, analog, rec_band,
+    page_header, plcs_card, risk_band, analog, rec_band,
     pill, band_of, frame_label,
 )
 
-st.set_page_config(page_title="Pre-Launch Risk — Comprenda", layout="wide")
 inject_css()
-sidebar_brand()
 
 session = get_active_session()
 

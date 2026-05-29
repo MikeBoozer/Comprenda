@@ -11,12 +11,10 @@ import altair as alt
 from lib.comprenda_queries import list_event_tags, get_frame_distribution
 from lib.comprenda_theme import inject_css
 from lib.comprenda_components import (
-    sidebar_brand, page_header, section_head, frame_share_bar,
+    page_header, section_head, frame_share_bar,
 )
 
-st.set_page_config(page_title="Frame Distribution — Comprenda", page_icon="🎯", layout="wide")
 inject_css()
-sidebar_brand()
 session = get_active_session()
 
 page_header(

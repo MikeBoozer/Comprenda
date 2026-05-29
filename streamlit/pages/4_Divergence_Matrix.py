@@ -13,11 +13,9 @@ import pandas as pd
 
 from lib.comprenda_queries import list_event_tags
 from lib.comprenda_theme import inject_css
-from lib.comprenda_components import sidebar_brand, page_header, pill
+from lib.comprenda_components import page_header, pill
 
-st.set_page_config(page_title="Divergence Matrix — Comprenda", layout="wide")
 inject_css()
-sidebar_brand()
 
 session = get_active_session()
 

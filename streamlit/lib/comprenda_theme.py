@@ -195,6 +195,10 @@ _OMNI = """
 [data-testid="stPopover"] > button:hover {
   border-color: var(--ink-muted); background: var(--paper-card);
   color: var(--ink-muted); }
+
+/* Topbar breadcrumb (left of the omnibar) — quiet, so the headline dominates. */
+.nu-crumb { font: 500 12px/1.6 var(--mono); color: var(--ink-faint);
+            letter-spacing: 0.04em; }
 """
 
 

@@ -54,5 +54,15 @@ ordered_pages = [page for _section, items in groups for page, _glyph in items]
 pg = st.navigation(ordered_pages, position="hidden")
 inject_css()
 render_sidebar(groups)
-omnibar(get_active_session())
+
+# Top utility bar: breadcrumb (left) + quiet Cortex search pill (right), per the
+# artboard topbar — keeps each page's headline the dominant element.
+active_section = next(
+    (s for s, items in groups for p, _g in items if p.title == pg.title), "")
+crumb_l, crumb_r = st.columns([3, 1], vertical_alignment="center")
+crumb_l.markdown(
+    f"<div class='nu-crumb'>{active_section}{' / ' if active_section else ''}"
+    f"{pg.title}</div>", unsafe_allow_html=True)
+with crumb_r:
+    omnibar(get_active_session())
 pg.run()

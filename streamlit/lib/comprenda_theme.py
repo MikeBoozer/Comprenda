@@ -163,7 +163,7 @@ _SIDEBAR = """
   padding: 3px 12px 14px; border-bottom: 1px solid var(--rule); }
 [data-testid="stSidebar"] .nu-nav-kicker {
   font: 600 10px/1 var(--sans); text-transform: uppercase; letter-spacing: 0.14em;
-  color: var(--ink-faint); padding: 16px 12px 4px; }
+  color: var(--ink-faint); padding: 20px 12px 10px; }
 
 [data-testid="stSidebar"] [data-testid="stPageLink"] { margin: 0; }
 [data-testid="stSidebar"] [data-testid="stPageLink"] a {
@@ -188,7 +188,7 @@ _SIDEBAR = """
 # Scoped to stPopover, which is unique to the omnibar (no other popovers).
 _OMNI = """
 [data-testid="stPopover"] > button {
-  width: 100%; justify-content: flex-start; text-align: left;
+  width: 100%; max-width: 680px; justify-content: flex-start; text-align: left;
   background: var(--paper-card); border: 1px solid var(--rule-strong);
   color: var(--ink-faint); font-family: var(--sans); font-weight: 400;
   font-size: 13px; border-radius: 2px; padding: 9px 14px; letter-spacing: 0.01em; }

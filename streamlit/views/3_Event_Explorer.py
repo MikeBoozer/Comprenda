@@ -29,7 +29,8 @@ if not events:
     st.stop()
 
 st.markdown("<div class='nu-kicker'>Event</div>", unsafe_allow_html=True)
-event_tag = st.selectbox("Event", options=events, label_visibility="collapsed")
+_evcol, _ = st.columns([1, 2])
+event_tag = _evcol.selectbox("Event", options=events, label_visibility="collapsed")
 
 summary = get_event_summary(session, event_tag)
 if summary.empty:

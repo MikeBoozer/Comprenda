@@ -35,8 +35,9 @@ page_header(
 # ---------------------------------------------------------------------------
 st.session_state.setdefault("nsearch_q", "")
 st.markdown("<div class='nu-kicker'>Search</div>", unsafe_allow_html=True)
-q = st.text_input("Search query", key="nsearch_q", label_visibility="collapsed",
-                  placeholder="e.g. 'product launch reaction'")
+_qcol, _ = st.columns([2, 1])
+q = _qcol.text_input("Search query", key="nsearch_q", label_visibility="collapsed",
+                     placeholder="e.g. 'product launch reaction'")
 
 c1, c2, c3 = st.columns(3)
 with c1:
@@ -52,8 +53,9 @@ with c3:
     limit = st.slider("Max results", 5, 100, 25, label_visibility="collapsed")
 
 st.divider()
-search = st.button("Search", type="primary", use_container_width=True,
-                   disabled=(not q.strip()))
+_bcol, _ = st.columns([1, 3])
+search = _bcol.button("Search", type="primary", use_container_width=True,
+                      disabled=(not q.strip()))
 
 if search:
     with st.spinner("Searching…"):

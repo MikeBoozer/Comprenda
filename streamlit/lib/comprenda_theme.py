@@ -178,6 +178,11 @@ _SIDEBAR = """
   letter-spacing: 0.01em; }
 [data-testid="stSidebar"] [data-testid="stPageLink"] a:hover {
   background: var(--paper-deep); color: var(--ink-strong); }
+/* Active page link -> oxblood. NOTE (verified 2026-05-29): on SiS Streamlit 1.57
+   the active st.page_link <a> does NOT expose aria-current="page", so this rule is
+   inert on the deployed app and Streamlit's default darker-beige active state shows
+   instead -- accepted by the operator. !important is kept so oxblood wins if a future
+   runtime does expose aria-current; don't re-litigate without inspecting the live DOM. */
 [data-testid="stSidebar"] [data-testid="stPageLink"] a[aria-current="page"] {
   color: var(--risk) !important; background: var(--risk-bg) !important;
   border-left: 2px solid var(--risk) !important; font-weight: 600 !important; }

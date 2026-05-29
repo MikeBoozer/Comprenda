@@ -294,9 +294,10 @@ running app).
 > **Cutover done + A.1 PASSED (2026-05-29).** The redesign was deployed to real SiS via the
 > ADR-0004 repo→stage cutover (`VERSION$2`, `main_file = comprenda_app.py`); the Snowsight
 > workspace was decommissioned (deploy only via the `docs/09` CLI sequence — never the Deploy
-> button, which reverted the cutover once). App confirmed starting + rendering. Remaining: B–D
-> below, plus the known flat-CDS/duplicate-corpus data issue (ADR-0003) behind the repetitive
-> scores. Deploy via `docs/09`.
+> button, which reverted the cutover once). App confirmed starting + rendering on **Streamlit
+> 1.57.0**, title set to "Comprenda". **Part B done** (`VERSION$3`). **Part C** (costly proc
+> checks) remains, plus the known data issue — `cds_confidence` pinned at 1.0 (raw-count formula
+> × ~17× duplication; the *scores* themselves vary fine), see `docs/07` Finding C. Deploy via `docs/09`.
 
 **A. Blockers (app won't start / core breaks):**
 1. ✅ **PASSED.** **`st.navigation` support** — SiS Streamlit runtime is **≥ 1.36** (verified
@@ -307,16 +308,14 @@ running app).
    Cortex functions (COMPLETE / SEARCH_PREVIEW), and the diagnostics
    `CURRENT_*` + `MAX(ingested_at)` query.
 
-**B. CSS that targets version-specific testids (visual check):**
-4. Content cap (`stMainBlockContainer`/`.block-container` → 1280px centered),
-   omnibar + diagnostics panel width (`stPopoverBody` → 460px), active nav
-   highlight (`stPageLink` `a[aria-current="page"]` oxblood), hidden auto-nav
-   (`stSidebarNav`). If SiS's Streamlit differs from 1.58, any of these may
-   need a selector tweak.
-5. **Serif fallback** — confirm the wordmark/headings don't fall past
-   Iowan/Palatino to Georgia on a Windows VDI.
-6. **Snowsight chrome** — our layout/CSS doesn't collide with the Snowsight
-   wrapper.
+**B. CSS that targets version-specific testids — ✅ verified 2026-05-29 (SiS Streamlit 1.57.0):**
+4. ✅ Content cap (1280px, centered) good; popover width widened `460→505px` (`VERSION$3`);
+   hidden auto-nav good (single grouped nav only). **Exception:** the oxblood active-nav
+   (`a[aria-current="page"]`) is **inert on 1.57** — the active `st.page_link` `<a>` does not
+   expose `aria-current`, so Streamlit's default **darker-beige** active state shows. Operator
+   accepted beige; the `!important` rule is kept (see the note in `lib/comprenda_theme.py`).
+5. ✅ **Serif fallback** — wordmark/headings render serif (no Georgia fallback).
+6. ✅ **Snowsight chrome** — no overlap, clipping, or double-scrollbars.
 
 **C. Real proc/query output fits the layouts (fixtures were grounded but real
 output varies):**

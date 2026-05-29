@@ -106,7 +106,7 @@ def omnibar(session):
         with st.form("omni_form", clear_on_submit=False, border=False):
             q = st.text_input(
                 "Search the corpus", label_visibility="collapsed",
-                placeholder="e.g. what Japanese users said about the launch")
+                placeholder="Search posts across the corpus…")
             submitted = st.form_submit_button("Search", type="primary",
                                               use_container_width=True)
         if submitted:

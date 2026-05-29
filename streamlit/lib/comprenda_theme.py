@@ -82,6 +82,12 @@ h3 { font-size: 16px; line-height: 1.3; font-family: var(--sans); font-weight: 6
 
 /* Sidebar */
 [data-testid="stSidebar"] { background: var(--paper-card); border-right: 1px solid var(--rule); }
+
+/* Editorial content column — cap + center the main area so the page reads like
+   a publication, not a full-bleed dashboard. */
+[data-testid="stMainBlockContainer"], .block-container {
+  max-width: 1100px !important; margin-left: auto !important; margin-right: auto !important;
+}
 """
 
 # Custom component classes — used by st.markdown(unsafe_allow_html=True).
@@ -195,6 +201,9 @@ _OMNI = """
 [data-testid="stPopover"] > button:hover {
   border-color: var(--ink-muted); background: var(--paper-card);
   color: var(--ink-muted); }
+
+/* The popover panel needs room so the placeholder + form hint don't collide. */
+[data-testid="stPopoverBody"] { min-width: 460px; }
 
 /* Topbar breadcrumb (left of the omnibar) — quiet, so the headline dominates. */
 .nu-crumb { font: 500 12px/1.6 var(--mono); color: var(--ink-faint);

@@ -59,7 +59,7 @@ render_sidebar(groups)
 # artboard topbar — keeps each page's headline the dominant element.
 active_section = next(
     (s for s, items in groups for p, _g in items if p.title == pg.title), "")
-crumb_l, crumb_r = st.columns([3, 1], vertical_alignment="center")
+crumb_l, crumb_r = st.columns([2, 1], vertical_alignment="center")
 crumb_l.markdown(
     f"<div class='nu-crumb'>{active_section}{' / ' if active_section else ''}"
     f"{pg.title}</div>", unsafe_allow_html=True)

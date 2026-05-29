@@ -4,14 +4,19 @@ from snowflake.snowpark.context import get_active_session
 import altair as alt
 
 from lib.comprenda_queries import list_event_tags, get_frame_distribution
+from lib.comprenda_theme import inject_css
+from lib.comprenda_components import sidebar_brand, page_header
 
-st.set_page_config(page_title="Frame Distribution — Nuance", page_icon="🎯", layout="wide")
+st.set_page_config(page_title="Frame Distribution — Comprenda", page_icon="🎯", layout="wide")
+inject_css()
+sidebar_brand()
 session = get_active_session()
 
-st.title("🎯 Cultural Frame Distribution")
-st.caption(
-    "How does each language community frame this event? The bar charts below "
-    "show the % distribution across the 12-category cultural frame taxonomy."
+page_header(
+    "Frame analysis · taxonomy breakdown",
+    "Who's framing it, and how.",
+    "Side-by-side % distribution across the 12-category cultural frame taxonomy. "
+    "The single fastest way to see ideological fault lines.",
 )
 
 events = list_event_tags(session)

@@ -4,14 +4,18 @@ from snowflake.snowpark.context import get_active_session
 import altair as alt
 
 from lib.comprenda_queries import list_event_tags, get_event_summary
+from lib.comprenda_theme import inject_css
+from lib.comprenda_components import sidebar_brand, page_header
 
-st.set_page_config(page_title="Event Explorer — Nuance", page_icon="🗺️", layout="wide")
+st.set_page_config(page_title="Event Explorer — Comprenda", page_icon="🗺️", layout="wide")
+inject_css()
+sidebar_brand()
 session = get_active_session()
 
-st.title("🗺️ Event Explorer")
-st.caption(
-    "Pick an event. See how each language community reacted — sentiment, "
-    "dominant frame, post volume."
+page_header(
+    "Event intelligence · corpus overview",
+    "See how each market reacted.",
+    "Pick an event. Sentiment, dominant frame, and post volume — by language community.",
 )
 
 events = list_event_tags(session)

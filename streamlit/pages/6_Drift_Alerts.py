@@ -6,15 +6,19 @@ from lib.comprenda_queries import (
     list_tracked_entities, add_tracked_entity, list_languages,
     find_matching_events,
 )
+from lib.comprenda_theme import inject_css
+from lib.comprenda_components import sidebar_brand, page_header
 
-st.set_page_config(page_title="Drift Alerts — Nuance", page_icon="🔔", layout="wide")
+st.set_page_config(page_title="Drift Alerts — Comprenda", page_icon="🔔", layout="wide")
+inject_css()
+sidebar_brand()
 session = get_active_session()
 
-st.title("🔔 Cultural Drift Alerts")
-st.caption(
-    "Subscribe a brand, product, or event to ongoing monitoring. When CDS "
-    "between any pair of language communities spikes above your threshold, "
-    "you'll get an email (and Slack/PagerDuty on Brand+ tiers)."
+page_header(
+    "Cultural monitoring · drift alerts",
+    "Know before it becomes a story.",
+    "Subscribe a brand, product, or event. When divergence between any two markets "
+    "spikes above your threshold, you get the signal first.",
 )
 
 # ---------------------------------------------------------------------------

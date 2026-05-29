@@ -28,7 +28,7 @@ workflow + this repo's existing direct-to-main pattern).
 | 5 | `pages/1_Pre_Launch_Risk.py` → §6.2 (+ empty state) | ✅ done |
 | 6 | `pages/4_Divergence_Matrix.py` → §6.3 (Altair) | ✅ done |
 | 7 | `pages/8_AI_Brief.py` → §6.4 | ✅ done |
-| 8 | Other 5 pages: `inject_css()` + `page_header()` only | ⬜ todo |
+| 8 | Other 6 pages: `inject_css()` + `page_header()` only | ✅ done |
 
 ---
 

@@ -3,14 +3,19 @@ import streamlit as st
 from snowflake.snowpark.context import get_active_session
 
 from lib.comprenda_queries import call_translator, list_languages
+from lib.comprenda_theme import inject_css
+from lib.comprenda_components import sidebar_brand, page_header
 
-st.set_page_config(page_title="Cultural Translator — Nuance", page_icon="🌍", layout="wide")
+st.set_page_config(page_title="Cultural Translator — Comprenda", page_icon="🌍", layout="wide")
+inject_css()
+sidebar_brand()
 session = get_active_session()
 
-st.title("🌍 Cultural Translator")
-st.caption(
-    "Beyond translation. Produces culturally-adapted variants that preserve "
-    "intent but shift cultural frame — ready to drop into your marketing workflow."
+page_header(
+    "Cultural translation · content adaptation",
+    "Adapt without losing the point.",
+    "Frame-preserving variants that shift cultural register without distorting "
+    "intent — ready to drop into your marketing workflow.",
 )
 
 # Pre-fill from PLCS page if available

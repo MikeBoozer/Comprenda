@@ -4,15 +4,19 @@ import streamlit as st
 from snowflake.snowpark.context import get_active_session
 
 from lib.comprenda_queries import call_find_analogs, list_languages
+from lib.comprenda_theme import inject_css
+from lib.comprenda_components import sidebar_brand, page_header
 
-st.set_page_config(page_title="Analog Retrieval — Nuance", page_icon="🧭", layout="wide")
+st.set_page_config(page_title="Analog Retrieval — Comprenda", page_icon="🧭", layout="wide")
+inject_css()
+sidebar_brand()
 session = get_active_session()
 
-st.title("🧭 Analog Retrieval")
-st.caption(
-    "Find historical campaign and product-launch divergence patterns that "
-    "resemble your current event or content. Pattern matching is a uniquely "
-    "powerful narrative device — and one no incumbent offers."
+page_header(
+    "Pattern intelligence · historical analogs",
+    "What happened last time.",
+    "Find historical divergence patterns that resemble your current event or content. "
+    "Nameable precedents your stakeholders can act on.",
 )
 
 query = st.text_area(

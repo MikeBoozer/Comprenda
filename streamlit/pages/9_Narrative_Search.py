@@ -3,6 +3,8 @@ import streamlit as st
 from snowflake.snowpark.context import get_active_session
 
 from lib.comprenda_queries import narrative_search, list_languages
+from lib.comprenda_theme import inject_css
+from lib.comprenda_components import sidebar_brand, page_header
 
 FRAMES = [
     "individualist", "collectivist", "nationalist", "globalist",
@@ -10,14 +12,16 @@ FRAMES = [
     "status_quo", "reform_seeking", "spiritual_ethical", "pragmatic", "ambiguous",
 ]
 
-st.set_page_config(page_title="Narrative Search — Nuance", page_icon="🔍", layout="wide")
+st.set_page_config(page_title="Narrative Search — Comprenda", page_icon="🔍", layout="wide")
+inject_css()
+sidebar_brand()
 session = get_active_session()
 
-st.title("🔍 Narrative Search")
-st.caption(
-    "Search across all enriched content. Filters: language, cultural frame. "
-    "Useful for ad-hoc investigation when a stakeholder asks "
-    "'show me everything Japanese users said about X with a threat frame'."
+page_header(
+    "Corpus intelligence · narrative search",
+    "Find what communities actually said.",
+    "Hybrid search across enriched content. Filter by language and cultural frame — "
+    "the fast path when a stakeholder asks 'show me everything X users said about Y with a threat frame'.",
 )
 
 q = st.text_input("Search query", placeholder="e.g. 'product launch reaction'")

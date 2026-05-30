@@ -3,11 +3,21 @@
 > Living log of the UI/UX redesign implementation (the `Claude-Code-Handoff.md`
 > build). Records what was **changed or omitted** versus the spec and **why**,
 > plus things a future session must know before continuing. Update this as you
-> go. Last updated: **2026-05-28**.
+> go. Last updated: **2026-05-30**.
 
-The companion design source is `design/Claude-Code-Handoff.md` (the spec) and
-`design/index.html` + `design/screens.jsx` (the artboards). Section references
-below (§) point into the handoff.
+The companion design source is `design/Claude-Code-Handoff.md` (the spec); the
+preview artboards (`index.html`, `screens.jsx`, `design-canvas.jsx`, `tokens.css`)
+are kept in this folder as **frozen reference, not live code** — see
+`design/README.md` for what's canonical vs reference. Section references below (§)
+point into the handoff.
+
+> **`design/tokens.css` is NOT canonical.** It is the original mockup token sheet;
+> the live design tokens are implemented in `streamlit/lib/comprenda_theme.py`
+> (`inject_css`). Editing `tokens.css` does not change the app — change tokens in
+> `streamlit/lib/` and optionally mirror them here so this stays a faithful
+> snapshot. The `.jsx`/`.html` artboards are React/HTML previews and don't run in
+> the Streamlit app. (All distinct from `streamlit/_harness/`, the live mock-data
+> app preview, which stays in active use.)
 
 ---
 

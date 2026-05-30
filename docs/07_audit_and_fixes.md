@@ -58,6 +58,7 @@ These are not bugs in the code — they are environmental sensitivities you may 
 5. **Cortex Analyst `MANY_TO_MANY` relationship.** The semantic model uses one M2M relationship between `enriched_content` and `cds_scores` via `event_tag`. If Cortex Analyst's YAML validator rejects this, switch the relationship to `MANY_TO_ONE` and model an intermediate `events` dimension table.
 6. **Streamlit-in-Snowflake import of `lib/`.** The deploy creates `streamlit/lib/__init__.py` (already in repo). If Streamlit can't import `nuance_queries`, double-check that the `lib/` folder structure is preserved in the Snowflake-side file tree.
 7. **Email integration for Drift Alerts.** `09_alerts_and_tasks.sql` creates a notification integration without an `ALLOWED_RECIPIENTS` allow-list. If your account requires it, add `ALLOWED_RECIPIENTS = ('you@example.com', ...)` to the integration definition before resuming the task.
+8. **`load_to_snowflake.py --mode overwrite` fails on `POST_TIMESTAMP`.** With `overwrite`, `write_pandas` serialized the datetime column as `NUMBER`, which the existing `TIMESTAMP_NTZ` column rejects (`Expression type does not match column data type`). Observed during the 2026-05-30 data rebuild. **Workaround:** `TRUNCATE TABLE … SOCIAL_POSTS` first, then load with `--mode append` (the append path serializes timestamps correctly). The append path is also what `docs/03_runbook.md`/`QUICKSTART.md` use.
 
 ---
 

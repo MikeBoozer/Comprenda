@@ -76,7 +76,9 @@ def _aside_rows(row):
         ("Frame divergence", f"{row['HEADLINE_SCORE']:.2f}"),
         ("Sentiment divergence", f"{row['SENTIMENT_DIVERGENCE']:.2f}"),
         ("Topical overlap", f"{row['TOPICAL_OVERLAP']:.2f}"),
-        ("Confidence", f"{row['CDS_CONFIDENCE']:.2f}"),
+        # Sample-size sufficiency (min posts / saturation), NOT statistical confidence.
+        # Honest label pending a bootstrap-CI upgrade (docs/10 #4b).
+        ("Sample sufficiency", f"{row['CDS_CONFIDENCE']:.2f}"),
     ]
     return "".join(
         "<div style='display:flex; justify-content:space-between; padding:3px 0;'>"

@@ -49,7 +49,7 @@ as state changes.
    `cultural_divergence_scores` DDL; config seed + `tracked_entities` drift defaults moved
    from the old 0.35/0.55 centroid scale to the multi-axis scale).
 
-*Decision gate before native-app packaging:*
+*Decision gates (pre-Marketplace metric / data polish):*
 4a. ❓ **DECIDE (ask Mike): expand demo-corpus lexical variety?** The dedup rebuild (#2) left the
    corpus honest but **template-thin** — ~5 phrasings per (language, frame), so one template
    rendered across 8 events yields near-identical Narrative Search results (e.g. "What an
@@ -64,6 +64,19 @@ as state changes.
    - **Hard ordering constraint:** if done at all, it must land **before #6 bundles the corpus**
      into the Marketplace package — otherwise the thin corpus ships and has to be re-bundled.
      Pull it forward only if recording demo footage that spotlights Narrative Search.
+4b. ❓ **DECIDE (ask Mike): replace the sample-size confidence heuristic with a statistically
+   grounded measure?** `cds_confidence = LEAST(min(distinct_posts)/25, 1.0)`
+   (`07_cds_computation.sql`) is a transparent sample-size **sufficiency** proxy, not a
+   statistical confidence measure — arbitrary saturation, linear (not 1/√n) scaling, and not
+   tied to the sampling variance of the JSD it annotates. **Relabeled honestly 2026-05-30**
+   (matrix aside + AI Brief now read "sample sufficiency"; brief prompt → `ai-brief-v3`) as a
+   stopgap so we don't overclaim.
+   - **Statistically defensible upgrade:** bootstrap the JSD per (event, language pair) —
+     resample posts with replacement, recompute JSD a few hundred times, derive confidence from
+     the CI width / standard error. Compute-only (no Cortex), and coherent with the existing
+     Dirichlet smoothing (`frame_smoothing_alpha`).
+   - **Timing:** before putting the matrix/brief in front of methodology-savvy buyers; **not**
+     gated on corpus bundling. Recommended for credibility (the pitch is methodological rigor).
 
 *Native-app packaging (from [ADR-0001](decisions/0001-native-app-distribution-with-demo-data.md)):*
 5. **Re-target schemas** — procedures + Streamlit from `NUANCE_DB.*` to `app_data.*`,

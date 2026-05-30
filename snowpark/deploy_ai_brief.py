@@ -17,7 +17,7 @@ from snowflake.snowpark.types import StringType, VariantType
 from deploy import get_session
 
 
-BRIEF_PROMPT_VERSION = "ai-brief-v2"
+BRIEF_PROMPT_VERSION = "ai-brief-v3"
 
 
 def generate_brief(
@@ -81,7 +81,9 @@ def generate_brief(
             "frame_divergence": round(float(r["FRAME_DIVERGENCE"]), 3),
             "sentiment_divergence": round(float(r["SENTIMENT_DIVERGENCE"]), 3),
             "topical_overlap": round(float(r["TOPICAL_OVERLAP"]), 3),
-            "confidence": round(float(r["CDS_CONFIDENCE"]), 2),
+            # Sample-size sufficiency in [0,1] (min posts / saturation), NOT statistical
+            # confidence. Renamed so the brief stops narrating it as "confidence".
+            "sample_sufficiency": round(float(r["CDS_CONFIDENCE"]), 2),
         }
         for r in cds_rows[:15]
     ]
@@ -150,7 +152,10 @@ def generate_brief(
         "frame_divergence (how differently they frame it — the headline signal), and "
         "sentiment_divergence (how differently they feel). 'situation' summarizes the "
         "pair: Aligned / Divergent / 'Shared lens, split mood' / "
-        "'Same verdict, different reasons'.\n\n"
+        "'Same verdict, different reasons'. Each pair also carries sample_sufficiency in "
+        "[0,1] — a normalized function of how many posts back that pair (data volume), "
+        "NOT a statistical confidence measure. Treat it as how much data supports the "
+        "reading; never describe it as statistical confidence or certainty.\n\n"
         "Write the brief in Markdown with exactly these sections:\n"
         "1. **Executive Summary** (2-3 sentences)\n"
         "2. **Key Cultural Divergences** (table: language pair, situation, frame "
@@ -160,7 +165,8 @@ def generate_brief(
         "3. **Dominant Frames by Region** (one line per language)\n"
         "4. **Risk Flags** (3-5 bullet points of specific cultural risks)\n"
         "5. **Messaging Recommendations** (one paragraph per target language)\n"
-        "6. **Confidence Notes** (one short paragraph on sample size and certainty)\n\n"
+        "6. **Data & Sample-Size Notes** (one short paragraph on how much data backs "
+        "these findings — sample-size adequacy, not statistical confidence)\n\n"
         "Be specific. Quote concrete frame combinations. Do not hedge excessively."
     )
 

@@ -68,6 +68,8 @@ as state changes.
 *Native-app packaging (from [ADR-0001](decisions/0001-native-app-distribution-with-demo-data.md)):*
 5. **Re-target schemas** — procedures + Streamlit from `NUANCE_DB.*` to `app_data.*`,
    parameterized so one codebase serves both the dev instance and the app.
+   Write `setup_script` idempotent + migration-safe (consumer data persists across upgrades);
+   open this work with a 10-min upgrade-readiness pass over `manifest.yml` + `setup_script.sql`.
 6. **Apply the security / data-privacy guardrails** (ADR-0001, "binding for the build"):
    bundle only synthetic data + enrichment + analog corpus; **exclude** `tracked_entities`
    (real owner email), `pre_launch_risk_scores`, `cultural_translator_runs`, `ai_briefs`,

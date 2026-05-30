@@ -1,0 +1,9 @@
+# Dependencies for the PUBLIC DEMO (streamlit/demo_app.py) on Streamlit Community
+# Cloud / Hugging Face Spaces. Deliberately light: the demo runs on fixture data
+# and stubs Snowflake, so no snowflake-snowpark-python is needed.
+#
+# (The in-Snowflake app uses streamlit/environment.yml instead — that's the SiS
+# package set and is unrelated to this demo deploy.)
+streamlit>=1.40,<2
+pandas>=2.0
+altair>=5.0

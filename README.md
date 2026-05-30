@@ -8,6 +8,31 @@ The wedge buyer at launch is **global brand and marketing teams** at mid-market 
 
 ---
 
+## See it run
+
+> **Live demo:** _‹paste your Streamlit Community Cloud URL here›_ · **2-min walkthrough:** _‹paste your video link here›_
+
+The product is a **Streamlit-in-Snowflake** app (branded **Comprenda**; the repo name predates the rename). Two ways to see it:
+
+- **Hosted demo — no Snowflake needed.** A fully interactive build on illustrative sample data, served from [`streamlit/demo_app.py`](streamlit/demo_app.py). Every page renders; the LLM-powered features (Pre-Launch Risk, Cultural Translator, AI Brief) show curated example outputs. It stubs the Snowflake connection, so it runs anywhere.
+- **The real thing — inside Snowflake on Cortex.** Live multilingual embeddings, frame classification, Cortex Search, and Claude (via Cortex). `docs/12_post_rebuild_render_checklist.md` describes what each screen shows.
+
+<!-- Screenshots: add 2-3 once captured, e.g.:
+![Divergence matrix](docs/img/divergence_matrix.png)
+![AI brief](docs/img/ai_brief.png) -->
+
+**Run the demo locally (no Snowflake, no credentials):**
+
+```bash
+cd streamlit
+pip install -r requirements.txt
+streamlit run demo_app.py
+```
+
+**Deploy it yourself (free):** [Streamlit Community Cloud](https://share.streamlit.io) → *New app* → this repo, branch `main`, **main file `streamlit/demo_app.py`**. It uses the light `streamlit/requirements.txt` (streamlit + pandas + altair) and serves fixture data — no Snowflake account or secrets. (Hugging Face Spaces works the same way.)
+
+---
+
 ## What's in this repo
 
 ```

@@ -168,7 +168,10 @@ with right:
 st.divider()
 
 generate = st.button("Generate adapted variants", type="primary",
-                     use_container_width=True, disabled=is_empty)
+                     use_container_width=True)
+if generate and not source_content.strip():
+    st.warning("Enter source content to adapt.")
+    generate = False
 
 # ---------------------------------------------------------------------------
 # Generate → persist results so they survive the re-score rerun.

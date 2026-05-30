@@ -133,8 +133,16 @@ with right:
 
 st.divider()
 
-run = st.button("Score cultural risk", type="primary", use_container_width=True,
-                disabled=(is_empty or not target_markets))
+run = st.button("Score cultural risk", type="primary", use_container_width=True)
+# Validate on click rather than disabling the button: a disabled button gated on
+# a text field needs two clicks (the first only commits the text), so keep it
+# enabled and guard here instead.
+if run and not draft.strip():
+    st.warning("Enter a draft to score.")
+    run = False
+elif run and not target_markets:
+    st.warning("Pick at least one target market.")
+    run = False
 
 # ---------------------------------------------------------------------------
 # Score → persist results in session_state so they survive reruns.

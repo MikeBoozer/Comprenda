@@ -80,8 +80,12 @@ with right:
     k = st.slider("Number of analogs", 3, 10, 5, label_visibility="collapsed")
 
 st.divider()
-find = st.button("Find analogs", type="primary", use_container_width=True,
-                 disabled=(not query.strip()))
+find = st.button("Find analogs", type="primary", use_container_width=True)
+# Validate on click (not via disabled=) — a disabled text-gated button needs two
+# clicks; the first only commits the text. Keep enabled, guard here.
+if find and not query.strip():
+    st.warning("Describe a campaign or situation to find analogs for.")
+    find = False
 
 if find:
     with st.spinner("Searching analog library…"):

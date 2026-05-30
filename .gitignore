@@ -57,3 +57,6 @@ archive/workspace_nuance_app_snapshot_*/
 
 # Claude Code internal state
 .claude/
+
+# Design canvas tool local view-state (titles/labels for the preview canvas; not a deliverable)
+design/.design-canvas.state.json

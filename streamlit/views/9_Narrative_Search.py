@@ -33,40 +33,46 @@ page_header(
 # ---------------------------------------------------------------------------
 # Query + filters
 # ---------------------------------------------------------------------------
+# One st.form so (a) pressing Enter in the query box submits the search, and
+# (b) the query + all filters are captured ATOMICALLY on submit — clearing a
+# filter and re-submitting always re-queries with the current selection, rather
+# than leaving stale results from a previous run.
 st.session_state.setdefault("nsearch_q", "")
-st.markdown("<div class='nu-kicker'>Search</div>", unsafe_allow_html=True)
-_qcol, _bcol = st.columns([3, 1], vertical_alignment="bottom")
-q = _qcol.text_input("Search query", key="nsearch_q", label_visibility="collapsed",
-                     placeholder="e.g. 'product launch reaction'")
-search = _bcol.button("Search", type="primary", use_container_width=True)
-if search and not q.strip():
-    st.warning("Enter a search query.")
-    search = False
+with st.form("nsearch_form", border=False):
+    st.markdown("<div class='nu-kicker'>Search</div>", unsafe_allow_html=True)
+    _qcol, _bcol = st.columns([3, 1], vertical_alignment="bottom")
+    q = _qcol.text_input("Search query", key="nsearch_q", label_visibility="collapsed",
+                         placeholder="e.g. 'product launch reaction' — press Enter or Search")
+    submitted = _bcol.form_submit_button("Search", type="primary", use_container_width=True)
 
-c1, c2, c3 = st.columns(3)
-with c1:
-    st.markdown("<div class='nu-kicker'>Languages</div>", unsafe_allow_html=True)
-    langs = st.multiselect("Languages", options=list_languages(session),
-                           label_visibility="collapsed")
-with c2:
-    st.markdown("<div class='nu-kicker'>Frames</div>", unsafe_allow_html=True)
-    frames = st.multiselect("Frames", options=FRAMES, format_func=frame_label,
-                            label_visibility="collapsed")
-with c3:
-    st.markdown("<div class='nu-kicker'>Max results</div>", unsafe_allow_html=True)
-    limit = st.slider("Max results", 5, 100, 25, label_visibility="collapsed")
+    c1, c2, c3 = st.columns(3)
+    with c1:
+        st.markdown("<div class='nu-kicker'>Languages</div>", unsafe_allow_html=True)
+        langs = st.multiselect("Languages", options=list_languages(session),
+                               label_visibility="collapsed")
+    with c2:
+        st.markdown("<div class='nu-kicker'>Frames</div>", unsafe_allow_html=True)
+        frames = st.multiselect("Frames", options=FRAMES, format_func=frame_label,
+                                label_visibility="collapsed")
+    with c3:
+        st.markdown("<div class='nu-kicker'>Max results</div>", unsafe_allow_html=True)
+        limit = st.slider("Max results", 5, 100, 25, label_visibility="collapsed")
 
 st.divider()
 
-if search:
-    with st.spinner("Searching…"):
-        try:
-            df = narrative_search(session, q.strip(), langs, frames, limit)
-        except Exception as exc:
-            st.error(f"Failed: {exc}")
-            df = None
-    if df is not None:
-        st.session_state["nsearch_results"] = {"df": df, "q": q.strip()}
+if submitted:
+    if not q.strip():
+        st.warning("Enter a search query.")
+    else:
+        with st.spinner("Searching…"):
+            try:
+                df = narrative_search(session, q.strip(), langs, frames, limit)
+            except Exception as exc:
+                st.error(f"Failed: {exc}")
+                df = None
+        if df is not None:
+            # Always overwrite, so a new query or cleared filters replace prior results.
+            st.session_state["nsearch_results"] = {"df": df, "q": q.strip()}
 
 
 # ===========================================================================

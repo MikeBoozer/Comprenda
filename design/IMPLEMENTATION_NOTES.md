@@ -300,8 +300,8 @@ running app).
 > ADR-0004 repo→stage cutover (`VERSION$2`, `main_file = comprenda_app.py`); the Snowsight
 > workspace was decommissioned (deploy only via the `docs/09` CLI sequence — never the Deploy
 > button, which reverted the cutover once). App confirmed starting + rendering on **Streamlit
-> 1.57.0**, title set to "Comprenda". **Deploy-QA A+B+C all PASSED (2026-05-29)** through `VERSION$3`; only D13 (legal
-> text) is open. The known data issue remains — `cds_confidence` pinned at 1.0 (raw-count formula
+> 1.57.0**, title set to "Comprenda". **Deploy-QA A+B+C all PASSED + browser-render-verified
+> (2026-05-29)** through `VERSION$8`; only D13 (legal text) is open. The known data issue remains — `cds_confidence` pinned at 1.0 (raw-count formula
 > × ~17× duplication; *scores* vary fine; the AI Brief even narrates it as a strength), see
 > `docs/07` Finding C. Remaining project work: data rebuild + native-app build. Deploy via `docs/09`.
 
@@ -339,16 +339,22 @@ running app).
 `cds_confidence=1.0` and the duplicated sample sizes (562/312/250) as a credibility *strength* —
 another reason the data rebuild matters (see `docs/07` Finding C). Layouts are unaffected.
 
-**Verification scope:** contract-level via CLI, then an operator browser render click-through
-(2026-05-29). **#1 PLCS + #2 Translator confirmed clean** (incl. tied-marker stacking); **#5
-omnibar/diagnostics good**. The check surfaced + fixed render bugs across `VERSION$4`–`$7`:
-risk_band marker nudge was a silent no-op (tied markets hid each other), pills covered the text
-above the band, the re-score button was too tight, AI-Brief figure spacing, and the **analog
-per-character pill bug** (`failure_frames`/`affected_markets` come back as JSON *strings* and were
-iterated per character). **#3 AI Brief + #4 Analogs fixes deployed in `VERSION$7`, pending final
-operator re-confirm.** Item 8 (re-score) is exercised for real. (Caption wrap on the divergence
-figure left as-is: one-lining it needs widening the shared section-head or truncating the table
-name — both worse than a clean two-line caption.)
+**Verification scope:** contract-level via CLI, then a full operator **browser render
+click-through (2026-05-29) — all of #1–#5 verified clean** through `VERSION$8`. The pass found
+and fixed **six render/UX issues the contract checks structurally couldn't**:
+1. risk_band marker nudge was a silent no-op, so tied markets hid each other (`V4`/`V6`);
+2. marker pills covered the text above the band — no reserved headroom (`V4`);
+3. re-score button too tight (`V5`);
+4. AI-Brief lower-figure spacing (`V7`);
+5. **analog per-character pills** — `FIND_ANALOGS` returns `failure_frames`/`affected_markets`
+   as JSON *strings*; the card iterated them per character (fixed with `_as_list`, `V7`);
+6. the **two-click "wasted first click"** on every text-gated button — `disabled=` on a text
+   field needs two clicks (the first only commits the text, showing a not-allowed cursor), so
+   PLCS / Translator / Analog / Narrative Search now validate on click instead (`V8`).
+
+Item 8 (re-score) is exercised for real. The divergence-figure caption's two-line wrap was left
+as-is (one-lining needs a shared-component change or truncating the table name). **Part C fully
+verified.**
 
 **D. Operational:**
 12. ✅ **Credit guard** — ~41 credits used of the ~$400 trial ($281 left); the WAREHOUSE resource

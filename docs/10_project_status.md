@@ -49,6 +49,22 @@ as state changes.
    `cultural_divergence_scores` DDL; config seed + `tracked_entities` drift defaults moved
    from the old 0.35/0.55 centroid scale to the multi-axis scale).
 
+*Decision gate before native-app packaging:*
+4a. ❓ **DECIDE (ask Mike): expand demo-corpus lexical variety?** The dedup rebuild (#2) left the
+   corpus honest but **template-thin** — ~5 phrasings per (language, frame), so one template
+   rendered across 8 events yields near-identical Narrative Search results (e.g. "What an
+   opportunity! the new iPhone / the rebrand / the final just dropped"). Not a bug (rows are
+   distinct); it's the small authored template pool. The **hero features (Divergence Matrix, AI
+   Brief) don't depend on lexical variety** and are already credible, so this is optional —
+   weigh it against whether Narrative Search is spotlighted in demos.
+   - **If yes:** generate richer native-language posts per (event, language, frame) — Cortex-
+     generate is the scalable, on-brand path — then reload → re-run embed→classify→CDS →
+     re-derive `cds_confidence_saturation` + verify thresholds → refresh `docs/12` expected
+     values. ~1 credit, same loop as the 2026-05-30 rebuild.
+   - **Hard ordering constraint:** if done at all, it must land **before #6 bundles the corpus**
+     into the Marketplace package — otherwise the thin corpus ships and has to be re-bundled.
+     Pull it forward only if recording demo footage that spotlights Narrative Search.
+
 *Native-app packaging (from [ADR-0001](decisions/0001-native-app-distribution-with-demo-data.md)):*
 5. **Re-target schemas** — procedures + Streamlit from `NUANCE_DB.*` to `app_data.*`,
    parameterized so one codebase serves both the dev instance and the app.

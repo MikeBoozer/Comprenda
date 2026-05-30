@@ -140,7 +140,8 @@ thresholds AS (
     -- TO_DOUBLE, not TO_NUMBER: these are decimals; TO_NUMBER would round them to 0.
     SELECT
         (SELECT TO_DOUBLE(config_value) FROM internal.config WHERE config_key = 'frame_div_threshold') AS fdt,
-        (SELECT TO_DOUBLE(config_value) FROM internal.config WHERE config_key = 'sentiment_div_threshold') AS sdt
+        (SELECT TO_DOUBLE(config_value) FROM internal.config WHERE config_key = 'sentiment_div_threshold') AS sdt,
+        (SELECT TO_DOUBLE(config_value) FROM internal.config WHERE config_key = 'cds_confidence_saturation') AS csat
 )
 SELECT
     UUID_STRING(),
@@ -150,7 +151,7 @@ SELECT
     a.post_count,
     b.post_count,
     j.jsd,                                                            -- cds_score (= headline)
-    LEAST(LEAST(a.post_count, b.post_count) / 100.0, 1.0),            -- cds_confidence
+    LEAST(LEAST(a.post_count, b.post_count) / t.csat, 1.0),          -- cds_confidence (saturation from config; post_count == distinct posts on the dedup'd corpus)
     1 - nuance_db.outputs.cosine_distance(a.centroid, b.centroid),    -- topical_overlap
     j.jsd,                                                            -- frame_divergence
     LEAST(ABS(sa.mean_sentiment - sb.mean_sentiment) / 2.0, 1.0),     -- sentiment_divergence

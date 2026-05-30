@@ -28,12 +28,26 @@ as state changes.
    orphans removed, `MAIN_FILE = comprenda_app.py`, committed as `VERSION$2`, and the Snowsight
    workspace emptied so its Deploy button can't revert it. **Confirmed live + rendering on real
    SiS** (`st.navigation` runtime ≥1.36 verified). Git-backed deploy deferred to Marketplace-prep.
-2. **Rebuild the demo corpus** — it is ~17× unevenly duplicated; verify the divergence
-   signal. See [`07_audit_and_fixes.md`](07_audit_and_fixes.md) "Data-quality findings"
-   (includes re-measurement queries).
-3. **Re-derive divergence thresholds** from the rebuilt data and update `internal.config`.
-4. **Update CDS references** in `semantic_model/nuance_semantic_model.yaml` and
-   `native_app/setup_script.sql` to the multi-axis model.
+2. ✅ **DONE (2026-05-30).** Rebuilt the demo corpus dedup'd at source —
+   `data/generate_demo_data.py` now emits **one row per distinct `post_text` per
+   (event, language)** (deterministic enumeration of the frame-template inventory; the
+   weighted-sampling/`build_tendencies` machinery is gone, and English-fallback rows for
+   tendency frames a language had no template for are no longer emitted). Live corpus is
+   now **1,440 rows / 1,440 distinct** (was 24,960 / 1,434). Re-embedded + re-classified +
+   recomputed CDS on the live `NUANCE_DB` (≈1 credit vs the old ~15). All 528 language
+   pairs survive; headline JSD range unchanged (0.013–0.483).
+3. ✅ **DONE (2026-05-30).** `cds_confidence` was the only degenerate metric (Finding C):
+   a new `internal.config` key `cds_confidence_saturation` (=25) replaces the hardcoded
+   `/100.0` in `07_cds_computation.sql`. Confidence now spans **0.4 / 0.6 / 0.8** by sample
+   size (was a flat 1.0); the AI Brief narrates it honestly (no more "1.0 across all pairs /
+   English (562)"). The frame-JSD thresholds (0.23 / 0.34) were **verified unchanged** —
+   the CDS SQL already deduped internally, so the rebuild didn't move the JSD distribution.
+4. ✅ **DONE (2026-05-30).** Updated the multi-axis CDS references:
+   `semantic_model/nuance_semantic_model.yaml` (description → frame-JSD headline + 0.23/0.34,
+   added `situation_label` dimension and frame/sentiment/topical measures) and
+   `native_app/setup_script.sql` (added the multi-axis columns to the bundled
+   `cultural_divergence_scores` DDL; config seed + `tracked_entities` drift defaults moved
+   from the old 0.35/0.55 centroid scale to the multi-axis scale).
 
 *Native-app packaging (from [ADR-0001](decisions/0001-native-app-distribution-with-demo-data.md)):*
 5. **Re-target schemas** — procedures + Streamlit from `NUANCE_DB.*` to `app_data.*`,

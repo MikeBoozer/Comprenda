@@ -70,6 +70,10 @@ ADR-0002 reconciliation / native-app data-bundling work, not a piecemeal patch.
 
 ### Finding A — the demo corpus is heavily and *unevenly* duplicated
 
+> ✅ **RESOLVED 2026-05-30.** `data/generate_demo_data.py` now dedups at source (one row
+> per distinct `post_text` per event/language). Live corpus rebuilt to **1,440 rows /
+> 1,440 distinct** — duplication eliminated. The numbers below are the pre-rebuild state.
+
 `raw_data.social_posts` / `enriched.cultural_frames` hold **24,960 rows but only ~1,434
 distinct `post_text`** (≈17× average duplication; same text, distinct `post_id`). The
 duplication is **not uniform**: by language **10.4× (ru) → 28.1× (en)**; by frame
@@ -116,6 +120,11 @@ over **raw** post counts. With Finding A's ~17–28× duplication every language
 ~0.15–0.20 — informative and varied. The JSD headline is unaffected because it uses **normalized**
 frame distributions (uniform duplication cancels), so score and confidence meet opposite fates on
 the same corpus.
+
+> ✅ **RESOLVED 2026-05-30.** Corpus dedup'd at source; `07_cds_computation.sql` now reads
+> a `cds_confidence_saturation` config key (=25) instead of the hardcoded `/100.0`. Live
+> `cds_confidence` now spans **0.4 / 0.6 / 0.8** by sample size (was a flat 1.0), and the AI
+> Brief narrates it honestly. The frame-JSD thresholds were verified unchanged.
 
 **Fix (data-rebuild scope):** dedup the corpus (one row per distinct `post_text` per
 event/language), recompute `cds_confidence` on distinct-text counts, and re-derive the `/100`

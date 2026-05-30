@@ -35,8 +35,12 @@ USING (
         ('model_small',     'mistral-7b',                    'Bulk classification'),
         ('embedding_model', 'snowflake-arctic-embed-l-v2.0', '1024-dim multilingual'),
         ('embedding_dims',  '1024',                          'Vector dims'),
-        ('cds_threshold',   '0.35',                          'CDS meaningful'),
-        ('cds_risk',        '0.55',                          'CDS risk signal'),
+        ('frame_div_threshold',       '0.23',                'frame_divergence (JSD headline) >= this = meaningful [ADR-0003]'),
+        ('frame_div_risk',            '0.34',                'frame_divergence (JSD headline) >= this = cultural risk signal'),
+        ('sentiment_div_threshold',   '0.13',                'sentiment_divergence >= this = markets feel differently'),
+        ('frame_smoothing_alpha',     '0.5',                 'Dirichlet/Laplace alpha for frame-distribution smoothing. Read with TO_DOUBLE'),
+        ('min_posts_for_centroid',    '10',                  'Min posts/lang/event for a valid CDS pair'),
+        ('cds_confidence_saturation', '25',                  'cds_confidence = LEAST(min(posts_a,posts_b)/this, 1.0)'),
         ('plcs_high_risk',  '60',                            'PLCS high-risk'),
         ('plcs_critical',   '80',                            'PLCS critical')
     AS s(config_key, config_value, notes)
@@ -74,15 +78,20 @@ CREATE TABLE IF NOT EXISTS app_data.cultural_frames (
 );
 
 CREATE TABLE IF NOT EXISTS app_data.cultural_divergence_scores (
-    cds_id          VARCHAR PRIMARY KEY,
-    event_tag       VARCHAR,
-    language_a      VARCHAR(8),
-    language_b      VARCHAR(8),
-    posts_lang_a    INTEGER,
-    posts_lang_b    INTEGER,
-    cds_score       FLOAT,
-    cds_confidence  FLOAT,
-    computed_at     TIMESTAMP_NTZ DEFAULT CURRENT_TIMESTAMP()
+    cds_id              VARCHAR PRIMARY KEY,
+    event_tag           VARCHAR,
+    language_a          VARCHAR(8),
+    language_b          VARCHAR(8),
+    posts_lang_a        INTEGER,
+    posts_lang_b        INTEGER,
+    cds_score           FLOAT,        -- = headline_score (frame_divergence); kept for back-compat
+    cds_confidence      FLOAT,        -- scales with smaller sample size, capped at 1.0
+    topical_overlap      FLOAT,       -- axis 1: cosine similarity of text-embedding centroids ("same conversation")
+    frame_divergence     FLOAT,       -- axis 2 (HEADLINE): Jensen-Shannon divergence of frame distributions [ADR-0003]
+    sentiment_divergence FLOAT,       -- axis 3: scaled |mean-sentiment difference| in [0,1]
+    headline_score       FLOAT,       -- = frame_divergence (the primary metric shown in the UI)
+    situation_label      VARCHAR,     -- Aligned / Divergent / Shared lens, split mood / Same verdict, different reasons
+    computed_at         TIMESTAMP_NTZ DEFAULT CURRENT_TIMESTAMP()
 );
 
 CREATE TABLE IF NOT EXISTS app_data.pre_launch_risk_scores (
@@ -133,8 +142,8 @@ CREATE TABLE IF NOT EXISTS app_data.tracked_entities (
     entity_type         VARCHAR DEFAULT 'brand',
     owner_email         VARCHAR NOT NULL,
     languages           ARRAY,
-    cds_threshold_delta FLOAT DEFAULT 0.15,
-    cds_threshold_abs   FLOAT DEFAULT 0.55,
+    cds_threshold_delta FLOAT DEFAULT 0.10,   -- drift delta on the headline (frame_divergence) scale [ADR-0003]
+    cds_threshold_abs   FLOAT DEFAULT 0.34,   -- = frame_div_risk
     active              BOOLEAN DEFAULT TRUE,
     created_at          TIMESTAMP_NTZ DEFAULT CURRENT_TIMESTAMP()
 );

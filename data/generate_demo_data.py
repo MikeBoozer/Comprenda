@@ -2,18 +2,23 @@
 Generate a synthetic-but-realistic multilingual social-post demo dataset for
 Nuance development and demos.
 
-Output: data/nuance_demo.csv with ~25K rows across 12 languages and 8 events.
+Output: data/nuance_demo.csv -- one row per DISTINCT post_text per (event,
+language). Corpus size is set by template variety (~1,400-1,900 rows), not a
+target row count. This is the dedup'd, honest corpus: downstream post counts and
+cds_confidence are then real, and Narrative Search shows variety instead of the
+old ~17x duplication. (See docs/07_audit_and_fixes.md Findings A & C.)
 
-Why synthetic? It's faster than GDELT/HF for a first demo, deterministic enough
-to make demo recordings repeatable, and lets us *engineer* compelling cultural
-divergence patterns (which is exactly what we want to demo). We seed with real
-cultural-frame templates per language community.
+Why synthetic? It's faster than GDELT/HF for a first demo and deterministic so
+demo recordings stay repeatable. Cross-language divergence comes from each
+community's distinct frame-template composition (e.g. English emphasizes
+individualist/opportunity framings, Japanese collectivist/status-quo), which the
+Cortex frame classifier then labels per post.
 
 The dataset is intentionally biased toward signal-rich content; for a real
 production deployment, swap in GDELT / Marketplace social-data providers.
 
 Usage:
-    python data/generate_demo_data.py [--out PATH] [--n_total 25000] [--seed 42]
+    python data/generate_demo_data.py [--out PATH] [--seed 42]
 """
 from __future__ import annotations
 
@@ -347,94 +352,8 @@ def event_keyword(event_tag: str) -> str:
     return KEYWORDS.get(event_tag, "this")
 
 
-# ---------------------------------------------------------------------------
-# Per-(event, language) tendency weights — drives realistic divergence.
-# Format: { (event, lang) -> [(frame, weight_for_sampling), ...] }
-# Frames not listed get a small uniform weight so the distribution is realistic.
-# ---------------------------------------------------------------------------
-def build_tendencies() -> Dict[Tuple[str, str], List[Tuple[str, float]]]:
-    """Hand-crafted divergence patterns so the demo shows interesting CDS."""
-    t: Dict[Tuple[str, str], List[Tuple[str, float]]] = {}
-
-    def set_tendency(event, lang, frames_with_weights):
-        t[(event, lang)] = frames_with_weights
-
-    # iPhone 17 launch — wild divergence: EN/zh enthusiastic, ja/de cautious
-    set_tendency("iPhone_17_launch", "en", [
-        ("individualist", 0.35), ("opportunity_framing", 0.30), ("pragmatic", 0.15),
-    ])
-    set_tendency("iPhone_17_launch", "ja", [
-        ("status_quo", 0.30), ("collectivist", 0.25), ("threat_framing", 0.15),
-    ])
-    set_tendency("iPhone_17_launch", "zh", [
-        ("nationalist", 0.40), ("opportunity_framing", 0.25), ("pragmatic", 0.15),
-    ])
-    set_tendency("iPhone_17_launch", "de", [
-        ("pragmatic", 0.45), ("reform_seeking", 0.15), ("threat_framing", 0.10),
-    ])
-    set_tendency("iPhone_17_launch", "ko", [
-        ("nationalist", 0.30), ("collectivist", 0.25), ("opportunity_framing", 0.20),
-    ])
-    set_tendency("iPhone_17_launch", "ar", [
-        ("spiritual_ethical", 0.25), ("collectivist", 0.30), ("status_quo", 0.15),
-    ])
-
-    # Olympics — mostly positive but ar/fr divergence
-    set_tendency("Olympics_2026_opening", "en", [("opportunity_framing", 0.40), ("individualist", 0.15)])
-    set_tendency("Olympics_2026_opening", "ja", [("collectivist", 0.50), ("spiritual_ethical", 0.20)])
-    set_tendency("Olympics_2026_opening", "fr", [("reform_seeking", 0.30), ("spiritual_ethical", 0.25)])
-    set_tendency("Olympics_2026_opening", "ar", [("spiritual_ethical", 0.35), ("collectivist", 0.30)])
-    set_tendency("Olympics_2026_opening", "zh", [("nationalist", 0.40), ("opportunity_framing", 0.25)])
-    set_tendency("Olympics_2026_opening", "ko", [("nationalist", 0.35), ("collectivist", 0.30)])
-
-    # BrandX_rebrand — engineered to show severe divergence (good demo)
-    set_tendency("BrandX_rebrand", "en", [("opportunity_framing", 0.45), ("individualist", 0.20)])
-    set_tendency("BrandX_rebrand", "ja", [("threat_framing", 0.40), ("status_quo", 0.30)])
-    set_tendency("BrandX_rebrand", "zh", [("nationalist", 0.30), ("threat_framing", 0.25)])
-    set_tendency("BrandX_rebrand", "de", [("threat_framing", 0.35), ("reform_seeking", 0.20)])
-    set_tendency("BrandX_rebrand", "ko", [("historical_grievance", 0.25), ("threat_framing", 0.30)])
-
-    # Climate Summit — strong divergence by region
-    set_tendency("Climate_Summit_2026", "en", [("reform_seeking", 0.35), ("opportunity_framing", 0.25)])
-    set_tendency("Climate_Summit_2026", "de", [("reform_seeking", 0.50), ("threat_framing", 0.20)])
-    set_tendency("Climate_Summit_2026", "ru", [("status_quo", 0.40), ("nationalist", 0.20)])
-    set_tendency("Climate_Summit_2026", "ar", [("spiritual_ethical", 0.30), ("threat_framing", 0.25)])
-    set_tendency("Climate_Summit_2026", "hi", [("collectivist", 0.30), ("spiritual_ethical", 0.20)])
-
-    return t
-
-
-def sample_frame(event: str, lang: str, tendencies, rng: random.Random) -> str:
-    """Pick a frame respecting tendencies, with a small uniform tail."""
-    candidates = []
-    weights = []
-    # Tendency-based weights
-    for f, w in tendencies.get((event, lang), []):
-        candidates.append(f)
-        weights.append(w)
-    # Small uniform tail across all frames that have templates for this language
-    all_frames_for_lang = {f for (l, f) in FRAME_TEMPLATES if l == lang}
-    for f in all_frames_for_lang:
-        if f not in candidates:
-            candidates.append(f)
-            weights.append(0.05)
-    if not candidates:
-        # Fallback: ambiguous
-        return "ambiguous"
-    total = sum(weights)
-    probs = [w / total for w in weights]
-    return rng.choices(candidates, weights=probs, k=1)[0]
-
-
-def render_post(event: str, lang: str, frame: str, rng: random.Random) -> str:
-    """Render a post by sampling a template + substituting the event keyword."""
-    key = (lang, frame)
-    templates = FRAME_TEMPLATES.get(key)
-    if not templates:
-        # Fallback to English pragmatic as a graceful default
-        templates = FRAME_TEMPLATES[("en", "pragmatic")]
-        lang = "en"
-    template = rng.choice(templates)
+def render(template: str, event: str) -> str:
+    """Substitute the event keyword into a frame template."""
     return template.format(x=event_keyword(event))
 
 
@@ -449,23 +368,26 @@ def stable_id(*parts: str) -> str:
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--out", default="data/nuance_demo.csv")
-    parser.add_argument("--n_total", type=int, default=25000)
     parser.add_argument("--seed", type=int, default=42)
     args = parser.parse_args()
 
     rng = random.Random(args.seed)
-    tendencies = build_tendencies()
 
     out_path = Path(args.out)
     out_path.parent.mkdir(parents=True, exist_ok=True)
 
-    # Distribute n_total over events × languages. Some skew toward English /
-    # major-market languages, but every (event, lang) gets at least 40 rows so
-    # CDS can be computed.
-    lang_weights = {
-        "en": 0.18, "ja": 0.10, "zh": 0.12, "de": 0.08, "es": 0.10, "fr": 0.07,
-        "ko": 0.07, "pt": 0.06, "ar": 0.06, "hi": 0.06, "it": 0.05, "ru": 0.05,
-    }
+    # Deterministic enumeration: emit exactly ONE row per distinct
+    # (event, language, post_text). Corpus size is set by template variety
+    # (~1,400-1,900 rows), not a target count -- this is the dedup'd corpus that
+    # keeps downstream counts and cds_confidence honest. Cross-language divergence
+    # comes from each language's distinct frame-template set (only frames that
+    # actually have templates for a language are emitted -- no English fallback),
+    # which the Cortex frame classifier labels per post.
+    templates_by_lang: Dict[str, List[Tuple[str, str]]] = {}
+    for (lang, frame), tmpls in FRAME_TEMPLATES.items():
+        for tmpl in tmpls:
+            templates_by_lang.setdefault(lang, []).append((frame, tmpl))
+
     rows_written = 0
     base_time = datetime(2026, 4, 1)
 
@@ -477,14 +399,15 @@ def main() -> int:
             "country_hint",
         ])
 
-        n_per_event = args.n_total // len(EVENTS)
         for event in EVENTS:
             for lang in LANGUAGES:
-                n_for_pair = max(40, int(n_per_event * lang_weights.get(lang, 0.05)))
-                for i in range(n_for_pair):
-                    frame = sample_frame(event, lang, tendencies, rng)
-                    text = render_post(event, lang, frame, rng)
-                    post_id = stable_id(event, lang, str(i), str(args.seed))
+                seen: set = set()
+                for _frame, template in templates_by_lang.get(lang, []):
+                    text = render(template, event)
+                    if text in seen:
+                        continue  # guard: never emit the same text twice per pair
+                    seen.add(text)
+                    post_id = stable_id(event, lang, text)
                     src = rng.choice(SOURCES)
                     handle = f"user_{rng.randint(1000, 9999)}"
                     ts = (base_time + timedelta(
@@ -499,7 +422,8 @@ def main() -> int:
                     ])
                     rows_written += 1
 
-    print(f"[OK]Wrote {rows_written:,} rows to {out_path}")
+    print(f"[OK]Wrote {rows_written:,} rows to {out_path} "
+          f"(one row per distinct post_text per event/language)")
     return 0
 
 

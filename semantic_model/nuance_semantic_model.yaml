@@ -104,8 +104,13 @@ tables:
   # ---------------------------------------------------------------------------
   - name: cds_scores
     description: |
-      Cultural Divergence Score per (event, language pair). CDS in [0,1];
-      >0.35 = meaningful; >0.55 = cultural risk signal.
+      Multi-axis Cultural Divergence profile per (event, language pair) [ADR-0003].
+      The headline is frame_divergence (Jensen-Shannon divergence of the two
+      communities' cultural-frame distributions), also exposed as cds_score for
+      backward compatibility. frame_divergence >= 0.23 = meaningful; >= 0.34 =
+      cultural risk signal. The profile also carries sentiment_divergence,
+      topical_overlap (how much they discuss the same thing -- high across the
+      board), and a situation_label.
     base_table:
       database: NUANCE_DB
       schema: OUTPUTS
@@ -127,6 +132,10 @@ tables:
         expr: LANGUAGE_B
         data_type: VARCHAR
         synonyms: [second language, language two]
+      - name: situation_label
+        expr: SITUATION_LABEL
+        data_type: VARCHAR
+        synonyms: [situation, divergence type, pair verdict]
 
     time_dimensions:
       - name: computed_date
@@ -145,6 +154,22 @@ tables:
       - name: avg_confidence
         expr: AVG(CDS_CONFIDENCE)
         data_type: NUMBER
+      - name: avg_frame_divergence
+        expr: AVG(FRAME_DIVERGENCE)
+        data_type: NUMBER
+        synonyms: [average frame divergence, mean framing gap, headline divergence]
+      - name: max_frame_divergence
+        expr: MAX(FRAME_DIVERGENCE)
+        data_type: NUMBER
+        synonyms: [peak frame divergence, widest framing gap]
+      - name: avg_sentiment_divergence
+        expr: AVG(SENTIMENT_DIVERGENCE)
+        data_type: NUMBER
+        synonyms: [average sentiment divergence, mean mood gap]
+      - name: avg_topical_overlap
+        expr: AVG(TOPICAL_OVERLAP)
+        data_type: NUMBER
+        synonyms: [average topical overlap, same-topic share]
 
   # ---------------------------------------------------------------------------
   - name: plcs_scores

@@ -87,7 +87,8 @@ USING (
         ('frame_div_threshold', '0.23',                 'frame_divergence (JSD) >= this = meaningful divergence (HEADLINE). Calibrated 2026-05-26 (~top third); re-derive after a data rebuild'),
         ('frame_div_risk',      '0.34',                 'frame_divergence (JSD) >= this = cultural risk signal. Calibrated 2026-05-26 (~top 10%)'),
         ('sentiment_div_threshold', '0.13',             'sentiment_divergence >= this = markets feel differently. Calibrated 2026-05-26 (~top 25%)'),
-        ('frame_smoothing_alpha', '0.5',                'Dirichlet/Laplace alpha added to each frame count before normalizing (tames sparse-data JSD inflation). Read with TO_DOUBLE, not TO_NUMBER')
+        ('frame_smoothing_alpha', '0.5',                'Dirichlet/Laplace alpha added to each frame count before normalizing (tames sparse-data JSD inflation). Read with TO_DOUBLE, not TO_NUMBER'),
+        ('cds_confidence_saturation', '25',             'cds_confidence = LEAST(min(distinct_posts_a, distinct_posts_b)/this, 1.0). Sized for the dedup''d demo corpus (~10-20 distinct posts/lang/event) so confidence varies honestly instead of clamping to 1.0. Re-derive after a data rebuild. Read with TO_DOUBLE, not TO_NUMBER')
     AS s(config_key, config_value, notes)
 ) s
 ON t.config_key = s.config_key

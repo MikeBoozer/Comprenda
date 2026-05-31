@@ -64,6 +64,10 @@ as state changes.
    - **Hard ordering constraint:** if done at all, it must land **before #6 bundles the corpus**
      into the Marketplace package — otherwise the thin corpus ships and has to be re-bundled.
      Pull it forward only if recording demo footage that spotlights Narrative Search.
+   - **Demo linkage:** when done, refresh `streamlit/_harness/fixtures.py` (the public-demo data
+     served by `streamlit/demo_app.py`) from the rebuilt corpus — export the real CDS matrix /
+     frame distributions / sample posts / a real AI Brief + PLCS — so the demo becomes faithful
+     *and* compelling in one pass. (Decision 2026-05-30: keep the curated fixtures until then.)
 4b. ❓ **DECIDE (ask Mike): replace the sample-size confidence heuristic with a statistically
    grounded measure?** `cds_confidence = LEAST(min(distinct_posts)/25, 1.0)`
    (`07_cds_computation.sql`) is a transparent sample-size **sufficiency** proxy, not a

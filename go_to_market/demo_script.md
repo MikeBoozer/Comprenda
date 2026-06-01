@@ -58,7 +58,7 @@ words — identity rides in *after* it, so the opening keeps its punch.
 
 **SAY (hook first, identity second):**
 > "Every brand now ships global content with AI in the loop — copy gets generated faster than
-> any human can check how it'll *read* in each market. Comprenda is the cultural reviewer that
+> anyone's ability to check how it'll *read* in each market. Comprenda is the cultural reviewer that
 > keeps up: it scores how a message lands in every market before launch, live on Snowflake."
 >
 > "I'm Mike — I built it end-to-end, on live Cortex AI against a real multilingual corpus.

@@ -24,8 +24,8 @@ is equally compelling to both audiences and is unchanged except where noted.
 
 Hook is unchanged (it's a strong "why now" for investors too). Swap only the second sentence:
 
-> "Every brand now ships global content with AI in the loop — copy gets generated faster than any
-> human can check how it'll *read* in each market. Comprenda is the cultural reviewer that keeps up:
+> "Every brand now ships global content with AI in the loop — copy gets generated faster than
+> anyone's ability to check how it'll *read* in each market. Comprenda is the cultural reviewer that keeps up:
 > it scores how a message lands in every market before launch, live on Snowflake."
 >
 > "I'm Mike — I designed and shipped the whole thing solo, live on Snowflake, for under $400 in

@@ -64,6 +64,20 @@ or the Native App packaging.
 
 ---
 
+### Media to attach
+LinkedIn doesn't render markdown images — you attach media in the composer. Use the
+four portfolio stills from `go_to_market/demo_script.md` (saved in `docs/img/`), in
+this order:
+
+1. **`02_plcs_risk_score.png`** — the clearest single-frame "what does it do"; lead
+   with this still if you're not leading with the video.
+2. `03_divergence_matrix.png` — the "there's real method here" frame.
+3. `04_ai_brief.png` — the synthesis frame.
+4. `01_overview.png` — context / the corpus at a glance.
+
+Best layout: the **2-min video** (or a short GIF) as the first media tile, then the
+four stills as a carousel in the order above.
+
 ### Posting tips
 - Lead with the **demo GIF or the video** as the media attachment — motion stops the scroll.
 - Put the demo link in the **first comment** too (LinkedIn slightly favors posts that keep links out of the body; test both).

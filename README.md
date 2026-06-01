@@ -17,9 +17,18 @@ The product is a **Streamlit-in-Snowflake** app (branded **Comprenda**; the repo
 - **Hosted demo — no Snowflake needed.** A fully interactive build on illustrative sample data, served from [`streamlit/demo_app.py`](streamlit/demo_app.py). Every page renders; the LLM-powered features (Pre-Launch Risk, Cultural Translator, AI Brief) show curated example outputs. It stubs the Snowflake connection, so it runs anywhere.
 - **The real thing — inside Snowflake on Cortex.** Live multilingual embeddings, frame classification, Cortex Search, and Claude (via Cortex). `docs/12_post_rebuild_render_checklist.md` describes what each screen shows.
 
-<!-- Screenshots: add 2-3 once captured, e.g.:
-![Divergence matrix](docs/img/divergence_matrix.png)
-![AI brief](docs/img/ai_brief.png) -->
+### See the screens
+
+<!-- Capture these four per go_to_market/demo_script.md → "Portfolio stills to grab".
+     Until the PNGs are saved into docs/img/ (see docs/img/README.md), GitHub renders
+     broken-image icons here — capture first, or re-wrap this block in a comment to hide it. -->
+
+| | |
+|:--:|:--:|
+| ![Overview — the corpus at a glance](docs/img/01_overview.png) | ![Pre-launch cultural risk score](docs/img/02_plcs_risk_score.png) |
+| _Overview — 8 events · 12 languages · 1,440 posts._ | _Pre-Launch Risk — a 0–100 cultural-risk score per market, with sourced historical analogs._ |
+| ![Cultural divergence matrix](docs/img/03_divergence_matrix.png) | ![AI cultural intelligence brief](docs/img/04_ai_brief.png) |
+| _Divergence matrix — frame-level Jensen-Shannon divergence across 12 languages._ | _AI brief — a source-cited synthesis with figures drawn from the corpus._ |
 
 **Run the demo locally (no Snowflake, no credentials):**
 

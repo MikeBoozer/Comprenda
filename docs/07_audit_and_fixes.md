@@ -43,6 +43,32 @@ An independent code audit was run against the full Nuance repo before any of it 
 
 ---
 
+## Open bugs (found post-deploy)
+
+- **Translator target market resets to Arabic after the PLCS handoff (FIXED in repo 2026-05-31 — pending deploy).**
+  From Pre-Launch Risk, **Open Translator with this draft →** lands on the Cultural Translator with
+  the target market set correctly (e.g. Japanese), but then clicking **Generate adapted variants**
+  returns variants for **Arabic**. *Root cause:* in `streamlit/views/2_Cultural_Translator.py` the
+  target-market `st.selectbox` (L150) is **unkeyed** and its `index` is read from
+  `prefill_markets = st.session_state.pop("translator_target_markets", [])` (L98), which is popped
+  on first render. The Generate click reruns the script with `prefill_markets` now empty → `index`
+  falls back to `0` → the unkeyed widget resets to `languages[0]` = `"ar"` (Arabic is alphabetically
+  first; `list_languages` is `ORDER BY detected_language`), so the value read on that rerun is "ar".
+  The draft text survives only because its `st.text_area` **is** keyed (`key="translator_source"`,
+  L138) — the contrast confirms the cause. *Scope:* specific to the PLCS→Translator prefill; a
+  manually chosen market persists fine (index is a stable `0` with no prefill, so the unkeyed widget
+  keeps the pick). *Fix:* give the target-market selectbox a stable `key`
+  (e.g. `key="translator_target_market"`) and seed `st.session_state[...]` from the prefill once
+  (`setdefault` / callback-safe) instead of relying on `index=` + a popped one-shot value — the same
+  keyed pattern the source draft already uses; then redeploy (docs/09). *Demo impact:* SHOT 3 of
+  `go_to_market/demo_script.md` walks this exact handoff — once deployed this is clean.
+  *Status (2026-05-31):* fix applied — the target-market selectbox is now keyed
+  (`key="translator_target_market"`) and seeded once from the prefill via `setdefault`; verified
+  headless via AppTest (target stays "ja" through the Generate rerun). **Code change is in the repo;
+  pending the live deploy (docs/09).**
+
+---
+
 ## Known residual risks (handle if you hit them)
 
 These are not bugs in the code — they are environmental sensitivities you may encounter on first run.

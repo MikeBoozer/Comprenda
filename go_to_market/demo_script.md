@@ -61,7 +61,8 @@ words — identity rides in *after* it, so the opening keeps its punch.
 > any human can check how it'll *read* in each market. Comprenda is the cultural reviewer that
 > keeps up: it scores how a message lands in every market before launch, live on Snowflake."
 >
-> "I'm Mike — I built it end-to-end, on live Cortex AI against a real multilingual corpus. Let me show you.
+> "I'm Mike — I built it end-to-end, on live Cortex AI against a real multilingual corpus.
+> Let me show you."
 
 **Then cut to the screen.** Don't re-deliver the hook once you're on the app.
 
@@ -72,9 +73,8 @@ words — identity rides in *after* it, so the opening keeps its punch.
 **Page:** Workbench → **Overview** (the default landing page).
 
 **SAY (orient + bridge — not the hook again):**
-> "Here's the app, running over a real multilingual corpus — eight events, twelve languages,
-> about 1,440 posts. I'll start where a marketing team would: with a draft they're about to
-> ship."
+> "Here's the app, running over that corpus — eight events, twelve languages, about 1,440
+> posts. I'll start where a marketing team would: with a draft they're about to ship."
 
 **ON SCREEN / EXPECTED:** editorial sidebar (Workbench / Analysis / Synthesis); KPI row reads
 **Events 8 · Languages 12 · Posts 1,440**.
@@ -96,12 +96,14 @@ words — identity rides in *after* it, so the opening keeps its punch.
 > "I paste a draft tagline and pick four markets. Comprenda scores cultural risk 0–100 per
 > market — live inference on Snowflake's Cortex AI, a few seconds each."
 
-**SAY (when results land — read the screen):**
-> "Here's the verdict: `[read the result headline — e.g. 'two of four markets are unsafe to
-> ship as drafted']`. The highest-risk market is `[read worst market + score]`. And this is
-> the part I care about — it's not a black box. It gives the narrative for *why*, and three
-> **real historical analogs** retrieved from the corpus — `[read one analog name]` — so the
-> score is defensible, not invented. Nothing here is hallucinated; everything's sourced."
+**SAY (when results land — verify the numbers against the screen before you commit them):**
+> "Here's the verdict: three of four markets are unsafe to ship as drafted. The highest-risk
+> market for this tagline is Japan, scoring 75/100. And this is the part I care about — it's
+> not a black box. It gives the narrative for *why*, and three real historical analogs
+> retrieved from the corpus — for example, in 1990 Mercedes-Benz's poorly chosen brand name
+> 'Bēnsǐ' translated as 'rush to die,' which delayed their launch into the Chinese market — so
+> the score is defensible, not invented. Nothing here is hallucinated; everything's sourced.
+> The *gap* measures semantic closeness to that historical case — lower means a closer match."
 
 **SAY (point at the band + handoff):**
 > "The risk spectrum positions every market on one scale, and it recommends a next move —
@@ -112,7 +114,13 @@ for the worst market; **three analog cards** (proper pills, not one letter per p
 0–100 risk spectrum; a "Recommended next move" band with **Open Translator with this draft →**.
 
 **CAPTURE:** still of the scored cards + risk spectrum (this is your hero screenshot /
-thumbnail). Numbers are live — don't pre-decide them.
+thumbnail).
+
+> **Live-number flag:** the script states example values ("three of four," "Japan 75/100") for a
+> smooth read, but these come from live Cortex inference (temp 0.3) and **can shift between runs**.
+> On recording day, glance at the screen and adjust the spoken numbers if they differ — never let
+> the narration contradict the render. Same applies to the analog shown: name whichever one is
+> actually on screen.
 
 > **CUT-FOR-3:** keep this shot in full; it's the centerpiece.
 
@@ -129,11 +137,11 @@ thumbnail). Numbers are live — don't pre-decide them.
 
 **SAY:**
 > "Most tools stop at 'this is risky.' Comprenda fixes it. It generates variants in the
-> target market's *language*, each shifting the cultural frame deliberately — `[read the
-> frame pills, e.g. 'collectivist,' 'pragmatic']` — with a one-sentence rationale for each so
-> a marketer can defend the choice. And you can re-score any variant back through the same
-> risk model to prove the gap closed — I gated that behind a button so it only spends compute
-> when you ask."
+> target market's *language*, each shifting the cultural frame deliberately — for example, here
+> is a variant expressed through the competitive-threat frame — with a one-sentence rationale
+> for each so a marketer can defend the choice. And you can re-score any variant back through
+> the same risk model to prove the gap closed — I gated that behind a button so it only spends
+> compute when you ask."
 
 **ON SCREEN / EXPECTED:** three variant cards, each with a frame-shift pill, target-language
 text, and a rationale; a "Re-score … for risk →" button below.
@@ -155,16 +163,18 @@ text, and a rationale; a "Re-score … for risk →" button below.
 
 **SAY:**
 > "This is the post-launch side, and the part an engineer will appreciate. Two choices make it
-> work. First, every post stays in its *native* language — analyzed directly, never translated
-> to English first, which is where most tools lose the signal. Second, the wedge: most tools
-> measure *sentiment* — was the reaction positive or negative — and stop there.
-> Comprenda measures *how* communities frame the same event differently, with a Jensen-Shannon
-> divergence over their cultural-frame distributions, on a multi-axis profile: frame,
-> sentiment, and topical overlap. Same sentiment, completely different reasoning — and that's
-> the part you can act on. The top fault lines run around `[read selected pair value, ~0.4]`.
-> And that last row — **sample sufficiency** — tells you how much data backs each pair: thin
-> languages like Hindi or Italian score lower, so you know which numbers to lean on and which
-> are still provisional. It's a sample-size measure, not statistical confidence."
+> work. First, in Comprenda every post stays in its *native* language — analyzed directly,
+> never translated to English first, which is where most tools lose the signal. Second, the
+> wedge: most tools measure *sentiment* — was the reaction positive or negative? — and stop
+> there. Comprenda measures *how* communities frame the same event differently, with a
+> Jensen-Shannon divergence over their cultural-frame distributions, on a three-axis profile:
+> frame, sentiment, and topical overlap. Same sentiment, completely different reasoning — and
+> that's the part you can act on. For example, the Arabic- and English-speaking markets — which
+> we can see have similar sentiment and are talking about similar topics around the iPhone 17
+> launch — are experiencing and reacting to the event through very *different* cultural frames.
+> And the sample sufficiency tells you how much data backs each pair: languages with less
+> representation in the corpus, like Hindi or Italian, score lower, so you know which numbers to
+> lean on and which are still provisional."
 
 **ON SCREEN / EXPECTED:** full 12×12 heatmap (oxblood ramp); aside reads out the selected pair
 with **Frame divergence / Sentiment divergence / Topical overlap / Sample sufficiency** and a
@@ -193,7 +203,7 @@ value; sample sufficiency varies **0.4 / 0.6 / 0.8**.
 > source-cited brief — executive summary, where the markets disagree, dominant frames,
 > recommendations — with the post IDs it drew from, plus two real figures generated from the
 > corpus, not mock data. And the confidence notes are honest: it actually flags the thin
-> languages — `[read it naming Hindi/Italian ~0.4]` — and says 'supplement with research.'
+> languages — Hindi-involved pairs show limited data support, a sample sufficiency of 0.4.
 > It tells you what it *doesn't* know."
 
 **ON SCREEN / EXPECTED:** brief renders as TOC + article sections; meta row reads
@@ -215,12 +225,23 @@ cut back to the full-screen talking head for the last two sentences — a natura
 soft "I'm open to [roles] in [X]" if you're job-hunting. Voice-over over the screen is fine
 too; the on-camera outro is a nice-to-have, not required.
 
-**SAY (employer-facing close):**
+**SAY (employer-facing close + trajectory):**
 > "So that's the idea: most tools tell you a market reacted badly; Comprenda tells you *why*,
 > before you ship. End-to-end, I designed the divergence metric, wrote the Snowpark UDFs and
 > Cortex stored procedures, built the ten-page Streamlit-in-Snowflake app and its design
-> system, and deployed it live. There's also a Snowflake-free version of the exact same app
-> you can click through yourself — link's in the description. Thanks for watching."
+> system, and deployed it live. It's built to ship as a Snowflake Native App — installed from
+> the Marketplace into each customer's own account, so their data never leaves their walls;
+> that packaging is the next milestone. It runs today on bundled demo data; the expansion is
+> every global brand pointing it at their own content — a live read on how their messaging
+> lands across markets, and where the cultural framing is drifting. There's also a
+> Snowflake-free version of the exact same app you can click through yourself — link's in the
+> description. Thanks for watching."
+
+> **Accuracy flag (read before recording):** the Native App / Marketplace install is **roadmap,
+> not shipped** — per ADR-0001 + docs/10 #5–6 the app currently runs as a single
+> Streamlit-in-Snowflake instance in the dev account; the Native App folder is a skeleton. The
+> wording above is deliberately future-framed ("built to ship as… / next milestone"). Do **not**
+> say "today it installs from the Marketplace" — that's the one claim that fails diligence.
 
 **ON SCREEN / EXPECTED:** the editorial UI; clean exit.
 

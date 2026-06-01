@@ -68,19 +68,26 @@ as state changes.
      served by `streamlit/demo_app.py`) from the rebuilt corpus — export the real CDS matrix /
      frame distributions / sample posts / a real AI Brief + PLCS — so the demo becomes faithful
      *and* compelling in one pass. (Decision 2026-05-30: keep the curated fixtures until then.)
-4b. ❓ **DECIDE (ask Mike): replace the sample-size confidence heuristic with a statistically
-   grounded measure?** `cds_confidence = LEAST(min(distinct_posts)/25, 1.0)`
-   (`07_cds_computation.sql`) is a transparent sample-size **sufficiency** proxy, not a
-   statistical confidence measure — arbitrary saturation, linear (not 1/√n) scaling, and not
-   tied to the sampling variance of the JSD it annotates. **Relabeled honestly 2026-05-30**
-   (matrix aside + AI Brief now read "sample sufficiency"; brief prompt → `ai-brief-v3`) as a
-   stopgap so we don't overclaim.
-   - **Statistically defensible upgrade:** bootstrap the JSD per (event, language pair) —
-     resample posts with replacement, recompute JSD a few hundred times, derive confidence from
-     the CI width / standard error. Compute-only (no Cortex), and coherent with the existing
-     Dirichlet smoothing (`frame_smoothing_alpha`).
-   - **Timing:** before putting the matrix/brief in front of methodology-savvy buyers; **not**
-     gated on corpus bundling. Recommended for credibility (the pitch is methodological rigor).
+4b. ✅ **DECIDED (2026-05-31, Mike) — build deferred.** Replace the sample-size **sufficiency**
+   proxy `cds_confidence = LEAST(min(distinct_posts)/25, 1.0)` (`07_cds_computation.sql`) — a
+   transparent sample-size measure, *not* statistical confidence (arbitrary saturation, linear
+   not 1/√n scaling, not tied to the JSD's sampling variance) — with a statistically grounded
+   uncertainty measure on the per-pair frame-JSD. **Relabeled honestly 2026-05-30** (matrix
+   aside + AI Brief now read "sample sufficiency"; brief prompt → `ai-brief-v3`) as the stopgap
+   that ships until this lands.
+   - **Chosen measure — the combo:** a **Dirichlet-posterior credible interval** as the
+     displayed uncertainty (each language's frame counts already define a Dirichlet posterior
+     via the existing `frame_smoothing_alpha` prior → sample `P_A`, `P_B` from their posteriors,
+     recompute JSD, read a credible interval), **plus a permutation test** (shuffle language
+     labels → null JSD distribution at that n) surfaced as a "✓ above chance" flag. They're
+     complementary: the interval gives magnitude + precision and degrades gracefully at small n
+     (vs. a plain bootstrap resampling ~10 discrete points); the permutation p attacks the
+     small-n upward bias of plug-in JSD and answers "is this fault line real?" Compute-only (no
+     Cortex). Plain bootstrap-CI was considered and ranked third (weakest exactly at the
+     thin-language pairs; a variance-only CI doesn't touch the bias).
+   - **Timing:** **not** needed for the portfolio capture or the current trial window —
+     deferred. Do it before the matrix/brief go in front of methodology-savvy buyers; not gated
+     on corpus bundling.
 
 *Native-app packaging (from [ADR-0001](decisions/0001-native-app-distribution-with-demo-data.md)):*
 5. **Re-target schemas** — procedures + Streamlit from `NUANCE_DB.*` to `app_data.*`,
@@ -95,6 +102,27 @@ as state changes.
    audit the staged package before publishing.
 
 ## Deferred / nice-to-have
+
+- **Rename / clarify the analog "gap" metric (UI polish).** The analog cards (PLCS results +
+  Analog Retrieval) surface the retrieval `distance` as a bare "gap N" with no explanation, and
+  "gap" collides with the Divergence Matrix's **topical gap** (= 1 − overlap) — same word, two
+  meanings. In a UI pass, either add a one-line caption/tooltip ("semantic distance; lower =
+  closer") or rename the analog field to "distance"/"match" and reserve "gap" for the matrix axis.
+- **Reconcile PLCS "confidence" with what it actually is (honesty).** The Pre-Launch Risk cards
+  (the "% conf" bar) + the "Confidence calculation" expander show a per-market **confidence** that
+  the UI explains as *corpus density* ("how densely the target market is represented in the
+  corpus"). In reality `SCORE_CONTENT` (`deploy_plcs.py`) sets `plcs_confidence` to **the LLM's
+  self-reported `confidence`** parsed from its JSON (default 0.5 on parse failure), or a hard-coded
+  **0.1 when no target-market neighbours are found**, clamped to [0,1]. There is **no corpus-density
+  computation** — so the UI's "how densely the target market is represented" explanation does not
+  match the code. (Aside: the deployed proc builds an *inline* prompt, not the versioned
+  `prompts/pre_launch_risk_scoring.txt`; the file's edge-case rules — e.g. "cap confidence at 0.5 if
+  <10 neighbours" — are absent from the deployed string, a separate prompt-drift worth a look.) The
+  matrix's honesty fix (`cds_confidence` → "sample sufficiency") never reached PLCS. **Not a "sample
+  sufficiency" rename** — a different quantity than the matrix's min-post-count proxy. Options:
+  (a) replace it with a real computed corpus-support / nearest-neighbour-density measure so the
+  existing explanation becomes true (the PLCS analog of #4b); (b) re-explain it honestly as a model
+  self-estimate; or (c) drop it.
 
 - **Consumer-BYO-data (Option B)** — the customer binds their own content table; the
   long-term product, a known post-launch milestone (ADR-0001).

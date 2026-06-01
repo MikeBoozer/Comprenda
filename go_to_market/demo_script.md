@@ -140,8 +140,8 @@ thumbnail).
 > target market's *language*, each shifting the cultural frame deliberately — for example, here
 > is a variant expressed through the competitive-threat frame — with a one-sentence rationale
 > for each so a marketer can defend the choice. And you can re-score any variant back through
-> the same risk model to prove the gap closed — I gated that behind a button so it only spends
-> compute when you ask."
+> the same risk model to prove the risk score actually dropped — I gated that behind a button so
+> it only spends compute when you ask."
 
 **ON SCREEN / EXPECTED:** three variant cards, each with a frame-shift pill, target-language
 text, and a rationale; a "Re-score … for risk →" button below.

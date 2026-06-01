@@ -17,9 +17,9 @@ shows you, per market, *how differently* each community frames the same launch �
 before you publish.
 
 Under the hood it's Snowflake-native end to end: multilingual embeddings + a
-12-category cultural-frame taxonomy + a multi-axis divergence score (framing,
-sentiment, topical), with the LLM work running on Snowflake Cortex and the whole
-thing packaged as a Snowflake Native App.
+cultural-frame taxonomy + a multi-axis divergence score (framing, sentiment,
+topical), with the LLM work running on Snowflake Cortex and the whole thing
+designed to ship as a Snowflake Native App.
 
 ▶️ Play with it (no login): ‹demo URL›
 🎬 2-min walkthrough: ‹video URL›
@@ -41,24 +41,24 @@ native language space and surfaces, per market, *how differently* communities fr
 the same event. It gives a **Pre-Launch Cultural Risk Score** before you publish,
 and a divergence matrix + AI brief for post-launch monitoring.
 
-**A few engineering/decisions I'm proud of:**
+**A few decisions I'm proud of:**
 - **Native-language embeddings**, not translate-then-score — the whole premise.
-- A **multi-axis divergence score** (frame Jensen-Shannon divergence + sentiment +
-  topical overlap), because a single "sentiment" number hides the real signal: two
-  markets can feel the same way about an event for opposite reasons.
-- **Snowflake-native** end to end — Cortex for embeddings/classification/LLM,
-  Cortex Search for retrieval, Streamlit-in-Snowflake for the UI, and the Native App
-  Framework for distribution (it runs inside the customer's own account).
+- A **multi-axis divergence score** (frame divergence + sentiment + topical overlap),
+  because a single "sentiment" number hides the real signal: two markets can feel the
+  same way about an event for opposite reasons.
+- **Snowflake-native** end to end — Cortex for the embeddings/classification/LLM work,
+  Cortex Search for retrieval, Streamlit-in-Snowflake for the UI, and designed for the
+  Native App Framework so it can run inside the customer's own account.
 - Honest metrics: when a "confidence" number was really just a sample-size proxy,
-  I relabeled it as *sample sufficiency* rather than overclaim — and scoped the
-  statistically rigorous version (bootstrap CI on the divergence) as a follow-up.
+  I relabeled it as *sample sufficiency* rather than overclaim — and scoped a
+  statistically rigorous replacement as a follow-up.
 
 ▶️ Interactive demo (no login, runs on sample data): ‹demo URL›
 🎬 2-min walkthrough of the live Cortex-powered version: ‹video URL›
 🛠️ Repo (architecture docs + ADRs + the build log): ‹repo URL›
 
-Happy to talk through any of it — the cultural-frame taxonomy, the divergence math,
-or the Native App packaging.
+Happy to talk through the build — the product decisions, the tradeoffs, and what I'd
+do differently at scale.
 
 #AI #LLM #Snowflake #DataEngineering #MarketingTech #ProductDevelopment
 

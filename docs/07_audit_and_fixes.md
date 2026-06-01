@@ -45,7 +45,7 @@ An independent code audit was run against the full Nuance repo before any of it 
 
 ## Open bugs (found post-deploy)
 
-- **Translator target market resets to Arabic after the PLCS handoff (FIXED in repo 2026-05-31 — pending deploy).**
+- **Translator target market resets to Arabic after the PLCS handoff (RESOLVED — deployed + render-verified VERSION$11, 2026-06-01).**
   From Pre-Launch Risk, **Open Translator with this draft →** lands on the Cultural Translator with
   the target market set correctly (e.g. Japanese), but then clicking **Generate adapted variants**
   returns variants for **Arabic**. *Root cause:* in `streamlit/views/2_Cultural_Translator.py` the
@@ -62,10 +62,12 @@ An independent code audit was run against the full Nuance repo before any of it 
   (`setdefault` / callback-safe) instead of relying on `index=` + a popped one-shot value — the same
   keyed pattern the source draft already uses; then redeploy (docs/09). *Demo impact:* SHOT 3 of
   `go_to_market/demo_script.md` walks this exact handoff — once deployed this is clean.
-  *Status (2026-05-31):* fix applied — the target-market selectbox is now keyed
+  *Status (2026-06-01):* RESOLVED. Fix applied — the target-market selectbox is now keyed
   (`key="translator_target_market"`) and seeded once from the prefill via `setdefault`; verified
-  headless via AppTest (target stays "ja" through the Generate rerun). **Code change is in the repo;
-  pending the live deploy (docs/09).**
+  headless via AppTest (target stays "ja" through the Generate rerun), **deployed to the live app as
+  VERSION$11** (docs/09 PUT-into-stage + COMMIT; served file confirmed byte-identical to repo), and
+  **operator render-verified in the browser** (PLCS→Translator handoff now generates Japanese
+  variants, not Arabic). SHOT 3 demo blocker cleared.
 
 ---
 

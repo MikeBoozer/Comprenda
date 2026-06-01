@@ -130,6 +130,13 @@ if not languages:
         "then reload this page.")
     st.stop()
 
+# Seed the target-market selection from the PLCS handoff once, so the choice
+# survives the rerun that "Generate adapted variants" triggers. (Was an unkeyed
+# selectbox with an index from prefill_markets — popped on first render — so the
+# Generate rerun reset it to languages[0]="ar". See docs/07 "Open bugs".)
+if prefill_markets and prefill_markets[0] in languages:
+    st.session_state.setdefault("translator_target_market", prefill_markets[0])
+
 left, right = st.columns([2, 1], gap="large")
 
 with left:
@@ -149,8 +156,7 @@ with right:
     st.markdown("<div class='nu-kicker'>Target market</div>", unsafe_allow_html=True)
     target_market = st.selectbox(
         "Target market", options=languages, label_visibility="collapsed",
-        index=(languages.index(prefill_markets[0])
-               if prefill_markets and prefill_markets[0] in languages else 0),
+        key="translator_target_market",
         format_func=lambda c: f"{c} · {market_name(c)}")
     st.markdown("<div class='nu-kicker' style='margin-top:8px;'>Source language</div>",
                 unsafe_allow_html=True)

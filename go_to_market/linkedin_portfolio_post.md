@@ -21,7 +21,7 @@ cultural-frame taxonomy + a multi-axis divergence score (framing, sentiment,
 topical), with the LLM work running on Snowflake Cortex and the whole thing
 designed to ship as a Snowflake Native App.
 
-▶️ Play with it (no login): ‹demo URL›
+▶️ Play with it (no login): https://comprenda.streamlit.app
 🎬 5-min walkthrough: https://youtu.be/15cbl7WS9cQ
 🛠️ Code + architecture docs: https://github.com/MikeBoozer/Comprenda
 
@@ -53,7 +53,7 @@ and a divergence matrix + AI brief for post-launch monitoring.
   I relabeled it as *sample sufficiency* rather than overclaim — and scoped a
   statistically rigorous replacement as a follow-up.
 
-▶️ Interactive demo (no login, runs on sample data): ‹demo URL›
+▶️ Interactive demo (no login, runs on sample data): https://comprenda.streamlit.app
 🎬 5-min walkthrough of the live Cortex-powered version: https://youtu.be/15cbl7WS9cQ
 🛠️ Repo (architecture docs + ADRs + the build log): https://github.com/MikeBoozer/Comprenda
 

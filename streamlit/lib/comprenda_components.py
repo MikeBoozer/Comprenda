@@ -8,7 +8,30 @@ return HTML so they can be composed inside larger components.
 
 Reference: §5 (component specs) and §7.6 (frame labels) of the design handoff.
 """
+import os
+
 import streamlit as st
+
+
+# ---------------------------------------------------------------------------
+# Demo mode — set by the public demo entry (demo_app.py). Lets shared views
+# flag that LLM outputs are fixed worked examples (the demo's fixtures ignore
+# user input). A no-op in the live Streamlit-in-Snowflake app.
+# ---------------------------------------------------------------------------
+
+def is_demo() -> bool:
+    return os.environ.get("COMPRENDA_DEMO") == "1"
+
+
+def demo_note():
+    """Render the public-demo disclaimer for LLM-output pages; no-op otherwise."""
+    if is_demo():
+        st.info(
+            "**Demo mode** — outputs on this page are a pre-computed example for the "
+            "sample automotive launch line and don't reflect your input. The live app "
+            "runs your own text on Snowflake Cortex.",
+            icon="🔎")
+
 
 # ---------------------------------------------------------------------------
 # Bands & labels — the verdict vocabulary, centralized so every score on

@@ -19,6 +19,7 @@ directly and never imports this.
 """
 from __future__ import annotations
 
+import os
 import sys
 import types
 from pathlib import Path
@@ -29,6 +30,11 @@ HARNESS = HERE / "_harness"
 for _p in (str(HERE), str(HARNESS)):
     if _p not in sys.path:
         sys.path.insert(0, _p)
+
+# Flag the demo so shared views show the "pre-computed example" notice (the
+# fixtures ignore user input). The live Streamlit-in-Snowflake app never sets
+# this, so the notice is a no-op there.
+os.environ.setdefault("COMPRENDA_DEMO", "1")
 
 import fixtures  # noqa: E402  (lives in _harness/)
 

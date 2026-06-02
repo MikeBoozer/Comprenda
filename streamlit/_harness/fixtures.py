@@ -39,21 +39,22 @@ _PLCS = {
            "Across 1,204 in-market posts the dominant frame is status quo; an "
            "assertive \"puts you first\" register reads as status loss, not aspiration."),
     "ko": (71, 0.78, ["status_loss", "individualist", "price_anxiety"],
-           "Elevated. The line lands near a status-loss frame that has historically "
-           "depressed launch sentiment in this market. Topical overlap is high but the "
-           "emotional register is misaligned."),
+           "The line lands near a status-loss frame that has historically depressed "
+           "launch sentiment in this market. Topical overlap is high, but the emotional "
+           "register is misaligned."),
     "zh": (58, 0.74, ["price_anxiety", "individualist", "status_loss"],
-           "Watchable. Price-anxiety framing is ascendant in the corpus and the draft "
-           "does not address value, only freedom — a partial mismatch worth adapting."),
+           "Price-anxiety framing is ascendant in the corpus, and the draft addresses "
+           "only freedom, never value. That partial mismatch is worth adapting before "
+           "launch."),
     "es": (47, 0.69, ["individualist", "national_pride", "other"],
-           "Moderate. The individualist frame is broadly compatible here; the residual "
-           "risk is tonal, not structural."),
+           "The individualist frame is broadly compatible here, so the residual risk is "
+           "tonal rather than structural. Light lexical tuning is enough."),
     "fr": (41, 0.72, ["craft", "reform_seeking", "premium_affirmation"],
-           "Moderate-to-clear. Craft and premium-affirmation frames dominate and the "
-           "draft is adjacent to them; minor lexical tuning suffices."),
+           "Craft and premium-affirmation frames dominate, and the draft sits adjacent "
+           "to them. Only minor lexical tuning is needed to align it."),
     "de": (34, 0.81, ["craft", "premium_affirmation", "reform_seeking"],
-           "Clear to ship. The engineering-craft frame that governs this market "
-           "absorbs the draft's performance claim without friction."),
+           "The engineering-craft frame that governs this market absorbs the draft's "
+           "performance claim without friction, so no adaptation is needed."),
 }
 
 

@@ -13,7 +13,7 @@ import streamlit as st
 from snowflake.snowpark.context import get_active_session
 
 from lib.comprenda_theme import inject_css
-from lib.comprenda_components import render_sidebar, omnibar, session_diagnostics
+from lib.comprenda_components import render_sidebar, omnibar, session_diagnostics, demo_note
 
 st.set_page_config(page_title="Comprenda — Cultural Intelligence",
                    layout="wide", initial_sidebar_state="expanded")
@@ -73,4 +73,12 @@ crumb_l.markdown(
     f"{pg.title}</div>", unsafe_allow_html=True)
 with crumb_r:
     omnibar(session)
+
+# In the public demo, LLM-output pages return fixed worked examples (the fixtures
+# ignore user input), so flag that to avoid the canned output reading as a bug.
+# No-op in the live app (demo_note() checks the demo flag).
+_DEMO_LLM_PAGES = {"Pre-launch risk", "Cultural translator", "Analog retrieval",
+                   "AI brief", "Narrative search"}
+if pg.title in _DEMO_LLM_PAGES:
+    demo_note()
 pg.run()

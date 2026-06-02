@@ -22,8 +22,8 @@ topical), with the LLM work running on Snowflake Cortex and the whole thing
 designed to ship as a Snowflake Native App.
 
 ▶️ Play with it (no login): ‹demo URL›
-🎬 2-min walkthrough: ‹video URL›
-🛠️ Code + architecture docs: ‹repo URL›
+🎬 5-min walkthrough: https://youtu.be/15cbl7WS9cQ
+🛠️ Code + architecture docs: https://github.com/MikeBoozer/Comprenda
 
 #AI #DataEngineering #Snowflake #Marketing #LLM
 
@@ -54,8 +54,8 @@ and a divergence matrix + AI brief for post-launch monitoring.
   statistically rigorous replacement as a follow-up.
 
 ▶️ Interactive demo (no login, runs on sample data): ‹demo URL›
-🎬 2-min walkthrough of the live Cortex-powered version: ‹video URL›
-🛠️ Repo (architecture docs + ADRs + the build log): ‹repo URL›
+🎬 5-min walkthrough of the live Cortex-powered version: https://youtu.be/15cbl7WS9cQ
+🛠️ Repo (architecture docs + ADRs + the build log): https://github.com/MikeBoozer/Comprenda
 
 Happy to talk through the build — the product decisions, the tradeoffs, and what I'd
 do differently at scale.
@@ -75,7 +75,7 @@ this order:
 3. `04_ai_brief.png` — the synthesis frame.
 4. `01_overview.png` — context / the corpus at a glance.
 
-Best layout: the **2-min video** (or a short GIF) as the first media tile, then the
+Best layout: the **video** (or a short GIF) as the first media tile, then the
 four stills as a carousel in the order above.
 
 ### Posting tips

@@ -12,7 +12,7 @@ The wedge buyer at launch is **global brand and marketing teams** at mid-market 
 
 ## See it run
 
-> **Live demo:** _‹paste your Streamlit Community Cloud URL here›_ · **2-min walkthrough:** _‹paste your video link here›_
+> **Live demo:** _‹paste your Streamlit Community Cloud URL here›_ · **5-min walkthrough:** https://youtu.be/15cbl7WS9cQ
 
 The product is a **Streamlit-in-Snowflake** app. Two ways to see it:
 

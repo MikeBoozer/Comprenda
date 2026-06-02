@@ -4,6 +4,11 @@
 #
 # (The in-Snowflake app uses streamlit/environment.yml instead — that's the SiS
 # package set and is unrelated to this demo deploy.)
-streamlit>=1.40,<2
+# Upper cap at <1.59: the app still uses the deprecated `use_container_width=`
+# param (Streamlit slates its removal after 2025-12-31). 1.58.x is verified-good
+# via a headless smoke test of all 10 views (snowpark blocked); capping here stops
+# a future minor from dropping the param and breaking the live demo. Lift the cap
+# once use_container_width is migrated to `width=`.
+streamlit>=1.40,<1.59
 pandas>=2.0
 altair>=5.0

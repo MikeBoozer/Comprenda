@@ -2,7 +2,10 @@ name: app_environment
 channels:
   - snowflake
 dependencies:
-  - python=3.12
+  # Do NOT pin a python version: SiS / native-app Streamlit accepts only specific
+  # runtimes (3.11 fails package resolution, 3.12 is "not supported" here). Omitting
+  # python lets the platform use its default supported runtime, which still provides
+  # the snowflake-channel packages below.
   - pandas
   - numpy
   - pydeck

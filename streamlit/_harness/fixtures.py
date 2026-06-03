@@ -333,4 +333,19 @@ def build_query_module():
     # is no retargeting, so it just delegates to the (fake) session — FakeSession.sql
     # returns the CDS matrix fixture for that query.
     m._sql = lambda session, text, params=None: session.sql(text, params=params)
+
+    # Safety net (PEP 562 module __getattr__): any OTHER private helper a view might
+    # import directly from lib.comprenda_queries — which this fixture fully replaces —
+    # resolves to a session.sql pass-through. So adding such an import to a view can
+    # never again ImportError the public demo; the worst case is a fixture-less query
+    # routed through FakeSession. Public (non-underscore) names must still be defined
+    # explicitly above, so a genuinely missing helper surfaces loudly.
+    def _missing(name):
+        # Single-underscore private helpers only. NOT dunders (__path__, __all__,
+        # __spec__, …) — intercepting those breaks Python's import machinery.
+        if name.startswith("_") and not name.startswith("__"):
+            return lambda session, text, params=None: session.sql(text, params=params)
+        raise AttributeError(
+            f"module 'lib.comprenda_queries' (demo fixture) has no attribute {name!r}")
+    m.__getattr__ = _missing
     return m

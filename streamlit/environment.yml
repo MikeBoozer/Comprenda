@@ -9,6 +9,9 @@ dependencies:
   - pandas
   - numpy
   - pydeck
-  - streamlit
+  # Pin >=1.36 for the st.Page / st.navigation multipage API (comprenda_app.py).
+  # Unpinned resolves to an old snowflake-channel build that lacks st.Page. 1.44.1
+  # is in the channel and predates the use_container_width deprecation (~1.49).
+  - streamlit=1.44.1
   - snowflake-snowpark-python
   - altair

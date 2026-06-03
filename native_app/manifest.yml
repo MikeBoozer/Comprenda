@@ -1,22 +1,23 @@
 # =============================================================================
-# Project Nuance — Snowflake Native App manifest
+# Comprenda — Snowflake Native App manifest
 # =============================================================================
-# This file is the entry point for packaging Nuance as a Snowflake Native App
-# distributed via Snowflake Marketplace. The customer installs Nuance into
+# This file is the entry point for packaging Comprenda as a Snowflake Native App
+# distributed via Snowflake Marketplace. The customer installs Comprenda into
 # their own Snowflake account; their data never leaves their boundary.
+# (Internal database/codename plumbing remains "nuance_db" — see repo README.)
 # =============================================================================
 
 manifest_version: 1
 
 version:
   name: "v1_0"
-  label: "Nuance v1.0"
+  label: "Comprenda v1.0"
   comment: "Cross-lingual cultural intelligence engine."
 
 artifacts:
   setup_script: setup_script.sql
   readme: README.md
-  default_streamlit: app_instance.nuance_app
+  default_streamlit: app_instance.comprenda_app
   extension_code: true
 
 configuration:
@@ -29,33 +30,30 @@ privileges:
   - EXECUTE MANAGED TASK:
       description: "Required for the Drift Alerts cron task."
   - CREATE WAREHOUSE:
-      description: "Allows Nuance to create its own XS warehouse for compute isolation."
+      description: "Allows Comprenda to create its own XS warehouse for compute isolation."
+  - IMPORTED PRIVILEGES ON SNOWFLAKE DB:
+      description: "Required to call SNOWFLAKE.CORTEX LLM functions and build/query Cortex Search services."
   - BIND SERVICE ENDPOINT:
       description: "Required for the MCP server companion service."
 
 references:
   - consumer_raw_data:
       label: "Customer raw multilingual content"
-      description: |
-        Bind this to a customer table or view holding their multilingual social,
-        review, news, or support content. Expected columns: post_id, post_text,
-        detected_language, post_timestamp, event_tag (optional), source_platform.
+      description: >
+        Customer table or view of multilingual content. Columns: post_id,
+        post_text, detected_language, post_timestamp, event_tag (optional),
+        source_platform.
       privileges:
         - SELECT
       object_type: TABLE
       multi_valued: false
       register_callback: app_instance.register_consumer_raw_data
-      configuration_callback: app_instance.config_consumer_raw_data
-      required_at_setup: true
-
-  - consumer_notification:
-      label: "Email notification integration (optional)"
-      description: |
-        Bind a customer-owned EMAIL notification integration for Drift Alert
-        delivery. If unbound, alerts are surfaced in-app only.
-      privileges:
-        - USAGE
-      object_type: NOTIFICATION_INTEGRATION
-      multi_valued: false
-      register_callback: app_instance.register_consumer_notification
+      # MVP ships bundled synthetic data, so binding consumer content is OPTIONAL.
+      # Flip to true once the bring-your-own-data enrichment pipeline ships (Phase 2).
       required_at_setup: false
+
+  # Drift-Alert email delivery (binding a consumer notification integration) is
+  # deferred to Phase 2: a NOTIFICATION INTEGRATION is NOT a valid reference
+  # object_type — references only support TABLE / VIEW / EXTERNAL TABLE / FUNCTION /
+  # PROCEDURE / WAREHOUSE / API INTEGRATION / EXTERNAL ACCESS INTEGRATION / SECRET.
+  # For now Drift Alerts surface in-app only.

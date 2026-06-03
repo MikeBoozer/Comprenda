@@ -1,6 +1,7 @@
-# Nuance Native App — Packaging & Deployment
+# Comprenda Native App — Packaging & Deployment
 
-This directory packages Nuance as a Snowflake Native App for Marketplace distribution.
+This directory packages Comprenda as a Snowflake Native App for Marketplace distribution.
+(Internal database/codename plumbing remains `nuance_db` — see the repo README.)
 
 ## Prerequisites
 
@@ -12,37 +13,49 @@ This directory packages Nuance as a Snowflake Native App for Marketplace distrib
 
 ```
 native_app/
+├── snowflake.yml         # snowflake-cli project def + EXPLICIT artifacts allow-list (no globs)
 ├── manifest.yml          # App metadata, references, privileges
 ├── setup_script.sql      # Runs in consumer account on install
 ├── README.md             # This file (also displayed in Marketplace)
-└── streamlit/            # Copied from ../streamlit before packaging
-    ├── nuance_app.py
-    ├── pages/
-    ├── lib/
+└── streamlit/            # Copied from ../streamlit at packaging time (git-ignored)
+    ├── comprenda_app.py  # MAIN_FILE (post-redesign entry; NOT the old nuance_app.py)
+    ├── views/            # the 10 pages: 0_Overview … 9_Narrative_Search (NOT pages/)
+    ├── lib/              # comprenda_theme.py / comprenda_components.py / comprenda_queries.py
     └── environment.yml
 ```
 
 ## Packaging steps
 
+Run these from inside `native_app/` (that's the snowflake-cli project root — see `snowflake.yml`).
+
 ```bash
-# 1. From the project root, stage the Streamlit code into native_app/streamlit/
-cp -r streamlit native_app/streamlit
+# 1. Copy the live Streamlit app in (git-ignored), and DROP the local preview harness
+#    so it never ships. PowerShell:
+#      Copy-Item -Recurse -Force ..\streamlit .\streamlit
+#      Remove-Item -Recurse -Force .\streamlit\_harness
+#    bash:
+cp -r ../streamlit ./streamlit && rm -rf ./streamlit/_harness
 
-# 2. Initialize Snowflake CLI project config (one-time)
-cd native_app
-snow app init --template nuance --no-template
+# 2. Validate the project definition + manifest before uploading anything
+snow app validate
 
-# 3. Deploy the application package + version to your account
-snow app deploy
+# 3. Build the application package, upload the allow-listed artifacts, and install
+#    it into your account as an APPLICATION (deploy + create-app in one step)
+snow app run
 
-# 4. Test as the consumer
-snow app run                  # installs into your account as an APPLICATION
-# open Snowflake UI → Apps → Nuance → Streamlit
+# 3b. One-time provisioning: a native-app setup script has no warehouse, so the
+#     bundled-data load + Cortex Search services run in app_instance.provision_app()
+#     instead. See "After install" below for the two grants + the CALL.
+# open Snowflake UI → Data Products → Apps → (the installed app) → the Streamlit object
 
-# 5. Publish to Snowflake Marketplace via the Provider Studio
+# 4. Publish to Snowflake Marketplace via the Provider Studio
 #    (Snowflake UI → Data Products → Provider Studio → Listings → New)
-#    Reference the application package created above.
+#    Reference the application package (comprenda_pkg) created above.
 ```
+
+> Note: `snowflake.yml` defines the package (`comprenda_pkg`) and app (`comprenda_app`)
+> entities, so `snow app init` is **not** needed. The `artifacts:` list is an explicit
+> allow-list — keep it that way (never glob the root) so secrets/data can't be bundled.
 
 ## Marketplace listing copy
 
@@ -63,8 +76,33 @@ Consumers can pin or auto-upgrade per their preference.
 
 ## After install (consumer side)
 
-1. Consumer installs Nuance from Marketplace.
-2. They bind their multilingual content table as `consumer_raw_data`.
-3. (Optional) They bind an email notification integration.
-4. They run the Nuance Streamlit and seed embeddings via a one-click pipeline button on the Home page.
-5. All compute runs in their warehouse; data never leaves their account.
+This MVP ships a **self-contained demo on bundled synthetic data** — no data binding
+required. Because a native-app setup script runs without a warehouse (and so can't
+`COPY INTO` or build a Cortex Search service at install time), there is one provisioning
+step. After installing Comprenda from Marketplace, grant the app the privileges its
+provisioner needs, then call it:
+
+```sql
+-- Substitute your installed application name for `comprenda_app` if you chose another.
+USE ROLE ACCOUNTADMIN;  -- the account-level grants below require it
+GRANT CREATE WAREHOUSE ON ACCOUNT TO APPLICATION comprenda_app;
+GRANT IMPORTED PRIVILEGES ON DATABASE SNOWFLAKE TO APPLICATION comprenda_app;  -- Cortex COMPLETE/EMBED/Search
+-- provision_app() is granted to the app_admin application role, so grant it to your
+-- role before calling it:
+GRANT APPLICATION ROLE comprenda_app.app_admin TO ROLE ACCOUNTADMIN;
+-- The proc can't run USE WAREHOUSE, so its COPY INTO / seed run on the caller's
+-- warehouse — set any warehouse you own active first:
+USE WAREHOUSE nuance_dev_wh;
+CALL comprenda_app.app_instance.provision_app();
+```
+
+`provision_app()` creates an XS warehouse (`comprenda_wh`), loads the bundled corpus
+(`COPY INTO` from the packaged Parquet), seeds the analog library, and builds the two
+Cortex Search services. It is **idempotent** — safe to re-run. Then open the Comprenda
+Streamlit (Snowflake UI → Data Products → Apps → Comprenda) and every hero feature works
+on the bundled data. All compute runs in the consumer's account; nothing leaves it.
+
+**Phase 2 (bring-your-own-data — not in this build):** bind a multilingual content table
+as `consumer_raw_data` (plus an optional email notification integration) and run the
+embed → classify → CDS enrichment pipeline over it. That reference is declared optional in
+`manifest.yml`, so the demo installs and provisions without it.

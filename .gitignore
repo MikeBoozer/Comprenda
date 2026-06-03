@@ -45,9 +45,20 @@ Thumbs.db
 *.parquet
 *.sqlite
 *.db
+# …but DO commit the bundled Native App demo seed — it's the durable Marketplace
+# data loaded by provision_app() and must survive even if the trial account lapses.
+!native_app/data/
+!native_app/data/*.parquet
 
 # Snowflake / app local artifacts
 .streamlit/secrets.toml
+
+# Native App packaging: the Streamlit source is copied into native_app/ at build
+# time (see native_app/snowflake.yml). Don't commit the duplicate — it goes stale.
+native_app/streamlit/
+# snowflake-cli local build output
+native_app/output/
+native_app/.snowflake/
 
 # Dead backup of the pre-redesign workspace app (ADR-0004 cutover safety copy; see its README)
 archive/workspace_nuance_app_snapshot_*/

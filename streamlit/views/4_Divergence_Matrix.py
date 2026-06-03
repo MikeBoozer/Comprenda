@@ -11,7 +11,7 @@ from snowflake.snowpark.context import get_active_session
 import altair as alt
 import pandas as pd
 
-from lib.comprenda_queries import list_event_tags
+from lib.comprenda_queries import list_event_tags, _sql
 from lib.comprenda_theme import inject_css
 from lib.comprenda_components import page_header, pill, event_label
 
@@ -235,7 +235,10 @@ if chosen is None:
 # page files every run but caches imported lib modules on a warm container, so a lib
 # change can stay stale after deploy until cold-start. Inlining keeps this page
 # correct on the next rerun. (lib.get_cds_matrix holds the same query server-side.)
-df = session.sql(
+# _sql() only rewrites object names inside the installed Native App; in the dev/live
+# app it is a pass-through, so this page's query text stays authoritative either way.
+df = _sql(
+    session,
     "SELECT language_a, language_b, headline_score, frame_divergence, "
     "       sentiment_divergence, topical_overlap, situation_label, cds_confidence "
     "FROM NUANCE_DB.OUTPUTS.CULTURAL_DIVERGENCE_SCORES "

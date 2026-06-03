@@ -7,10 +7,73 @@ from snowflake.snowpark import Session
 
 
 # ---------------------------------------------------------------------------
+# Dual-mode object resolver (dev instance vs. installed Native App)
+# ---------------------------------------------------------------------------
+# The same Streamlit ships two ways: against the dev database NUANCE_DB.* (the
+# live demo at comprenda.streamlit.app) and inside the installed Native App,
+# where every object is consolidated under app_data.* (tables) / app_instance.*
+# (procedures) and the Cortex Search service is named per-installed-app.
+#
+# Rather than fork the SQL, queries keep their readable NUANCE_DB.* literals and
+# this resolver rewrites them to the app's names ONLY when running inside the
+# app. Mode is detected by probing for app_data.config (which exists only in the
+# app) and DEFAULTS TO DEV on any error — so the live app can never be flipped
+# into app mode by accident.
+_APP_MAP = {
+    "NUANCE_DB.RAW_DATA.SOCIAL_POSTS": "app_data.social_posts",
+    "NUANCE_DB.INTERNAL.DRIFT_EVENTS": "app_data.drift_events",
+    "NUANCE_DB.INTERNAL.CONFIG": "app_data.config",
+    "NUANCE_DB.OUTPUTS.PRE_LAUNCH_RISK_SCORES": "app_data.pre_launch_risk_scores",
+    "NUANCE_DB.OUTPUTS.CULTURAL_DIVERGENCE_SCORES": "app_data.cultural_divergence_scores",
+    "NUANCE_DB.ENRICHED.CULTURAL_FRAMES": "app_data.cultural_frames",
+    "NUANCE_DB.LIBRARY.TRACKED_ENTITIES": "app_data.tracked_entities",
+    "NUANCE_DB.OUTPUTS.SCORE_CONTENT": "app_instance.score_content",
+    "NUANCE_DB.OUTPUTS.TRANSLATE_CULTURE": "app_instance.translate_culture",
+    "NUANCE_DB.OUTPUTS.FIND_ANALOGS": "app_instance.find_analogs",
+    "NUANCE_DB.OUTPUTS.GENERATE_BRIEF": "app_instance.generate_brief",
+    # Cortex Search service: 3-part name, app-database prefix filled at runtime.
+    "NUANCE_DB.ENRICHED.NUANCE_POST_SEARCH": "{DB}.APP_DATA.COMPRENDA_POST_SEARCH",
+}
+
+_RESOLVER_CACHE: dict = {}
+
+
+def _mode(session: Session) -> str:
+    """'app' if running inside the installed Native App, else 'dev' (default)."""
+    if "mode" not in _RESOLVER_CACHE:
+        try:
+            session.sql("SELECT COUNT(*) FROM app_data.config").collect()
+            _RESOLVER_CACHE["mode"] = "app"
+        except Exception:
+            _RESOLVER_CACHE["mode"] = "dev"
+    return _RESOLVER_CACHE["mode"]
+
+
+def _retarget(sql: str, session: Session) -> str:
+    """In app mode, rewrite NUANCE_DB.* literals to the app's object names."""
+    if _mode(session) == "dev":
+        return sql
+    if "db" not in _RESOLVER_CACHE:
+        _RESOLVER_CACHE["db"] = session.sql(
+            "SELECT CURRENT_DATABASE() AS DB"
+        ).collect()[0]["DB"]
+    db = _RESOLVER_CACHE["db"]
+    for dev_fqn, app_fqn in _APP_MAP.items():
+        sql = sql.replace(dev_fqn, app_fqn.replace("{DB}", db))
+    return sql
+
+
+def _sql(session: Session, text: str, params=None):
+    """session.sql() with mode-aware object-name resolution."""
+    return session.sql(_retarget(text, session), params=params)
+
+
+# ---------------------------------------------------------------------------
 # Dashboard
 # ---------------------------------------------------------------------------
 def get_kpi_summary(session: Session) -> dict:
-    row = session.sql(
+    row = _sql(
+        session,
         "SELECT "
         "  (SELECT COUNT(DISTINCT event_tag) FROM NUANCE_DB.RAW_DATA.SOCIAL_POSTS) AS events, "
         "  (SELECT COUNT(DISTINCT detected_language) FROM NUANCE_DB.RAW_DATA.SOCIAL_POSTS) AS languages, "
@@ -27,7 +90,8 @@ def get_kpi_summary(session: Session) -> dict:
 
 
 def get_recent_drift_events(session: Session, limit: int = 10) -> pd.DataFrame:
-    df = session.sql(
+    df = _sql(
+        session,
         "SELECT entity_name, language_a, language_b, "
         "       ROUND(prev_cds, 3) AS prev_cds, "
         "       ROUND(new_cds, 3) AS new_cds, "
@@ -41,7 +105,8 @@ def get_recent_drift_events(session: Session, limit: int = 10) -> pd.DataFrame:
 
 
 def get_recent_plcs_scores(session: Session, limit: int = 10) -> pd.DataFrame:
-    df = session.sql(
+    df = _sql(
+        session,
         "SELECT target_market, plcs_score, "
         "       ROUND(plcs_confidence, 2) AS confidence, "
         "       SUBSTR(draft_content, 1, 60) || '…' AS draft_preview, "
@@ -57,7 +122,8 @@ def get_recent_plcs_scores(session: Session, limit: int = 10) -> pd.DataFrame:
 # Event Explorer
 # ---------------------------------------------------------------------------
 def list_event_tags(session: Session) -> list[str]:
-    rows = session.sql(
+    rows = _sql(
+        session,
         "SELECT DISTINCT event_tag FROM NUANCE_DB.RAW_DATA.SOCIAL_POSTS "
         "WHERE event_tag IS NOT NULL ORDER BY event_tag"
     ).collect()
@@ -65,7 +131,8 @@ def list_event_tags(session: Session) -> list[str]:
 
 
 def list_languages(session: Session) -> list[str]:
-    rows = session.sql(
+    rows = _sql(
+        session,
         "SELECT DISTINCT detected_language FROM NUANCE_DB.RAW_DATA.SOCIAL_POSTS "
         "WHERE detected_language IS NOT NULL ORDER BY detected_language"
     ).collect()
@@ -96,14 +163,16 @@ def get_session_context(session: Session) -> dict:
 
 def get_corpus_freshness(session: Session):
     """Most recent corpus ingestion timestamp (None if the corpus is empty)."""
-    rows = session.sql(
+    rows = _sql(
+        session,
         "SELECT MAX(ingested_at) AS latest FROM NUANCE_DB.RAW_DATA.SOCIAL_POSTS"
     ).collect()
     return rows[0]["LATEST"] if rows else None
 
 
 def get_event_summary(session: Session, event_tag: str) -> pd.DataFrame:
-    df = session.sql(
+    df = _sql(
+        session,
         "SELECT detected_language, "
         "       COUNT(*) AS n_posts, "
         "       ROUND(AVG(sentiment_score), 3) AS avg_sentiment, "
@@ -122,7 +191,8 @@ def get_event_summary(session: Session, event_tag: str) -> pd.DataFrame:
 def get_cds_matrix(session: Session, event_tag: str) -> pd.DataFrame:
     # headline_score = frame_divergence (the primary axis). Select only the latest
     # computed batch per language pair, since the table appends a batch each run.
-    df = session.sql(
+    df = _sql(
+        session,
         "SELECT language_a, language_b, headline_score, frame_divergence, "
         "       sentiment_divergence, topical_overlap, situation_label, cds_confidence "
         "FROM NUANCE_DB.OUTPUTS.CULTURAL_DIVERGENCE_SCORES "
@@ -139,7 +209,8 @@ def get_cds_matrix(session: Session, event_tag: str) -> pd.DataFrame:
 # Frame Distribution
 # ---------------------------------------------------------------------------
 def get_frame_distribution(session: Session, event_tag: str) -> pd.DataFrame:
-    df = session.sql(
+    df = _sql(
+        session,
         "SELECT detected_language, cultural_frame, COUNT(*) AS n "
         "FROM NUANCE_DB.ENRICHED.CULTURAL_FRAMES "
         "WHERE event_tag = ? "
@@ -160,7 +231,8 @@ def call_plcs(
     target_market: str,
     requested_by: str = None,
 ) -> dict:
-    row = session.sql(
+    row = _sql(
+        session,
         "CALL NUANCE_DB.OUTPUTS.SCORE_CONTENT(?,?,?,?)",
         params=[draft_content, source_language, target_market, requested_by],
     ).collect()
@@ -182,7 +254,8 @@ def call_translator(
     target_frame_hint: str = None,
     requested_by: str = None,
 ) -> dict:
-    row = session.sql(
+    row = _sql(
+        session,
         "CALL NUANCE_DB.OUTPUTS.TRANSLATE_CULTURE(?,?,?,?,?)",
         params=[source_content, source_language, target_market,
                 target_frame_hint, requested_by],
@@ -197,7 +270,8 @@ def call_translator(
 # Drift Alerts
 # ---------------------------------------------------------------------------
 def list_tracked_entities(session: Session) -> pd.DataFrame:
-    return session.sql(
+    return _sql(
+        session,
         "SELECT entity_id, entity_name, entity_type, owner_email, "
         "       cds_threshold_delta, cds_threshold_abs, active, created_at "
         "FROM NUANCE_DB.LIBRARY.TRACKED_ENTITIES ORDER BY created_at DESC"
@@ -212,7 +286,8 @@ def add_tracked_entity(
     delta: float = 0.15,
     abs_threshold: float = 0.55,
 ) -> None:
-    session.sql(
+    _sql(
+        session,
         "INSERT INTO NUANCE_DB.LIBRARY.TRACKED_ENTITIES "
         "(entity_name, owner_email, languages, cds_threshold_delta, cds_threshold_abs) "
         "SELECT ?, ?, PARSE_JSON(?), ?, ?",
@@ -231,7 +306,8 @@ def find_matching_events(session: Session, entity_name: str) -> list[str]:
     insensitive. Returns a list of matching event_tag strings (may be empty).
     """
     normalised = entity_name.replace(" ", "_")
-    rows = session.sql(
+    rows = _sql(
+        session,
         "SELECT DISTINCT event_tag "
         "FROM NUANCE_DB.RAW_DATA.SOCIAL_POSTS "
         "WHERE event_tag IS NOT NULL "
@@ -249,7 +325,8 @@ def find_matching_events(session: Session, entity_name: str) -> list[str]:
 def call_find_analogs(
     session: Session, query_text: str, target_market: str = None, k: int = 5
 ) -> dict:
-    row = session.sql(
+    row = _sql(
+        session,
         "CALL NUANCE_DB.OUTPUTS.FIND_ANALOGS(?,?,?)",
         params=[query_text, target_market, k],
     ).collect()
@@ -265,7 +342,8 @@ def call_find_analogs(
 def call_generate_brief(
     session: Session, event_tag: str, target_languages: list[str], requested_by: str = None
 ) -> dict:
-    row = session.sql(
+    row = _sql(
+        session,
         "CALL NUANCE_DB.OUTPUTS.GENERATE_BRIEF(?, PARSE_JSON(?), ?)",
         params=[event_tag, json.dumps(target_languages), requested_by],
     ).collect()
@@ -296,7 +374,8 @@ def narrative_search(
         if frames:
             filt["@and"].append({"@or": [{"@eq": {"cultural_frame": f}} for f in frames]})
         body["filter"] = filt
-    row = session.sql(
+    row = _sql(
+        session,
         "SELECT SNOWFLAKE.CORTEX.SEARCH_PREVIEW("
         "'NUANCE_DB.ENRICHED.NUANCE_POST_SEARCH', ?) AS r",
         params=[json.dumps(body)],

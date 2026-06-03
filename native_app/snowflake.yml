@@ -1,0 +1,55 @@
+# =============================================================================
+# Comprenda — Snowflake Native App project definition (snowflake-cli)
+# =============================================================================
+# Consumed by `snow app validate` / `snow app deploy` / `snow app run`.
+#
+# SECURITY — BINDING (ADR-0001 + docs/10 #6): `artifacts` below is an EXPLICIT
+# allow-list. NEVER replace it with `- "*"` or glob a directory root. The repo
+# contains secrets and non-shippable data that must never enter the application
+# package, e.g.:
+#   - .mcp.json and ~/.snowflake/config.toml      (Snowflake credentials)
+#   - data/                                         (generators, raw corpora)
+#   - any export of tracked_entities                (real owner email / PII)
+#   - pre_launch_risk_scores / ai_briefs /          (provider-side outputs;
+#     cultural_translator_runs / drift_events        ship EMPTY tables only)
+# This project is rooted in native_app/ (NOT the repo root) on purpose, so the
+# blast radius is small: only files placed inside native_app/ can be packaged.
+#
+# The Streamlit source lives one level up at ../streamlit and is copied in at
+# packaging time (the copy is git-ignored — see .gitignore + README "Packaging"):
+#   PowerShell:  Copy-Item -Recurse -Force ..\streamlit .\streamlit
+#                Remove-Item -Recurse -Force .\streamlit\_harness   # never ship the local harness
+#   bash:        cp -r ../streamlit ./streamlit && rm -rf ./streamlit/_harness
+# =============================================================================
+
+definition_version: 2
+
+entities:
+  pkg:
+    type: application package
+    identifier: comprenda_pkg
+    manifest: manifest.yml
+    # --- EXPLICIT allow-list ONLY. Each src is a file/dir inside native_app/. ---
+    artifacts:
+      - src: manifest.yml
+        dest: manifest.yml
+      - src: setup_script.sql
+        dest: setup_script.sql
+      - src: README.md
+        dest: README.md
+      - src: streamlit/
+        dest: streamlit/
+      # Bundled demo Parquet loaded by app_instance.provision_app() (COPY INTO from
+      # the package path /data). The analog seed is inlined in setup_script.sql, so
+      # scripts/ does not ship (it stays in the repo as the source-of-truth generator).
+      - src: data/
+        dest: data/
+
+  app:
+    type: application
+    identifier: comprenda_app
+    from:
+      target: pkg
+    # debug_mode lets you read the app's own logs during dev testing; the CLI
+    # default is fine. Uncomment if you need verbose install diagnostics:
+    # debug: true

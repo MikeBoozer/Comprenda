@@ -37,8 +37,13 @@ entities:
         dest: setup_script.sql
       - src: README.md
         dest: README.md
+      # dest is the deploy ROOT (not "streamlit/"): snow recreates the source dir
+      # under dest, so dest: ./ lands the tree at stage /streamlit/* — which is what
+      # the setup_script Streamlit (FROM '/streamlit' MAIN_FILE comprenda_app.py)
+      # expects. dest: streamlit/ would double-nest it to /streamlit/streamlit/* and
+      # the app fails at render with FileNotFoundError on comprenda_app.py.
       - src: streamlit/
-        dest: streamlit/
+        dest: ./
       # NOTE: data/ and scripts/ are deliberately NOT shipped to consumers. The
       # bundled demo corpus ships as native-app DATA CONTENT: the post-deploy hook
       # below populates comprenda_pkg.shared_data.* (provider-side, in the package)

@@ -1,0 +1,392 @@
+[
+    {
+        "ANALOG_ID": "analog_003",
+        "CASE_NAME": "Pepsi 'Come Alive' \u2192 'Bring Ancestors Back'",
+        "COMPANY": "Pepsi",
+        "YEAR": 1960,
+        "DESCRIPTION": "Pepsi's 'Come alive with the Pepsi Generation' translated in Chinese as 'Pepsi brings your ancestors back from the dead.' Spiritual-frame violation in market with strong ancestor veneration.",
+        "AFFECTED_MARKETS": "[\n  \"zh\"\n]",
+        "FAILURE_FRAMES": "[\n  \"spiritual_ethical\",\n  \"historical_grievance\"\n]",
+        "OUTCOME_SUMMARY": "Campaign pulled in market; case-study staple for 60+ years."
+    },
+    {
+        "ANALOG_ID": "analog_008",
+        "CASE_NAME": "Electrolux 'Nothing Sucks Like an Electrolux'",
+        "COMPANY": "Electrolux",
+        "YEAR": 1960,
+        "DESCRIPTION": "Swedish brand's English campaign 'Nothing sucks like an Electrolux' succeeded in UK but became meme-fodder in US English markets.",
+        "AFFECTED_MARKETS": "[\n  \"en\"\n]",
+        "FAILURE_FRAMES": "[\n  \"pragmatic\",\n  \"ambiguous\"\n]",
+        "OUTCOME_SUMMARY": "Brand survived; campaign quietly retired in US."
+    },
+    {
+        "ANALOG_ID": "analog_007",
+        "CASE_NAME": "Ford Pinto Name in Brazil",
+        "COMPANY": "Ford",
+        "YEAR": 1971,
+        "DESCRIPTION": "Ford launched the Pinto in Brazil; 'pinto' is Brazilian-Portuguese slang for small male genitals. Sales were a fraction of forecast.",
+        "AFFECTED_MARKETS": "[\n  \"pt\"\n]",
+        "FAILURE_FRAMES": "[\n  \"pragmatic\",\n  \"ambiguous\"\n]",
+        "OUTCOME_SUMMARY": "Renamed to 'Corcel' in Brazil; sales recovered."
+    },
+    {
+        "ANALOG_ID": "analog_033",
+        "CASE_NAME": "Nestl\u00e9 Infant Formula Africa 1970s",
+        "COMPANY": "Nestl\u00e9",
+        "YEAR": 1977,
+        "DESCRIPTION": "Nestl\u00e9 marketed infant formula in African markets with insufficient clean-water access, contributing to infant deaths. Spiritual-ethical violation triggered 7-year global boycott.",
+        "AFFECTED_MARKETS": "[\n  \"en\",\n  \"fr\",\n  \"ar\",\n  \"sw\"\n]",
+        "FAILURE_FRAMES": "[\n  \"spiritual_ethical\",\n  \"threat_framing\"\n]",
+        "OUTCOME_SUMMARY": "7-year boycott; WHO marketing code (1981) directly attributable to case."
+    },
+    {
+        "ANALOG_ID": "analog_005",
+        "CASE_NAME": "Coors 'Turn It Loose' \u2192 'Suffer from Diarrhea'",
+        "COMPANY": "Coors",
+        "YEAR": 1980,
+        "DESCRIPTION": "Coors' 'Turn it loose' slogan, when translated to Spanish, read as 'suffer from diarrhea.' Material brand reputation damage.",
+        "AFFECTED_MARKETS": "[\n  \"es\"\n]",
+        "FAILURE_FRAMES": "[\n  \"pragmatic\"\n]",
+        "OUTCOME_SUMMARY": "Spanish-market entry delayed; campaign re-shot."
+    },
+    {
+        "ANALOG_ID": "analog_024",
+        "CASE_NAME": "P&G 'Stork Delivering Babies' in Japan",
+        "COMPANY": "Procter & Gamble",
+        "YEAR": 1985,
+        "DESCRIPTION": "P&G's diaper ad showed a stork delivering babies. In Japan, stork mythology is about peach-borne babies. Cultural-narrative mismatch made ad confusing rather than offensive \u2014 sales muted.",
+        "AFFECTED_MARKETS": "[\n  \"ja\"\n]",
+        "FAILURE_FRAMES": "[\n  \"ambiguous\",\n  \"spiritual_ethical\"\n]",
+        "OUTCOME_SUMMARY": "Ad replaced with Japanese-mythology-aligned imagery; sales recovered."
+    },
+    {
+        "ANALOG_ID": "analog_021",
+        "CASE_NAME": "Coca-Cola 'New Coke' 1985",
+        "COMPANY": "Coca-Cola",
+        "YEAR": 1985,
+        "DESCRIPTION": "Coca-Cola replaced classic formula with 'New Coke.' Status-quo violation triggered consumer revolt. Reformulated within 79 days.",
+        "AFFECTED_MARKETS": "[\n  \"en\"\n]",
+        "FAILURE_FRAMES": "[\n  \"status_quo\"\n]",
+        "OUTCOME_SUMMARY": "Reverted within 79 days; brand-trust narrative shifted for decade."
+    },
+    {
+        "ANALOG_ID": "analog_006",
+        "CASE_NAME": "KFC 'Finger-Lickin' Good' \u2192 'Eat Your Fingers Off'",
+        "COMPANY": "KFC",
+        "YEAR": 1987,
+        "DESCRIPTION": "KFC's signature slogan translated in Chinese as 'Eat your fingers off.' Threat-framing violation in market that prizes pragmatism.",
+        "AFFECTED_MARKETS": "[\n  \"zh\"\n]",
+        "FAILURE_FRAMES": "[\n  \"threat_framing\",\n  \"ambiguous\"\n]",
+        "OUTCOME_SUMMARY": "Slogan dropped in market; alternative wording used."
+    },
+    {
+        "ANALOG_ID": "analog_002",
+        "CASE_NAME": "Mercedes Bensi \u2192 'Rush to Die'",
+        "COMPANY": "Mercedes-Benz",
+        "YEAR": 1990,
+        "DESCRIPTION": "Mercedes-Benz entered China as 'Bensi,' which read homophonically as 'rush to die.' The brand quickly switched to 'Benchi' (meaning 'dashing speed'). Early sales were materially affected.",
+        "AFFECTED_MARKETS": "[\n  \"zh\"\n]",
+        "FAILURE_FRAMES": "[\n  \"nationalist\",\n  \"spiritual_ethical\",\n  \"status_quo\"\n]",
+        "OUTCOME_SUMMARY": "Localized name change; Chinese launch delayed and re-budgeted."
+    },
+    {
+        "ANALOG_ID": "analog_027",
+        "CASE_NAME": "Audi 'Vorsprung durch Technik' Translation",
+        "COMPANY": "Audi",
+        "YEAR": 1990,
+        "DESCRIPTION": "Audi kept German tagline 'Vorsprung durch Technik' in English markets rather than translating. Counterintuitively succeeded \u2014 pragmatic German identity reinforced brand. Case study in 'don't translate.'",
+        "AFFECTED_MARKETS": "[\n  \"en\"\n]",
+        "FAILURE_FRAMES": "[\n  \"pragmatic\",\n  \"nationalist\"\n]",
+        "OUTCOME_SUMMARY": "Tagline still in use 30+ years; brand-equity case study."
+    },
+    {
+        "ANALOG_ID": "analog_036",
+        "CASE_NAME": "Procter & Gamble 'Whisper' Naming",
+        "COMPANY": "Procter & Gamble",
+        "YEAR": 1990,
+        "DESCRIPTION": "P&G launched feminine-hygiene brand 'Whisper' globally but 'Always' in collectivist markets like Italy and Spain where 'whisper' framing felt isolating rather than supportive. Successful frame split.",
+        "AFFECTED_MARKETS": "[\n  \"it\",\n  \"es\"\n]",
+        "FAILURE_FRAMES": "[\n  \"individualist\",\n  \"collectivist\"\n]",
+        "OUTCOME_SUMMARY": "Both brand names continue; deliberate cultural-frame split."
+    },
+    {
+        "ANALOG_ID": "analog_009",
+        "CASE_NAME": "American Airlines 'Fly in Leather' \u2192 'Fly Naked'",
+        "COMPANY": "American Airlines",
+        "YEAR": 1990,
+        "DESCRIPTION": "AA's 'Fly in leather' translated to Mexican Spanish as 'Fly naked' ('Vuela en cuero' is colloquial for nudity). Premium-cabin positioning undermined in entire Mexican market.",
+        "AFFECTED_MARKETS": "[\n  \"es\"\n]",
+        "FAILURE_FRAMES": "[\n  \"pragmatic\"\n]",
+        "OUTCOME_SUMMARY": "Premium ad budget rewritten for Mexican market."
+    },
+    {
+        "ANALOG_ID": "analog_010",
+        "CASE_NAME": "Got Milk? in Mexico",
+        "COMPANY": "California Milk Processor Board",
+        "YEAR": 1993,
+        "DESCRIPTION": "'Got Milk?' translated literally into Spanish as '\u00bfTienes leche?' which read in Mexico as 'Are you lactating?' Maternal-frame collision with brand intent.",
+        "AFFECTED_MARKETS": "[\n  \"es\"\n]",
+        "FAILURE_FRAMES": "[\n  \"spiritual_ethical\",\n  \"pragmatic\"\n]",
+        "OUTCOME_SUMMARY": "Replaced with 'Familia, Amor y Leche' in Mexican market."
+    },
+    {
+        "ANALOG_ID": "analog_004",
+        "CASE_NAME": "Parker Pen 'Embarrass' Translation",
+        "COMPANY": "Parker Pen",
+        "YEAR": 1994,
+        "DESCRIPTION": "Parker's 'It won't leak in your pocket and embarrass you' translated into Spanish using 'embarazar,' which means 'to impregnate.' The ad ran as 'It won't leak in your pocket and impregnate you.'",
+        "AFFECTED_MARKETS": "[\n  \"es\"\n]",
+        "FAILURE_FRAMES": "[\n  \"pragmatic\",\n  \"ambiguous\"\n]",
+        "OUTCOME_SUMMARY": "Brand mockery in Spanish-speaking markets for years."
+    },
+    {
+        "ANALOG_ID": "analog_028",
+        "CASE_NAME": "Levi's 501 in India",
+        "COMPANY": "Levi's",
+        "YEAR": 1995,
+        "DESCRIPTION": "Levi's launched 501 with US individualist 'rebel' messaging in India. Collectivist Indian market preferred family-celebration framing. Sales muted until campaign rewritten.",
+        "AFFECTED_MARKETS": "[\n  \"hi\"\n]",
+        "FAILURE_FRAMES": "[\n  \"individualist\",\n  \"collectivist\"\n]",
+        "OUTCOME_SUMMARY": "Re-shot for family-frame in India; sales recovered."
+    },
+    {
+        "ANALOG_ID": "analog_035",
+        "CASE_NAME": "Renault Kangoo Naming in Spain",
+        "COMPANY": "Renault",
+        "YEAR": 1997,
+        "DESCRIPTION": "Renault Kangoo sold well in most markets but in Spain, 'Kangoo' sounded similar to slang for awkward person. Sales soft until Spanish-specific positioning was added.",
+        "AFFECTED_MARKETS": "[\n  \"es\"\n]",
+        "FAILURE_FRAMES": "[\n  \"pragmatic\"\n]",
+        "OUTCOME_SUMMARY": "Spain-specific campaign launched; sales recovered."
+    },
+    {
+        "ANALOG_ID": "analog_025",
+        "CASE_NAME": "Nike 'Air' Logo Resembling 'Allah'",
+        "COMPANY": "Nike",
+        "YEAR": 1997,
+        "DESCRIPTION": "Nike Air-Bakin shoe 'Air' flame-script logo resembled the Arabic word for 'Allah.' Spiritual-ethical violation in MENA market.",
+        "AFFECTED_MARKETS": "[\n  \"ar\"\n]",
+        "FAILURE_FRAMES": "[\n  \"spiritual_ethical\"\n]",
+        "OUTCOME_SUMMARY": "38,000 shoes recalled; logo redesigned."
+    },
+    {
+        "ANALOG_ID": "analog_029",
+        "CASE_NAME": "McDonald's Hindu Beef Tallow Fries",
+        "COMPANY": "McDonald's",
+        "YEAR": 2001,
+        "DESCRIPTION": "McDonald's revealed its US fries were cooked in beef tallow despite vegetarian claims. Spiritual-ethical violation in Hindu Indian diaspora led to $10M lawsuit settlement.",
+        "AFFECTED_MARKETS": "[\n  \"hi\",\n  \"en\"\n]",
+        "FAILURE_FRAMES": "[\n  \"spiritual_ethical\"\n]",
+        "OUTCOME_SUMMARY": "$10M settlement; vegetarian-only India menu post-launch."
+    },
+    {
+        "ANALOG_ID": "analog_031",
+        "CASE_NAME": "Mattel Barbie in Saudi Arabia",
+        "COMPANY": "Mattel",
+        "YEAR": 2003,
+        "DESCRIPTION": "Saudi religious police banned Barbie dolls, calling them 'a threat to morality' due to Western individualist femininity. Spiritual-ethical frame collision.",
+        "AFFECTED_MARKETS": "[\n  \"ar\"\n]",
+        "FAILURE_FRAMES": "[\n  \"spiritual_ethical\",\n  \"status_quo\"\n]",
+        "OUTCOME_SUMMARY": "Banned 2003; Fulla doll dominated regional market."
+    },
+    {
+        "ANALOG_ID": "analog_030",
+        "CASE_NAME": "Walmart Germany Exit",
+        "COMPANY": "Walmart",
+        "YEAR": 2006,
+        "DESCRIPTION": "Walmart's friendliness training (smiling at strangers, in-store chants) violated German cultural norms around workplace formality and personal space. Exited Germany after $1B loss.",
+        "AFFECTED_MARKETS": "[\n  \"de\"\n]",
+        "FAILURE_FRAMES": "[\n  \"pragmatic\",\n  \"status_quo\"\n]",
+        "OUTCOME_SUMMARY": "$1B loss; exit after 9 years; Harvard case study."
+    },
+    {
+        "ANALOG_ID": "analog_037",
+        "CASE_NAME": "Apple iPhone 'No Sim' Launch China",
+        "COMPANY": "Apple",
+        "YEAR": 2009,
+        "DESCRIPTION": "Apple launched iPhone in China without an official carrier deal, leaving grey-market phones dominant. Pragmatic-frame misjudgment; consumer trust in Apple suffered for 18 months.",
+        "AFFECTED_MARKETS": "[\n  \"zh\"\n]",
+        "FAILURE_FRAMES": "[\n  \"pragmatic\",\n  \"ambiguous\"\n]",
+        "OUTCOME_SUMMARY": "China Unicom deal 2010; market-share takeoff began 2011."
+    },
+    {
+        "ANALOG_ID": "analog_001",
+        "CASE_NAME": "HSBC Assume Nothing \u2192 Do Nothing",
+        "COMPANY": "HSBC",
+        "YEAR": 2009,
+        "DESCRIPTION": "HSBC's global 'Assume Nothing' campaign translated into multiple markets as 'Do Nothing,' implying inaction. The brand spent $10M rebranding to 'The world's local bank' to repair the damage.",
+        "AFFECTED_MARKETS": "[\n  \"zh\",\n  \"ja\",\n  \"ko\",\n  \"es\",\n  \"pt\",\n  \"ar\"\n]",
+        "FAILURE_FRAMES": "[\n  \"pragmatic\",\n  \"ambiguous\"\n]",
+        "OUTCOME_SUMMARY": "$10M global rebrand; brand-trust impact in non-English markets for 18+ months."
+    },
+    {
+        "ANALOG_ID": "analog_012",
+        "CASE_NAME": "Tropicana Redesign 2009",
+        "COMPANY": "Tropicana",
+        "YEAR": 2009,
+        "DESCRIPTION": "Tropicana's $35M packaging redesign abandoned the iconic orange-with-straw imagery. Sales fell 20% in 2 months. Status-quo frame violation.",
+        "AFFECTED_MARKETS": "[\n  \"en\"\n]",
+        "FAILURE_FRAMES": "[\n  \"status_quo\",\n  \"threat_framing\"\n]",
+        "OUTCOME_SUMMARY": "Reverted within 60 days; $35M+ lost."
+    },
+    {
+        "ANALOG_ID": "analog_026",
+        "CASE_NAME": "Burger King 'Texican' Ad Spain",
+        "COMPANY": "Burger King",
+        "YEAR": 2009,
+        "DESCRIPTION": "BK Spanish ad showed tall American cowboy alongside short Mexican wrestler wearing US flag cape. Nationalist-frame and historical-grievance violations in Mexico simultaneously.",
+        "AFFECTED_MARKETS": "[\n  \"es\"\n]",
+        "FAILURE_FRAMES": "[\n  \"nationalist\",\n  \"historical_grievance\"\n]",
+        "OUTCOME_SUMMARY": "Ad pulled; Mexican ambassador filed complaint."
+    },
+    {
+        "ANALOG_ID": "analog_022",
+        "CASE_NAME": "Toyota Prius Japan vs US Marketing Split",
+        "COMPANY": "Toyota",
+        "YEAR": 2010,
+        "DESCRIPTION": "Toyota's Prius marketing emphasized collectivist 'family' values in Japan, individualist 'eco-savvy choice' in US. Same product, opposite frame. Successful divergent execution \u2014 exemplar case study.",
+        "AFFECTED_MARKETS": "[\n  \"en\",\n  \"ja\"\n]",
+        "FAILURE_FRAMES": "[\n  \"individualist\",\n  \"collectivist\"\n]",
+        "OUTCOME_SUMMARY": "Top-selling hybrid for 15 years; case study in deliberate cultural framing."
+    },
+    {
+        "ANALOG_ID": "analog_013",
+        "CASE_NAME": "Gap Logo Redesign 2010",
+        "COMPANY": "Gap",
+        "YEAR": 2010,
+        "DESCRIPTION": "Gap replaced its iconic blue-box logo with a flat sans-serif. Twitter and design press revolt. Pulled within 6 days.",
+        "AFFECTED_MARKETS": "[\n  \"en\"\n]",
+        "FAILURE_FRAMES": "[\n  \"status_quo\",\n  \"individualist\"\n]",
+        "OUTCOME_SUMMARY": "Reverted in 6 days; estimated $100M brand-equity hit."
+    },
+    {
+        "ANALOG_ID": "analog_023",
+        "CASE_NAME": "IKEA Furniture Naming in Thailand",
+        "COMPANY": "IKEA",
+        "YEAR": 2012,
+        "DESCRIPTION": "IKEA product names sounded similar to vulgar terms in Thai. Thai team rewrote naming for local market entry \u2014 pragmatic localization success.",
+        "AFFECTED_MARKETS": "[\n  \"th\"\n]",
+        "FAILURE_FRAMES": "[\n  \"pragmatic\"\n]",
+        "OUTCOME_SUMMARY": "Smooth market entry due to proactive linguistic vetting."
+    },
+    {
+        "ANALOG_ID": "analog_034",
+        "CASE_NAME": "Snapchat Chinese New Year Filter",
+        "COMPANY": "Snap Inc.",
+        "YEAR": 2016,
+        "DESCRIPTION": "Snapchat Chinese New Year filter narrowed eyes and made face yellow. Historical-grievance frame triggered in Chinese-American and Chinese markets simultaneously.",
+        "AFFECTED_MARKETS": "[\n  \"en\",\n  \"zh\"\n]",
+        "FAILURE_FRAMES": "[\n  \"historical_grievance\",\n  \"threat_framing\"\n]",
+        "OUTCOME_SUMMARY": "Filter pulled within 24 hours; public apology."
+    },
+    {
+        "ANALOG_ID": "analog_017",
+        "CASE_NAME": "Dove 'Real Beauty' Soap Bar Ad",
+        "COMPANY": "Dove",
+        "YEAR": 2017,
+        "DESCRIPTION": "Dove Facebook ad showed Black woman removing brown shirt to reveal white woman, intended as 'all skin types' message. Read as historical-grievance violation.",
+        "AFFECTED_MARKETS": "[\n  \"en\"\n]",
+        "FAILURE_FRAMES": "[\n  \"historical_grievance\"\n]",
+        "OUTCOME_SUMMARY": "Pulled; public apology."
+    },
+    {
+        "ANALOG_ID": "analog_014",
+        "CASE_NAME": "Pepsi Kendall Jenner Protest Ad",
+        "COMPANY": "Pepsi",
+        "YEAR": 2017,
+        "DESCRIPTION": "Pepsi ad showed Kendall Jenner ending a protest by handing a police officer a Pepsi. Read as trivializing Black Lives Matter \u2014 historical-grievance and threat-framing simultaneously.",
+        "AFFECTED_MARKETS": "[\n  \"en\"\n]",
+        "FAILURE_FRAMES": "[\n  \"historical_grievance\",\n  \"threat_framing\"\n]",
+        "OUTCOME_SUMMARY": "Pulled in 24 hours; CEO public apology."
+    },
+    {
+        "ANALOG_ID": "analog_039",
+        "CASE_NAME": "WeWork 'Live the We Life' Global Campaign",
+        "COMPANY": "WeWork",
+        "YEAR": 2018,
+        "DESCRIPTION": "WeWork's collectivist-Western 'community' framing failed in individualist markets like Germany and pragmatist markets like Japan. Vacancy rates 2-3x higher in those markets.",
+        "AFFECTED_MARKETS": "[\n  \"de\",\n  \"ja\"\n]",
+        "FAILURE_FRAMES": "[\n  \"collectivist\",\n  \"individualist\",\n  \"pragmatic\"\n]",
+        "OUTCOME_SUMMARY": "Market exits; $39B \u2192 $9B valuation collapse partly attributable to GTM mismatch."
+    },
+    {
+        "ANALOG_ID": "analog_018",
+        "CASE_NAME": "H&M 'Coolest Monkey' Hoodie",
+        "COMPANY": "H&M",
+        "YEAR": 2018,
+        "DESCRIPTION": "H&M product page featured Black child model wearing hoodie labeled 'Coolest monkey in the jungle.' Historical-grievance violation.",
+        "AFFECTED_MARKETS": "[\n  \"en\",\n  \"sv\"\n]",
+        "FAILURE_FRAMES": "[\n  \"historical_grievance\"\n]",
+        "OUTCOME_SUMMARY": "Product pulled; CEO public apology."
+    },
+    {
+        "ANALOG_ID": "analog_016",
+        "CASE_NAME": "Heineken 'Sometimes Lighter Is Better'",
+        "COMPANY": "Heineken",
+        "YEAR": 2018,
+        "DESCRIPTION": "Heineken Light ad showed bartender sliding a beer past darker-skinned patrons to a lighter-skinned one with the tagline 'Sometimes lighter is better.' Historical-grievance frame collision in US.",
+        "AFFECTED_MARKETS": "[\n  \"en\"\n]",
+        "FAILURE_FRAMES": "[\n  \"historical_grievance\",\n  \"threat_framing\"\n]",
+        "OUTCOME_SUMMARY": "Pulled within 48 hours; public apology."
+    },
+    {
+        "ANALOG_ID": "analog_011",
+        "CASE_NAME": "Dolce & Gabbana China Chopsticks Ad",
+        "COMPANY": "Dolce & Gabbana",
+        "YEAR": 2018,
+        "DESCRIPTION": "D&G aired a campaign showing Chinese model awkwardly eating pizza with chopsticks. Read in Chinese market as nationalist insult; leaked DMs from designer compounded historical-grievance frame.",
+        "AFFECTED_MARKETS": "[\n  \"zh\"\n]",
+        "FAILURE_FRAMES": "[\n  \"nationalist\",\n  \"historical_grievance\"\n]",
+        "OUTCOME_SUMMARY": "Shanghai show canceled; estimated $500M+ China revenue impact over 2 years."
+    },
+    {
+        "ANALOG_ID": "analog_015",
+        "CASE_NAME": "Burger King Vietnam Chopstick Ad",
+        "COMPANY": "Burger King",
+        "YEAR": 2019,
+        "DESCRIPTION": "BK New Zealand ad showed customers eating Whoppers with oversized chopsticks. Nationalist-frame violation in East Asian markets; circulated globally.",
+        "AFFECTED_MARKETS": "[\n  \"zh\",\n  \"ja\",\n  \"ko\",\n  \"vi\"\n]",
+        "FAILURE_FRAMES": "[\n  \"nationalist\",\n  \"historical_grievance\"\n]",
+        "OUTCOME_SUMMARY": "Pulled; BK NZ public apology."
+    },
+    {
+        "ANALOG_ID": "analog_032",
+        "CASE_NAME": "Disney Mulan 2020 Boycott China & US",
+        "COMPANY": "Disney",
+        "YEAR": 2020,
+        "DESCRIPTION": "Disney's Mulan was boycotted in US for actress's pro-HK-government comments and in China for being filmed near Xinjiang. Historical-grievance frame fired in opposite directions in two markets.",
+        "AFFECTED_MARKETS": "[\n  \"en\",\n  \"zh\"\n]",
+        "FAILURE_FRAMES": "[\n  \"historical_grievance\",\n  \"nationalist\"\n]",
+        "OUTCOME_SUMMARY": "$200M production grossed $70M; one of Disney's biggest losses of the decade."
+    },
+    {
+        "ANALOG_ID": "analog_020",
+        "CASE_NAME": "Balenciaga Holiday 2022 Campaign",
+        "COMPANY": "Balenciaga",
+        "YEAR": 2022,
+        "DESCRIPTION": "Balenciaga campaign featured children with BDSM-themed teddy bears and adjacent court-document props. Spiritual-ethical violation in every market simultaneously.",
+        "AFFECTED_MARKETS": "[\n  \"en\",\n  \"ja\",\n  \"zh\",\n  \"de\",\n  \"es\",\n  \"fr\"\n]",
+        "FAILURE_FRAMES": "[\n  \"spiritual_ethical\",\n  \"threat_framing\"\n]",
+        "OUTCOME_SUMMARY": "Campaign pulled; lawsuits filed; ~30% sales decline that quarter."
+    },
+    {
+        "ANALOG_ID": "analog_019",
+        "CASE_NAME": "Bud Light Dylan Mulvaney Partnership",
+        "COMPANY": "Anheuser-Busch",
+        "YEAR": 2023,
+        "DESCRIPTION": "Bud Light's trans-influencer partnership triggered a multi-month boycott in US conservative markets. Status-quo and historical-grievance frames collided with brand's pragmatic identity.",
+        "AFFECTED_MARKETS": "[\n  \"en\"\n]",
+        "FAILURE_FRAMES": "[\n  \"status_quo\",\n  \"historical_grievance\"\n]",
+        "OUTCOME_SUMMARY": "~$400M sales decline; market-share loss to Modelo."
+    },
+    {
+        "ANALOG_ID": "analog_038",
+        "CASE_NAME": "Twitter Rebrand to X 2023",
+        "COMPANY": "X Corp.",
+        "YEAR": 2023,
+        "DESCRIPTION": "Twitter rebranded to X overnight in 2023. Status-quo frame violation across all 240M+ users simultaneously. Brand equity ($24B in 2018) largely destroyed in days.",
+        "AFFECTED_MARKETS": "[\n  \"en\",\n  \"ja\",\n  \"es\",\n  \"pt\",\n  \"de\",\n  \"fr\"\n]",
+        "FAILURE_FRAMES": "[\n  \"status_quo\",\n  \"ambiguous\"\n]",
+        "OUTCOME_SUMMARY": "~$20B brand-equity loss; advertiser exodus."
+    }
+]

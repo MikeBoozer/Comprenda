@@ -40,8 +40,8 @@ page_header(
     "Nameable precedents your stakeholders can act on.",
 )
 
-SAMPLE_Q = ("Launching a US-designed luxury electric sedan in Japan, "
-            "emphasizing speed and personal freedom.")
+SAMPLE_Q = ("Western tech brand launches an individualist, freedom-focused ad campaign "
+            "in a culturally collectivist market and triggers backlash.")
 
 
 def _use_sample_q():
@@ -61,8 +61,8 @@ with left:
     query = st.text_area(
         "Query", key="analog_query", height=140, max_chars=2000,
         label_visibility="collapsed",
-        placeholder="Example: 'Launching a US-designed luxury electric sedan in "
-                    "Japan, emphasizing speed and personal freedom.'")
+        placeholder="Example: 'Western tech brand launches an individualist, "
+                    "freedom-focused campaign in a collectivist market and triggers backlash.'")
     meta_l, meta_r = st.columns([3, 1])
     meta_l.markdown(
         f"<span style='font-family:var(--mono); font-size:11px; color:var(--ink-faint);'>"

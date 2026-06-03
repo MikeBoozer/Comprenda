@@ -1,0 +1,674 @@
+[
+    {
+        "EVENT_TAG": "BrandX_rebrand",
+        "DETECTED_LANGUAGE": "ja",
+        "N_POSTS": 20,
+        "AVG_SENTIMENT": -0.409,
+        "DOMINANT_FRAME": "ambiguous"
+    },
+    {
+        "EVENT_TAG": "BrandX_rebrand",
+        "DETECTED_LANGUAGE": "zh",
+        "N_POSTS": 20,
+        "AVG_SENTIMENT": -0.242,
+        "DOMINANT_FRAME": "opportunity_framing"
+    },
+    {
+        "EVENT_TAG": "BrandX_rebrand",
+        "DETECTED_LANGUAGE": "en",
+        "N_POSTS": 20,
+        "AVG_SENTIMENT": 0.179,
+        "DOMINANT_FRAME": "pragmatic"
+    },
+    {
+        "EVENT_TAG": "BrandX_rebrand",
+        "DETECTED_LANGUAGE": "ko",
+        "N_POSTS": 15,
+        "AVG_SENTIMENT": -0.009,
+        "DOMINANT_FRAME": "ambiguous"
+    },
+    {
+        "EVENT_TAG": "BrandX_rebrand",
+        "DETECTED_LANGUAGE": "fr",
+        "N_POSTS": 15,
+        "AVG_SENTIMENT": -0.167,
+        "DOMINANT_FRAME": "ambiguous"
+    },
+    {
+        "EVENT_TAG": "BrandX_rebrand",
+        "DETECTED_LANGUAGE": "ar",
+        "N_POSTS": 15,
+        "AVG_SENTIMENT": -0.179,
+        "DOMINANT_FRAME": "ambiguous"
+    },
+    {
+        "EVENT_TAG": "BrandX_rebrand",
+        "DETECTED_LANGUAGE": "ru",
+        "N_POSTS": 15,
+        "AVG_SENTIMENT": -0.364,
+        "DOMINANT_FRAME": "historical_grievance"
+    },
+    {
+        "EVENT_TAG": "BrandX_rebrand",
+        "DETECTED_LANGUAGE": "de",
+        "N_POSTS": 15,
+        "AVG_SENTIMENT": -0.349,
+        "DOMINANT_FRAME": "ambiguous"
+    },
+    {
+        "EVENT_TAG": "BrandX_rebrand",
+        "DETECTED_LANGUAGE": "es",
+        "N_POSTS": 15,
+        "AVG_SENTIMENT": -0.018,
+        "DOMINANT_FRAME": "ambiguous"
+    },
+    {
+        "EVENT_TAG": "BrandX_rebrand",
+        "DETECTED_LANGUAGE": "it",
+        "N_POSTS": 10,
+        "AVG_SENTIMENT": -0.183,
+        "DOMINANT_FRAME": "ambiguous"
+    },
+    {
+        "EVENT_TAG": "BrandX_rebrand",
+        "DETECTED_LANGUAGE": "pt",
+        "N_POSTS": 10,
+        "AVG_SENTIMENT": -0.093,
+        "DOMINANT_FRAME": "ambiguous"
+    },
+    {
+        "EVENT_TAG": "BrandX_rebrand",
+        "DETECTED_LANGUAGE": "hi",
+        "N_POSTS": 10,
+        "AVG_SENTIMENT": -0.288,
+        "DOMINANT_FRAME": "ambiguous"
+    },
+    {
+        "EVENT_TAG": "Climate_Summit_2026",
+        "DETECTED_LANGUAGE": "ja",
+        "N_POSTS": 20,
+        "AVG_SENTIMENT": -0.146,
+        "DOMINANT_FRAME": "ambiguous"
+    },
+    {
+        "EVENT_TAG": "Climate_Summit_2026",
+        "DETECTED_LANGUAGE": "zh",
+        "N_POSTS": 20,
+        "AVG_SENTIMENT": -0.011,
+        "DOMINANT_FRAME": "opportunity_framing"
+    },
+    {
+        "EVENT_TAG": "Climate_Summit_2026",
+        "DETECTED_LANGUAGE": "en",
+        "N_POSTS": 20,
+        "AVG_SENTIMENT": 0.252,
+        "DOMINANT_FRAME": "opportunity_framing"
+    },
+    {
+        "EVENT_TAG": "Climate_Summit_2026",
+        "DETECTED_LANGUAGE": "de",
+        "N_POSTS": 15,
+        "AVG_SENTIMENT": -0.151,
+        "DOMINANT_FRAME": "threat_framing"
+    },
+    {
+        "EVENT_TAG": "Climate_Summit_2026",
+        "DETECTED_LANGUAGE": "ko",
+        "N_POSTS": 15,
+        "AVG_SENTIMENT": 0.13,
+        "DOMINANT_FRAME": "ambiguous"
+    },
+    {
+        "EVENT_TAG": "Climate_Summit_2026",
+        "DETECTED_LANGUAGE": "ru",
+        "N_POSTS": 15,
+        "AVG_SENTIMENT": -0.053,
+        "DOMINANT_FRAME": "historical_grievance"
+    },
+    {
+        "EVENT_TAG": "Climate_Summit_2026",
+        "DETECTED_LANGUAGE": "ar",
+        "N_POSTS": 15,
+        "AVG_SENTIMENT": 0.043,
+        "DOMINANT_FRAME": "ambiguous"
+    },
+    {
+        "EVENT_TAG": "Climate_Summit_2026",
+        "DETECTED_LANGUAGE": "es",
+        "N_POSTS": 15,
+        "AVG_SENTIMENT": 0.243,
+        "DOMINANT_FRAME": "opportunity_framing"
+    },
+    {
+        "EVENT_TAG": "Climate_Summit_2026",
+        "DETECTED_LANGUAGE": "fr",
+        "N_POSTS": 15,
+        "AVG_SENTIMENT": 0.06,
+        "DOMINANT_FRAME": "ambiguous"
+    },
+    {
+        "EVENT_TAG": "Climate_Summit_2026",
+        "DETECTED_LANGUAGE": "it",
+        "N_POSTS": 10,
+        "AVG_SENTIMENT": 0.191,
+        "DOMINANT_FRAME": "ambiguous"
+    },
+    {
+        "EVENT_TAG": "Climate_Summit_2026",
+        "DETECTED_LANGUAGE": "hi",
+        "N_POSTS": 10,
+        "AVG_SENTIMENT": -0.036,
+        "DOMINANT_FRAME": "ambiguous"
+    },
+    {
+        "EVENT_TAG": "Climate_Summit_2026",
+        "DETECTED_LANGUAGE": "pt",
+        "N_POSTS": 10,
+        "AVG_SENTIMENT": 0.07,
+        "DOMINANT_FRAME": "opportunity_framing"
+    },
+    {
+        "EVENT_TAG": "EU_AI_act_enforcement",
+        "DETECTED_LANGUAGE": "zh",
+        "N_POSTS": 20,
+        "AVG_SENTIMENT": -0.121,
+        "DOMINANT_FRAME": "opportunity_framing"
+    },
+    {
+        "EVENT_TAG": "EU_AI_act_enforcement",
+        "DETECTED_LANGUAGE": "ja",
+        "N_POSTS": 20,
+        "AVG_SENTIMENT": -0.217,
+        "DOMINANT_FRAME": "ambiguous"
+    },
+    {
+        "EVENT_TAG": "EU_AI_act_enforcement",
+        "DETECTED_LANGUAGE": "en",
+        "N_POSTS": 20,
+        "AVG_SENTIMENT": 0.174,
+        "DOMINANT_FRAME": "opportunity_framing"
+    },
+    {
+        "EVENT_TAG": "EU_AI_act_enforcement",
+        "DETECTED_LANGUAGE": "ar",
+        "N_POSTS": 15,
+        "AVG_SENTIMENT": -0.029,
+        "DOMINANT_FRAME": "ambiguous"
+    },
+    {
+        "EVENT_TAG": "EU_AI_act_enforcement",
+        "DETECTED_LANGUAGE": "ko",
+        "N_POSTS": 15,
+        "AVG_SENTIMENT": 0.083,
+        "DOMINANT_FRAME": "ambiguous"
+    },
+    {
+        "EVENT_TAG": "EU_AI_act_enforcement",
+        "DETECTED_LANGUAGE": "fr",
+        "N_POSTS": 15,
+        "AVG_SENTIMENT": -0.081,
+        "DOMINANT_FRAME": "ambiguous"
+    },
+    {
+        "EVENT_TAG": "EU_AI_act_enforcement",
+        "DETECTED_LANGUAGE": "ru",
+        "N_POSTS": 15,
+        "AVG_SENTIMENT": -0.215,
+        "DOMINANT_FRAME": "historical_grievance"
+    },
+    {
+        "EVENT_TAG": "EU_AI_act_enforcement",
+        "DETECTED_LANGUAGE": "de",
+        "N_POSTS": 15,
+        "AVG_SENTIMENT": -0.305,
+        "DOMINANT_FRAME": "pragmatic"
+    },
+    {
+        "EVENT_TAG": "EU_AI_act_enforcement",
+        "DETECTED_LANGUAGE": "es",
+        "N_POSTS": 15,
+        "AVG_SENTIMENT": 0.02,
+        "DOMINANT_FRAME": "ambiguous"
+    },
+    {
+        "EVENT_TAG": "EU_AI_act_enforcement",
+        "DETECTED_LANGUAGE": "hi",
+        "N_POSTS": 10,
+        "AVG_SENTIMENT": -0.175,
+        "DOMINANT_FRAME": "ambiguous"
+    },
+    {
+        "EVENT_TAG": "EU_AI_act_enforcement",
+        "DETECTED_LANGUAGE": "pt",
+        "N_POSTS": 10,
+        "AVG_SENTIMENT": -0.092,
+        "DOMINANT_FRAME": "ambiguous"
+    },
+    {
+        "EVENT_TAG": "EU_AI_act_enforcement",
+        "DETECTED_LANGUAGE": "it",
+        "N_POSTS": 10,
+        "AVG_SENTIMENT": -0.011,
+        "DOMINANT_FRAME": "ambiguous"
+    },
+    {
+        "EVENT_TAG": "K-pop_global_tour",
+        "DETECTED_LANGUAGE": "zh",
+        "N_POSTS": 20,
+        "AVG_SENTIMENT": -0.031,
+        "DOMINANT_FRAME": "opportunity_framing"
+    },
+    {
+        "EVENT_TAG": "K-pop_global_tour",
+        "DETECTED_LANGUAGE": "en",
+        "N_POSTS": 20,
+        "AVG_SENTIMENT": 0.233,
+        "DOMINANT_FRAME": "pragmatic"
+    },
+    {
+        "EVENT_TAG": "K-pop_global_tour",
+        "DETECTED_LANGUAGE": "ja",
+        "N_POSTS": 20,
+        "AVG_SENTIMENT": -0.289,
+        "DOMINANT_FRAME": "ambiguous"
+    },
+    {
+        "EVENT_TAG": "K-pop_global_tour",
+        "DETECTED_LANGUAGE": "es",
+        "N_POSTS": 15,
+        "AVG_SENTIMENT": 0.213,
+        "DOMINANT_FRAME": "opportunity_framing"
+    },
+    {
+        "EVENT_TAG": "K-pop_global_tour",
+        "DETECTED_LANGUAGE": "ko",
+        "N_POSTS": 15,
+        "AVG_SENTIMENT": 0.106,
+        "DOMINANT_FRAME": "ambiguous"
+    },
+    {
+        "EVENT_TAG": "K-pop_global_tour",
+        "DETECTED_LANGUAGE": "ru",
+        "N_POSTS": 15,
+        "AVG_SENTIMENT": -0.062,
+        "DOMINANT_FRAME": "historical_grievance"
+    },
+    {
+        "EVENT_TAG": "K-pop_global_tour",
+        "DETECTED_LANGUAGE": "ar",
+        "N_POSTS": 15,
+        "AVG_SENTIMENT": 0.029,
+        "DOMINANT_FRAME": "ambiguous"
+    },
+    {
+        "EVENT_TAG": "K-pop_global_tour",
+        "DETECTED_LANGUAGE": "fr",
+        "N_POSTS": 15,
+        "AVG_SENTIMENT": 0.008,
+        "DOMINANT_FRAME": "reform_seeking"
+    },
+    {
+        "EVENT_TAG": "K-pop_global_tour",
+        "DETECTED_LANGUAGE": "de",
+        "N_POSTS": 15,
+        "AVG_SENTIMENT": -0.185,
+        "DOMINANT_FRAME": "ambiguous"
+    },
+    {
+        "EVENT_TAG": "K-pop_global_tour",
+        "DETECTED_LANGUAGE": "hi",
+        "N_POSTS": 10,
+        "AVG_SENTIMENT": 0.002,
+        "DOMINANT_FRAME": "ambiguous"
+    },
+    {
+        "EVENT_TAG": "K-pop_global_tour",
+        "DETECTED_LANGUAGE": "pt",
+        "N_POSTS": 10,
+        "AVG_SENTIMENT": 0.139,
+        "DOMINANT_FRAME": "opportunity_framing"
+    },
+    {
+        "EVENT_TAG": "K-pop_global_tour",
+        "DETECTED_LANGUAGE": "it",
+        "N_POSTS": 10,
+        "AVG_SENTIMENT": 0.204,
+        "DOMINANT_FRAME": "ambiguous"
+    },
+    {
+        "EVENT_TAG": "Olympics_2026_opening",
+        "DETECTED_LANGUAGE": "en",
+        "N_POSTS": 20,
+        "AVG_SENTIMENT": 0.297,
+        "DOMINANT_FRAME": "individualist"
+    },
+    {
+        "EVENT_TAG": "Olympics_2026_opening",
+        "DETECTED_LANGUAGE": "zh",
+        "N_POSTS": 20,
+        "AVG_SENTIMENT": -0.095,
+        "DOMINANT_FRAME": "opportunity_framing"
+    },
+    {
+        "EVENT_TAG": "Olympics_2026_opening",
+        "DETECTED_LANGUAGE": "ja",
+        "N_POSTS": 20,
+        "AVG_SENTIMENT": -0.245,
+        "DOMINANT_FRAME": "threat_framing"
+    },
+    {
+        "EVENT_TAG": "Olympics_2026_opening",
+        "DETECTED_LANGUAGE": "ru",
+        "N_POSTS": 15,
+        "AVG_SENTIMENT": -0.092,
+        "DOMINANT_FRAME": "historical_grievance"
+    },
+    {
+        "EVENT_TAG": "Olympics_2026_opening",
+        "DETECTED_LANGUAGE": "es",
+        "N_POSTS": 15,
+        "AVG_SENTIMENT": 0.182,
+        "DOMINANT_FRAME": "opportunity_framing"
+    },
+    {
+        "EVENT_TAG": "Olympics_2026_opening",
+        "DETECTED_LANGUAGE": "de",
+        "N_POSTS": 15,
+        "AVG_SENTIMENT": -0.215,
+        "DOMINANT_FRAME": "ambiguous"
+    },
+    {
+        "EVENT_TAG": "Olympics_2026_opening",
+        "DETECTED_LANGUAGE": "fr",
+        "N_POSTS": 15,
+        "AVG_SENTIMENT": 0.063,
+        "DOMINANT_FRAME": "spiritual_ethical"
+    },
+    {
+        "EVENT_TAG": "Olympics_2026_opening",
+        "DETECTED_LANGUAGE": "ar",
+        "N_POSTS": 15,
+        "AVG_SENTIMENT": 0.006,
+        "DOMINANT_FRAME": "ambiguous"
+    },
+    {
+        "EVENT_TAG": "Olympics_2026_opening",
+        "DETECTED_LANGUAGE": "ko",
+        "N_POSTS": 15,
+        "AVG_SENTIMENT": 0.051,
+        "DOMINANT_FRAME": "ambiguous"
+    },
+    {
+        "EVENT_TAG": "Olympics_2026_opening",
+        "DETECTED_LANGUAGE": "hi",
+        "N_POSTS": 10,
+        "AVG_SENTIMENT": -0.052,
+        "DOMINANT_FRAME": "ambiguous"
+    },
+    {
+        "EVENT_TAG": "Olympics_2026_opening",
+        "DETECTED_LANGUAGE": "it",
+        "N_POSTS": 10,
+        "AVG_SENTIMENT": 0.181,
+        "DOMINANT_FRAME": "ambiguous"
+    },
+    {
+        "EVENT_TAG": "Olympics_2026_opening",
+        "DETECTED_LANGUAGE": "pt",
+        "N_POSTS": 10,
+        "AVG_SENTIMENT": 0.079,
+        "DOMINANT_FRAME": "ambiguous"
+    },
+    {
+        "EVENT_TAG": "Tesla_robotaxi_debut",
+        "DETECTED_LANGUAGE": "en",
+        "N_POSTS": 20,
+        "AVG_SENTIMENT": 0.238,
+        "DOMINANT_FRAME": "pragmatic"
+    },
+    {
+        "EVENT_TAG": "Tesla_robotaxi_debut",
+        "DETECTED_LANGUAGE": "ja",
+        "N_POSTS": 20,
+        "AVG_SENTIMENT": -0.261,
+        "DOMINANT_FRAME": "ambiguous"
+    },
+    {
+        "EVENT_TAG": "Tesla_robotaxi_debut",
+        "DETECTED_LANGUAGE": "zh",
+        "N_POSTS": 20,
+        "AVG_SENTIMENT": -0.102,
+        "DOMINANT_FRAME": "opportunity_framing"
+    },
+    {
+        "EVENT_TAG": "Tesla_robotaxi_debut",
+        "DETECTED_LANGUAGE": "de",
+        "N_POSTS": 15,
+        "AVG_SENTIMENT": -0.258,
+        "DOMINANT_FRAME": "pragmatic"
+    },
+    {
+        "EVENT_TAG": "Tesla_robotaxi_debut",
+        "DETECTED_LANGUAGE": "fr",
+        "N_POSTS": 15,
+        "AVG_SENTIMENT": -0.041,
+        "DOMINANT_FRAME": "ambiguous"
+    },
+    {
+        "EVENT_TAG": "Tesla_robotaxi_debut",
+        "DETECTED_LANGUAGE": "ar",
+        "N_POSTS": 15,
+        "AVG_SENTIMENT": 0.047,
+        "DOMINANT_FRAME": "ambiguous"
+    },
+    {
+        "EVENT_TAG": "Tesla_robotaxi_debut",
+        "DETECTED_LANGUAGE": "es",
+        "N_POSTS": 15,
+        "AVG_SENTIMENT": 0.122,
+        "DOMINANT_FRAME": "opportunity_framing"
+    },
+    {
+        "EVENT_TAG": "Tesla_robotaxi_debut",
+        "DETECTED_LANGUAGE": "ko",
+        "N_POSTS": 15,
+        "AVG_SENTIMENT": 0.06,
+        "DOMINANT_FRAME": "ambiguous"
+    },
+    {
+        "EVENT_TAG": "Tesla_robotaxi_debut",
+        "DETECTED_LANGUAGE": "ru",
+        "N_POSTS": 15,
+        "AVG_SENTIMENT": -0.214,
+        "DOMINANT_FRAME": "historical_grievance"
+    },
+    {
+        "EVENT_TAG": "Tesla_robotaxi_debut",
+        "DETECTED_LANGUAGE": "hi",
+        "N_POSTS": 10,
+        "AVG_SENTIMENT": 0.006,
+        "DOMINANT_FRAME": "ambiguous"
+    },
+    {
+        "EVENT_TAG": "Tesla_robotaxi_debut",
+        "DETECTED_LANGUAGE": "pt",
+        "N_POSTS": 10,
+        "AVG_SENTIMENT": 0.005,
+        "DOMINANT_FRAME": "ambiguous"
+    },
+    {
+        "EVENT_TAG": "Tesla_robotaxi_debut",
+        "DETECTED_LANGUAGE": "it",
+        "N_POSTS": 10,
+        "AVG_SENTIMENT": -0.045,
+        "DOMINANT_FRAME": "ambiguous"
+    },
+    {
+        "EVENT_TAG": "World_Cup_2026_final",
+        "DETECTED_LANGUAGE": "en",
+        "N_POSTS": 20,
+        "AVG_SENTIMENT": 0.252,
+        "DOMINANT_FRAME": "opportunity_framing"
+    },
+    {
+        "EVENT_TAG": "World_Cup_2026_final",
+        "DETECTED_LANGUAGE": "zh",
+        "N_POSTS": 20,
+        "AVG_SENTIMENT": -0.074,
+        "DOMINANT_FRAME": "opportunity_framing"
+    },
+    {
+        "EVENT_TAG": "World_Cup_2026_final",
+        "DETECTED_LANGUAGE": "ja",
+        "N_POSTS": 20,
+        "AVG_SENTIMENT": -0.216,
+        "DOMINANT_FRAME": "ambiguous"
+    },
+    {
+        "EVENT_TAG": "World_Cup_2026_final",
+        "DETECTED_LANGUAGE": "es",
+        "N_POSTS": 15,
+        "AVG_SENTIMENT": 0.219,
+        "DOMINANT_FRAME": "ambiguous"
+    },
+    {
+        "EVENT_TAG": "World_Cup_2026_final",
+        "DETECTED_LANGUAGE": "fr",
+        "N_POSTS": 15,
+        "AVG_SENTIMENT": 0.002,
+        "DOMINANT_FRAME": "ambiguous"
+    },
+    {
+        "EVENT_TAG": "World_Cup_2026_final",
+        "DETECTED_LANGUAGE": "de",
+        "N_POSTS": 15,
+        "AVG_SENTIMENT": -0.091,
+        "DOMINANT_FRAME": "ambiguous"
+    },
+    {
+        "EVENT_TAG": "World_Cup_2026_final",
+        "DETECTED_LANGUAGE": "ar",
+        "N_POSTS": 15,
+        "AVG_SENTIMENT": 0.128,
+        "DOMINANT_FRAME": "ambiguous"
+    },
+    {
+        "EVENT_TAG": "World_Cup_2026_final",
+        "DETECTED_LANGUAGE": "ko",
+        "N_POSTS": 15,
+        "AVG_SENTIMENT": 0.073,
+        "DOMINANT_FRAME": "ambiguous"
+    },
+    {
+        "EVENT_TAG": "World_Cup_2026_final",
+        "DETECTED_LANGUAGE": "ru",
+        "N_POSTS": 15,
+        "AVG_SENTIMENT": 0.034,
+        "DOMINANT_FRAME": "historical_grievance"
+    },
+    {
+        "EVENT_TAG": "World_Cup_2026_final",
+        "DETECTED_LANGUAGE": "hi",
+        "N_POSTS": 10,
+        "AVG_SENTIMENT": 0.113,
+        "DOMINANT_FRAME": "ambiguous"
+    },
+    {
+        "EVENT_TAG": "World_Cup_2026_final",
+        "DETECTED_LANGUAGE": "it",
+        "N_POSTS": 10,
+        "AVG_SENTIMENT": 0.108,
+        "DOMINANT_FRAME": "ambiguous"
+    },
+    {
+        "EVENT_TAG": "World_Cup_2026_final",
+        "DETECTED_LANGUAGE": "pt",
+        "N_POSTS": 10,
+        "AVG_SENTIMENT": 0.08,
+        "DOMINANT_FRAME": "ambiguous"
+    },
+    {
+        "EVENT_TAG": "iPhone_17_launch",
+        "DETECTED_LANGUAGE": "zh",
+        "N_POSTS": 20,
+        "AVG_SENTIMENT": 0.021,
+        "DOMINANT_FRAME": "opportunity_framing"
+    },
+    {
+        "EVENT_TAG": "iPhone_17_launch",
+        "DETECTED_LANGUAGE": "en",
+        "N_POSTS": 20,
+        "AVG_SENTIMENT": 0.289,
+        "DOMINANT_FRAME": "pragmatic"
+    },
+    {
+        "EVENT_TAG": "iPhone_17_launch",
+        "DETECTED_LANGUAGE": "ja",
+        "N_POSTS": 20,
+        "AVG_SENTIMENT": -0.236,
+        "DOMINANT_FRAME": "ambiguous"
+    },
+    {
+        "EVENT_TAG": "iPhone_17_launch",
+        "DETECTED_LANGUAGE": "ru",
+        "N_POSTS": 15,
+        "AVG_SENTIMENT": -0.002,
+        "DOMINANT_FRAME": "historical_grievance"
+    },
+    {
+        "EVENT_TAG": "iPhone_17_launch",
+        "DETECTED_LANGUAGE": "fr",
+        "N_POSTS": 15,
+        "AVG_SENTIMENT": 0.049,
+        "DOMINANT_FRAME": "ambiguous"
+    },
+    {
+        "EVENT_TAG": "iPhone_17_launch",
+        "DETECTED_LANGUAGE": "ko",
+        "N_POSTS": 15,
+        "AVG_SENTIMENT": 0.136,
+        "DOMINANT_FRAME": "ambiguous"
+    },
+    {
+        "EVENT_TAG": "iPhone_17_launch",
+        "DETECTED_LANGUAGE": "de",
+        "N_POSTS": 15,
+        "AVG_SENTIMENT": -0.198,
+        "DOMINANT_FRAME": "pragmatic"
+    },
+    {
+        "EVENT_TAG": "iPhone_17_launch",
+        "DETECTED_LANGUAGE": "es",
+        "N_POSTS": 15,
+        "AVG_SENTIMENT": 0.318,
+        "DOMINANT_FRAME": "opportunity_framing"
+    },
+    {
+        "EVENT_TAG": "iPhone_17_launch",
+        "DETECTED_LANGUAGE": "ar",
+        "N_POSTS": 15,
+        "AVG_SENTIMENT": 0.256,
+        "DOMINANT_FRAME": "ambiguous"
+    },
+    {
+        "EVENT_TAG": "iPhone_17_launch",
+        "DETECTED_LANGUAGE": "hi",
+        "N_POSTS": 10,
+        "AVG_SENTIMENT": 0.033,
+        "DOMINANT_FRAME": "ambiguous"
+    },
+    {
+        "EVENT_TAG": "iPhone_17_launch",
+        "DETECTED_LANGUAGE": "pt",
+        "N_POSTS": 10,
+        "AVG_SENTIMENT": 0.101,
+        "DOMINANT_FRAME": "ambiguous"
+    },
+    {
+        "EVENT_TAG": "iPhone_17_launch",
+        "DETECTED_LANGUAGE": "it",
+        "N_POSTS": 10,
+        "AVG_SENTIMENT": 0.287,
+        "DOMINANT_FRAME": "ambiguous"
+    }
+]

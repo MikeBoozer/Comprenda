@@ -120,17 +120,20 @@ if is_empty:
             <div class='nu-kicker'>Try with a sample draft</div>
             <div style='font:400 17px/1.5 var(--serif); color:var(--ink);
                         margin:10px 0 8px;'>
-              "Live Free, Drive Fast — the new electric sports car that puts you first."
+              "Own the future. The all-new Tesla Robotaxi puts YOU in control — pure
+              individual freedom. Be the first to ride solo and leave the crowd behind."
             </div>
             <div style='font:400 13px/1.55 var(--sans); color:var(--ink-muted);'>
-              A real automotive launch line we've scored before. The result is
+              A real individualist launch line we've scored before. The result is
               striking — and worth seeing before you paste your own.
             </div>
           </div>
         """, unsafe_allow_html=True)
         if st.button("Score this draft →", type="primary", use_container_width=True):
             st.session_state["plcs_prefill"] = (
-                "Live Free, Drive Fast — the new electric sports car that puts you first.")
+                "Own the future. The all-new Tesla Robotaxi puts YOU in control - no "
+                "driver, no limits, just pure individual freedom. Be the first to ride "
+                "solo and leave the crowd behind.")
             st.switch_page("views/1_Pre_Launch_Risk.py")
         st.markdown("<div class='nu-kicker' style='margin-top:16px;'>Or start clean</div>",
                     unsafe_allow_html=True)

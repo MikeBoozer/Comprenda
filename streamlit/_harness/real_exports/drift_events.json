@@ -1,0 +1,182 @@
+[
+    {
+        "ENTITY_NAME": "iPhone 17",
+        "LANGUAGE_A": "ja",
+        "LANGUAGE_B": "zh",
+        "PREV_CDS": 0.107,
+        "NEW_CDS": 0.312,
+        "DELTA_CDS": 0.206,
+        "DETECTED_AT": "2026-05-26T16:00:04.017000"
+    },
+    {
+        "ENTITY_NAME": "iPhone 17",
+        "LANGUAGE_A": "en",
+        "LANGUAGE_B": "it",
+        "PREV_CDS": 0.081,
+        "NEW_CDS": 0.24,
+        "DELTA_CDS": 0.159,
+        "DETECTED_AT": "2026-05-26T16:00:04.017000"
+    },
+    {
+        "ENTITY_NAME": "iPhone 17",
+        "LANGUAGE_A": "fr",
+        "LANGUAGE_B": "ru",
+        "PREV_CDS": 0.096,
+        "NEW_CDS": 0.345,
+        "DELTA_CDS": 0.249,
+        "DETECTED_AT": "2026-05-26T16:00:04.017000"
+    },
+    {
+        "ENTITY_NAME": "iPhone 17",
+        "LANGUAGE_A": "it",
+        "LANGUAGE_B": "ru",
+        "PREV_CDS": 0.108,
+        "NEW_CDS": 0.312,
+        "DELTA_CDS": 0.204,
+        "DETECTED_AT": "2026-05-26T16:00:04.017000"
+    },
+    {
+        "ENTITY_NAME": "iPhone 17",
+        "LANGUAGE_A": "hi",
+        "LANGUAGE_B": "zh",
+        "PREV_CDS": 0.14,
+        "NEW_CDS": 0.372,
+        "DELTA_CDS": 0.233,
+        "DETECTED_AT": "2026-05-26T16:00:04.017000"
+    },
+    {
+        "ENTITY_NAME": "iPhone 17",
+        "LANGUAGE_A": "ar",
+        "LANGUAGE_B": "zh",
+        "PREV_CDS": 0.118,
+        "NEW_CDS": 0.328,
+        "DELTA_CDS": 0.21,
+        "DETECTED_AT": "2026-05-26T16:00:04.017000"
+    },
+    {
+        "ENTITY_NAME": "iPhone 17",
+        "LANGUAGE_A": "hi",
+        "LANGUAGE_B": "ru",
+        "PREV_CDS": 0.116,
+        "NEW_CDS": 0.318,
+        "DELTA_CDS": 0.202,
+        "DETECTED_AT": "2026-05-26T16:00:04.017000"
+    },
+    {
+        "ENTITY_NAME": "iPhone 17",
+        "LANGUAGE_A": "pt",
+        "LANGUAGE_B": "ru",
+        "PREV_CDS": 0.101,
+        "NEW_CDS": 0.259,
+        "DELTA_CDS": 0.158,
+        "DETECTED_AT": "2026-05-26T16:00:04.017000"
+    },
+    {
+        "ENTITY_NAME": "iPhone 17",
+        "LANGUAGE_A": "en",
+        "LANGUAGE_B": "ru",
+        "PREV_CDS": 0.123,
+        "NEW_CDS": 0.321,
+        "DELTA_CDS": 0.198,
+        "DETECTED_AT": "2026-05-26T16:00:04.017000"
+    },
+    {
+        "ENTITY_NAME": "iPhone 17",
+        "LANGUAGE_A": "es",
+        "LANGUAGE_B": "fr",
+        "PREV_CDS": 0.047,
+        "NEW_CDS": 0.24,
+        "DELTA_CDS": 0.193,
+        "DETECTED_AT": "2026-05-26T16:00:04.017000"
+    },
+    {
+        "ENTITY_NAME": "iPhone 17",
+        "LANGUAGE_A": "ar",
+        "LANGUAGE_B": "en",
+        "PREV_CDS": 0.064,
+        "NEW_CDS": 0.323,
+        "DELTA_CDS": 0.259,
+        "DETECTED_AT": "2026-05-26T16:00:04.017000"
+    },
+    {
+        "ENTITY_NAME": "iPhone 17",
+        "LANGUAGE_A": "de",
+        "LANGUAGE_B": "hi",
+        "PREV_CDS": 0.156,
+        "NEW_CDS": 0.314,
+        "DELTA_CDS": 0.158,
+        "DETECTED_AT": "2026-05-26T16:00:04.017000"
+    },
+    {
+        "ENTITY_NAME": "iPhone 17",
+        "LANGUAGE_A": "ja",
+        "LANGUAGE_B": "ru",
+        "PREV_CDS": 0.099,
+        "NEW_CDS": 0.254,
+        "DELTA_CDS": 0.155,
+        "DETECTED_AT": "2026-05-26T16:00:04.017000"
+    },
+    {
+        "ENTITY_NAME": "iPhone 17",
+        "LANGUAGE_A": "en",
+        "LANGUAGE_B": "fr",
+        "PREV_CDS": 0.078,
+        "NEW_CDS": 0.448,
+        "DELTA_CDS": 0.37,
+        "DETECTED_AT": "2026-05-26T16:00:04.017000"
+    },
+    {
+        "ENTITY_NAME": "iPhone 17",
+        "LANGUAGE_A": "en",
+        "LANGUAGE_B": "hi",
+        "PREV_CDS": 0.129,
+        "NEW_CDS": 0.35,
+        "DELTA_CDS": 0.22,
+        "DETECTED_AT": "2026-05-26T16:00:04.017000"
+    },
+    {
+        "ENTITY_NAME": "iPhone 17",
+        "LANGUAGE_A": "ru",
+        "LANGUAGE_B": "zh",
+        "PREV_CDS": 0.107,
+        "NEW_CDS": 0.289,
+        "DELTA_CDS": 0.182,
+        "DETECTED_AT": "2026-05-26T16:00:04.017000"
+    },
+    {
+        "ENTITY_NAME": "iPhone 17",
+        "LANGUAGE_A": "es",
+        "LANGUAGE_B": "ru",
+        "PREV_CDS": 0.085,
+        "NEW_CDS": 0.245,
+        "DELTA_CDS": 0.159,
+        "DETECTED_AT": "2026-05-26T16:00:04.017000"
+    },
+    {
+        "ENTITY_NAME": "iPhone 17",
+        "LANGUAGE_A": "fr",
+        "LANGUAGE_B": "ko",
+        "PREV_CDS": 0.095,
+        "NEW_CDS": 0.295,
+        "DELTA_CDS": 0.2,
+        "DETECTED_AT": "2026-05-26T16:00:04.017000"
+    },
+    {
+        "ENTITY_NAME": "iPhone 17",
+        "LANGUAGE_A": "de",
+        "LANGUAGE_B": "it",
+        "PREV_CDS": 0.094,
+        "NEW_CDS": 0.287,
+        "DELTA_CDS": 0.193,
+        "DETECTED_AT": "2026-05-26T16:00:04.017000"
+    },
+    {
+        "ENTITY_NAME": "iPhone 17",
+        "LANGUAGE_A": "de",
+        "LANGUAGE_B": "fr",
+        "PREV_CDS": 0.072,
+        "NEW_CDS": 0.293,
+        "DELTA_CDS": 0.221,
+        "DETECTED_AT": "2026-05-26T16:00:04.017000"
+    }
+]

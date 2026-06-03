@@ -1,0 +1,86 @@
+[
+    {
+        "TARGET_MARKET": "ar",
+        "PLCS_SCORE": 75,
+        "CONFIDENCE": 0.8,
+        "DRAFT_PREVIEW": "Own the future. The all-new Tesla Robotaxi puts YOU in contr...",
+        "INFERENCE_TIMESTAMP": "2026-06-03T12:04:22.435000"
+    },
+    {
+        "TARGET_MARKET": "ko",
+        "PLCS_SCORE": 75,
+        "CONFIDENCE": 0.8,
+        "DRAFT_PREVIEW": "Own the future. The all-new Tesla Robotaxi puts YOU in contr...",
+        "INFERENCE_TIMESTAMP": "2026-06-03T12:13:54.248000"
+    },
+    {
+        "TARGET_MARKET": "hi",
+        "PLCS_SCORE": 72,
+        "CONFIDENCE": 0.8,
+        "DRAFT_PREVIEW": "Own the future. The all-new Tesla Robotaxi puts YOU in contr...",
+        "INFERENCE_TIMESTAMP": "2026-06-03T12:04:37.111000"
+    },
+    {
+        "TARGET_MARKET": "fr",
+        "PLCS_SCORE": 72,
+        "CONFIDENCE": 0.8,
+        "DRAFT_PREVIEW": "Own the future. The all-new Tesla Robotaxi puts YOU in contr...",
+        "INFERENCE_TIMESTAMP": "2026-06-03T12:03:31.082000"
+    },
+    {
+        "TARGET_MARKET": "ru",
+        "PLCS_SCORE": 72,
+        "CONFIDENCE": 0.8,
+        "DRAFT_PREVIEW": "Own the future. The all-new Tesla Robotaxi puts YOU in contr...",
+        "INFERENCE_TIMESTAMP": "2026-06-03T12:16:33.143000"
+    },
+    {
+        "TARGET_MARKET": "es",
+        "PLCS_SCORE": 72,
+        "CONFIDENCE": 0.8,
+        "DRAFT_PREVIEW": "Own the future. The all-new Tesla Robotaxi puts YOU in contr...",
+        "INFERENCE_TIMESTAMP": "2026-06-03T12:15:00.144000"
+    },
+    {
+        "TARGET_MARKET": "de",
+        "PLCS_SCORE": 72,
+        "CONFIDENCE": 0.8,
+        "DRAFT_PREVIEW": "Own the future. The all-new Tesla Robotaxi puts YOU in contr...",
+        "INFERENCE_TIMESTAMP": "2026-06-03T12:14:30.297000"
+    },
+    {
+        "TARGET_MARKET": "zh",
+        "PLCS_SCORE": 72,
+        "CONFIDENCE": 0.8,
+        "DRAFT_PREVIEW": "Own the future. The all-new Tesla Robotaxi puts YOU in contr...",
+        "INFERENCE_TIMESTAMP": "2026-06-03T12:04:05.742000"
+    },
+    {
+        "TARGET_MARKET": "pt",
+        "PLCS_SCORE": 72,
+        "CONFIDENCE": 0.85,
+        "DRAFT_PREVIEW": "Own the future. The all-new Tesla Robotaxi puts YOU in contr...",
+        "INFERENCE_TIMESTAMP": "2026-06-03T12:16:03.124000"
+    },
+    {
+        "TARGET_MARKET": "it",
+        "PLCS_SCORE": 72,
+        "CONFIDENCE": 0.8,
+        "DRAFT_PREVIEW": "Own the future. The all-new Tesla Robotaxi puts YOU in contr...",
+        "INFERENCE_TIMESTAMP": "2026-06-03T12:15:33.355000"
+    },
+    {
+        "TARGET_MARKET": "ja",
+        "PLCS_SCORE": 72,
+        "CONFIDENCE": 0.8,
+        "DRAFT_PREVIEW": "Own the future. The all-new Tesla Robotaxi puts YOU in contr...",
+        "INFERENCE_TIMESTAMP": "2026-06-03T12:03:48.122000"
+    },
+    {
+        "TARGET_MARKET": "en",
+        "PLCS_SCORE": 25,
+        "CONFIDENCE": 0.8,
+        "DRAFT_PREVIEW": "Own the future. The all-new Tesla Robotaxi puts YOU in contr...",
+        "INFERENCE_TIMESTAMP": "2026-06-03T12:03:12.246000"
+    }
+]

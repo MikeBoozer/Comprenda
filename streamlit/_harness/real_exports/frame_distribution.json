@@ -1,0 +1,2816 @@
+[
+    {
+        "EVENT_TAG": "BrandX_rebrand",
+        "DETECTED_LANGUAGE": "ar",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 9
+    },
+    {
+        "EVENT_TAG": "BrandX_rebrand",
+        "DETECTED_LANGUAGE": "ar",
+        "CULTURAL_FRAME": "historical_grievance",
+        "N": 4
+    },
+    {
+        "EVENT_TAG": "BrandX_rebrand",
+        "DETECTED_LANGUAGE": "ar",
+        "CULTURAL_FRAME": "pragmatic",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "BrandX_rebrand",
+        "DETECTED_LANGUAGE": "ar",
+        "CULTURAL_FRAME": "spiritual_ethical",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "BrandX_rebrand",
+        "DETECTED_LANGUAGE": "de",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 6
+    },
+    {
+        "EVENT_TAG": "BrandX_rebrand",
+        "DETECTED_LANGUAGE": "de",
+        "CULTURAL_FRAME": "reform_seeking",
+        "N": 3
+    },
+    {
+        "EVENT_TAG": "BrandX_rebrand",
+        "DETECTED_LANGUAGE": "de",
+        "CULTURAL_FRAME": "pragmatic",
+        "N": 3
+    },
+    {
+        "EVENT_TAG": "BrandX_rebrand",
+        "DETECTED_LANGUAGE": "de",
+        "CULTURAL_FRAME": "threat_framing",
+        "N": 2
+    },
+    {
+        "EVENT_TAG": "BrandX_rebrand",
+        "DETECTED_LANGUAGE": "de",
+        "CULTURAL_FRAME": "opportunity_framing",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "BrandX_rebrand",
+        "DETECTED_LANGUAGE": "en",
+        "CULTURAL_FRAME": "pragmatic",
+        "N": 6
+    },
+    {
+        "EVENT_TAG": "BrandX_rebrand",
+        "DETECTED_LANGUAGE": "en",
+        "CULTURAL_FRAME": "opportunity_framing",
+        "N": 5
+    },
+    {
+        "EVENT_TAG": "BrandX_rebrand",
+        "DETECTED_LANGUAGE": "en",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 3
+    },
+    {
+        "EVENT_TAG": "BrandX_rebrand",
+        "DETECTED_LANGUAGE": "en",
+        "CULTURAL_FRAME": "individualist",
+        "N": 3
+    },
+    {
+        "EVENT_TAG": "BrandX_rebrand",
+        "DETECTED_LANGUAGE": "en",
+        "CULTURAL_FRAME": "threat_framing",
+        "N": 3
+    },
+    {
+        "EVENT_TAG": "BrandX_rebrand",
+        "DETECTED_LANGUAGE": "es",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 8
+    },
+    {
+        "EVENT_TAG": "BrandX_rebrand",
+        "DETECTED_LANGUAGE": "es",
+        "CULTURAL_FRAME": "opportunity_framing",
+        "N": 3
+    },
+    {
+        "EVENT_TAG": "BrandX_rebrand",
+        "DETECTED_LANGUAGE": "es",
+        "CULTURAL_FRAME": "spiritual_ethical",
+        "N": 2
+    },
+    {
+        "EVENT_TAG": "BrandX_rebrand",
+        "DETECTED_LANGUAGE": "es",
+        "CULTURAL_FRAME": "collectivist",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "BrandX_rebrand",
+        "DETECTED_LANGUAGE": "es",
+        "CULTURAL_FRAME": "historical_grievance",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "BrandX_rebrand",
+        "DETECTED_LANGUAGE": "fr",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 5
+    },
+    {
+        "EVENT_TAG": "BrandX_rebrand",
+        "DETECTED_LANGUAGE": "fr",
+        "CULTURAL_FRAME": "reform_seeking",
+        "N": 4
+    },
+    {
+        "EVENT_TAG": "BrandX_rebrand",
+        "DETECTED_LANGUAGE": "fr",
+        "CULTURAL_FRAME": "spiritual_ethical",
+        "N": 4
+    },
+    {
+        "EVENT_TAG": "BrandX_rebrand",
+        "DETECTED_LANGUAGE": "fr",
+        "CULTURAL_FRAME": "status_quo",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "BrandX_rebrand",
+        "DETECTED_LANGUAGE": "fr",
+        "CULTURAL_FRAME": "historical_grievance",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "BrandX_rebrand",
+        "DETECTED_LANGUAGE": "hi",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 7
+    },
+    {
+        "EVENT_TAG": "BrandX_rebrand",
+        "DETECTED_LANGUAGE": "hi",
+        "CULTURAL_FRAME": "spiritual_ethical",
+        "N": 2
+    },
+    {
+        "EVENT_TAG": "BrandX_rebrand",
+        "DETECTED_LANGUAGE": "hi",
+        "CULTURAL_FRAME": "individualist",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "BrandX_rebrand",
+        "DETECTED_LANGUAGE": "it",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 9
+    },
+    {
+        "EVENT_TAG": "BrandX_rebrand",
+        "DETECTED_LANGUAGE": "it",
+        "CULTURAL_FRAME": "spiritual_ethical",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "BrandX_rebrand",
+        "DETECTED_LANGUAGE": "ja",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 9
+    },
+    {
+        "EVENT_TAG": "BrandX_rebrand",
+        "DETECTED_LANGUAGE": "ja",
+        "CULTURAL_FRAME": "threat_framing",
+        "N": 3
+    },
+    {
+        "EVENT_TAG": "BrandX_rebrand",
+        "DETECTED_LANGUAGE": "ja",
+        "CULTURAL_FRAME": "status_quo",
+        "N": 3
+    },
+    {
+        "EVENT_TAG": "BrandX_rebrand",
+        "DETECTED_LANGUAGE": "ja",
+        "CULTURAL_FRAME": "spiritual_ethical",
+        "N": 3
+    },
+    {
+        "EVENT_TAG": "BrandX_rebrand",
+        "DETECTED_LANGUAGE": "ja",
+        "CULTURAL_FRAME": "collectivist",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "BrandX_rebrand",
+        "DETECTED_LANGUAGE": "ja",
+        "CULTURAL_FRAME": "pragmatic",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "BrandX_rebrand",
+        "DETECTED_LANGUAGE": "ko",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 7
+    },
+    {
+        "EVENT_TAG": "BrandX_rebrand",
+        "DETECTED_LANGUAGE": "ko",
+        "CULTURAL_FRAME": "historical_grievance",
+        "N": 3
+    },
+    {
+        "EVENT_TAG": "BrandX_rebrand",
+        "DETECTED_LANGUAGE": "ko",
+        "CULTURAL_FRAME": "pragmatic",
+        "N": 2
+    },
+    {
+        "EVENT_TAG": "BrandX_rebrand",
+        "DETECTED_LANGUAGE": "ko",
+        "CULTURAL_FRAME": "opportunity_framing",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "BrandX_rebrand",
+        "DETECTED_LANGUAGE": "ko",
+        "CULTURAL_FRAME": "collectivist",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "BrandX_rebrand",
+        "DETECTED_LANGUAGE": "ko",
+        "CULTURAL_FRAME": "globalist",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "BrandX_rebrand",
+        "DETECTED_LANGUAGE": "pt",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 8
+    },
+    {
+        "EVENT_TAG": "BrandX_rebrand",
+        "DETECTED_LANGUAGE": "pt",
+        "CULTURAL_FRAME": "opportunity_framing",
+        "N": 2
+    },
+    {
+        "EVENT_TAG": "BrandX_rebrand",
+        "DETECTED_LANGUAGE": "ru",
+        "CULTURAL_FRAME": "historical_grievance",
+        "N": 7
+    },
+    {
+        "EVENT_TAG": "BrandX_rebrand",
+        "DETECTED_LANGUAGE": "ru",
+        "CULTURAL_FRAME": "pragmatic",
+        "N": 3
+    },
+    {
+        "EVENT_TAG": "BrandX_rebrand",
+        "DETECTED_LANGUAGE": "ru",
+        "CULTURAL_FRAME": "nationalist",
+        "N": 2
+    },
+    {
+        "EVENT_TAG": "BrandX_rebrand",
+        "DETECTED_LANGUAGE": "ru",
+        "CULTURAL_FRAME": "status_quo",
+        "N": 2
+    },
+    {
+        "EVENT_TAG": "BrandX_rebrand",
+        "DETECTED_LANGUAGE": "ru",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "BrandX_rebrand",
+        "DETECTED_LANGUAGE": "zh",
+        "CULTURAL_FRAME": "opportunity_framing",
+        "N": 7
+    },
+    {
+        "EVENT_TAG": "BrandX_rebrand",
+        "DETECTED_LANGUAGE": "zh",
+        "CULTURAL_FRAME": "pragmatic",
+        "N": 6
+    },
+    {
+        "EVENT_TAG": "BrandX_rebrand",
+        "DETECTED_LANGUAGE": "zh",
+        "CULTURAL_FRAME": "nationalist",
+        "N": 4
+    },
+    {
+        "EVENT_TAG": "BrandX_rebrand",
+        "DETECTED_LANGUAGE": "zh",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 2
+    },
+    {
+        "EVENT_TAG": "BrandX_rebrand",
+        "DETECTED_LANGUAGE": "zh",
+        "CULTURAL_FRAME": "collectivist",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "Climate_Summit_2026",
+        "DETECTED_LANGUAGE": "ar",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 5
+    },
+    {
+        "EVENT_TAG": "Climate_Summit_2026",
+        "DETECTED_LANGUAGE": "ar",
+        "CULTURAL_FRAME": "historical_grievance",
+        "N": 4
+    },
+    {
+        "EVENT_TAG": "Climate_Summit_2026",
+        "DETECTED_LANGUAGE": "ar",
+        "CULTURAL_FRAME": "opportunity_framing",
+        "N": 4
+    },
+    {
+        "EVENT_TAG": "Climate_Summit_2026",
+        "DETECTED_LANGUAGE": "ar",
+        "CULTURAL_FRAME": "spiritual_ethical",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "Climate_Summit_2026",
+        "DETECTED_LANGUAGE": "ar",
+        "CULTURAL_FRAME": "pragmatic",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "Climate_Summit_2026",
+        "DETECTED_LANGUAGE": "de",
+        "CULTURAL_FRAME": "pragmatic",
+        "N": 4
+    },
+    {
+        "EVENT_TAG": "Climate_Summit_2026",
+        "DETECTED_LANGUAGE": "de",
+        "CULTURAL_FRAME": "threat_framing",
+        "N": 4
+    },
+    {
+        "EVENT_TAG": "Climate_Summit_2026",
+        "DETECTED_LANGUAGE": "de",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 3
+    },
+    {
+        "EVENT_TAG": "Climate_Summit_2026",
+        "DETECTED_LANGUAGE": "de",
+        "CULTURAL_FRAME": "reform_seeking",
+        "N": 2
+    },
+    {
+        "EVENT_TAG": "Climate_Summit_2026",
+        "DETECTED_LANGUAGE": "de",
+        "CULTURAL_FRAME": "opportunity_framing",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "Climate_Summit_2026",
+        "DETECTED_LANGUAGE": "de",
+        "CULTURAL_FRAME": "status_quo",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "Climate_Summit_2026",
+        "DETECTED_LANGUAGE": "en",
+        "CULTURAL_FRAME": "opportunity_framing",
+        "N": 7
+    },
+    {
+        "EVENT_TAG": "Climate_Summit_2026",
+        "DETECTED_LANGUAGE": "en",
+        "CULTURAL_FRAME": "individualist",
+        "N": 4
+    },
+    {
+        "EVENT_TAG": "Climate_Summit_2026",
+        "DETECTED_LANGUAGE": "en",
+        "CULTURAL_FRAME": "threat_framing",
+        "N": 4
+    },
+    {
+        "EVENT_TAG": "Climate_Summit_2026",
+        "DETECTED_LANGUAGE": "en",
+        "CULTURAL_FRAME": "pragmatic",
+        "N": 3
+    },
+    {
+        "EVENT_TAG": "Climate_Summit_2026",
+        "DETECTED_LANGUAGE": "en",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 2
+    },
+    {
+        "EVENT_TAG": "Climate_Summit_2026",
+        "DETECTED_LANGUAGE": "es",
+        "CULTURAL_FRAME": "opportunity_framing",
+        "N": 8
+    },
+    {
+        "EVENT_TAG": "Climate_Summit_2026",
+        "DETECTED_LANGUAGE": "es",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 3
+    },
+    {
+        "EVENT_TAG": "Climate_Summit_2026",
+        "DETECTED_LANGUAGE": "es",
+        "CULTURAL_FRAME": "spiritual_ethical",
+        "N": 2
+    },
+    {
+        "EVENT_TAG": "Climate_Summit_2026",
+        "DETECTED_LANGUAGE": "es",
+        "CULTURAL_FRAME": "historical_grievance",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "Climate_Summit_2026",
+        "DETECTED_LANGUAGE": "es",
+        "CULTURAL_FRAME": "collectivist",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "Climate_Summit_2026",
+        "DETECTED_LANGUAGE": "fr",
+        "CULTURAL_FRAME": "reform_seeking",
+        "N": 4
+    },
+    {
+        "EVENT_TAG": "Climate_Summit_2026",
+        "DETECTED_LANGUAGE": "fr",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 4
+    },
+    {
+        "EVENT_TAG": "Climate_Summit_2026",
+        "DETECTED_LANGUAGE": "fr",
+        "CULTURAL_FRAME": "spiritual_ethical",
+        "N": 3
+    },
+    {
+        "EVENT_TAG": "Climate_Summit_2026",
+        "DETECTED_LANGUAGE": "fr",
+        "CULTURAL_FRAME": "status_quo",
+        "N": 3
+    },
+    {
+        "EVENT_TAG": "Climate_Summit_2026",
+        "DETECTED_LANGUAGE": "fr",
+        "CULTURAL_FRAME": "opportunity_framing",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "Climate_Summit_2026",
+        "DETECTED_LANGUAGE": "hi",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 6
+    },
+    {
+        "EVENT_TAG": "Climate_Summit_2026",
+        "DETECTED_LANGUAGE": "hi",
+        "CULTURAL_FRAME": "spiritual_ethical",
+        "N": 2
+    },
+    {
+        "EVENT_TAG": "Climate_Summit_2026",
+        "DETECTED_LANGUAGE": "hi",
+        "CULTURAL_FRAME": "individualist",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "Climate_Summit_2026",
+        "DETECTED_LANGUAGE": "hi",
+        "CULTURAL_FRAME": "collectivist",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "Climate_Summit_2026",
+        "DETECTED_LANGUAGE": "it",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 8
+    },
+    {
+        "EVENT_TAG": "Climate_Summit_2026",
+        "DETECTED_LANGUAGE": "it",
+        "CULTURAL_FRAME": "opportunity_framing",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "Climate_Summit_2026",
+        "DETECTED_LANGUAGE": "it",
+        "CULTURAL_FRAME": "spiritual_ethical",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "Climate_Summit_2026",
+        "DETECTED_LANGUAGE": "ja",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 7
+    },
+    {
+        "EVENT_TAG": "Climate_Summit_2026",
+        "DETECTED_LANGUAGE": "ja",
+        "CULTURAL_FRAME": "threat_framing",
+        "N": 4
+    },
+    {
+        "EVENT_TAG": "Climate_Summit_2026",
+        "DETECTED_LANGUAGE": "ja",
+        "CULTURAL_FRAME": "collectivist",
+        "N": 2
+    },
+    {
+        "EVENT_TAG": "Climate_Summit_2026",
+        "DETECTED_LANGUAGE": "ja",
+        "CULTURAL_FRAME": "status_quo",
+        "N": 2
+    },
+    {
+        "EVENT_TAG": "Climate_Summit_2026",
+        "DETECTED_LANGUAGE": "ja",
+        "CULTURAL_FRAME": "historical_grievance",
+        "N": 2
+    },
+    {
+        "EVENT_TAG": "Climate_Summit_2026",
+        "DETECTED_LANGUAGE": "ja",
+        "CULTURAL_FRAME": "pragmatic",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "Climate_Summit_2026",
+        "DETECTED_LANGUAGE": "ja",
+        "CULTURAL_FRAME": "spiritual_ethical",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "Climate_Summit_2026",
+        "DETECTED_LANGUAGE": "ja",
+        "CULTURAL_FRAME": "opportunity_framing",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "Climate_Summit_2026",
+        "DETECTED_LANGUAGE": "ko",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 6
+    },
+    {
+        "EVENT_TAG": "Climate_Summit_2026",
+        "DETECTED_LANGUAGE": "ko",
+        "CULTURAL_FRAME": "historical_grievance",
+        "N": 4
+    },
+    {
+        "EVENT_TAG": "Climate_Summit_2026",
+        "DETECTED_LANGUAGE": "ko",
+        "CULTURAL_FRAME": "opportunity_framing",
+        "N": 2
+    },
+    {
+        "EVENT_TAG": "Climate_Summit_2026",
+        "DETECTED_LANGUAGE": "ko",
+        "CULTURAL_FRAME": "pragmatic",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "Climate_Summit_2026",
+        "DETECTED_LANGUAGE": "ko",
+        "CULTURAL_FRAME": "globalist",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "Climate_Summit_2026",
+        "DETECTED_LANGUAGE": "ko",
+        "CULTURAL_FRAME": "collectivist",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "Climate_Summit_2026",
+        "DETECTED_LANGUAGE": "pt",
+        "CULTURAL_FRAME": "opportunity_framing",
+        "N": 5
+    },
+    {
+        "EVENT_TAG": "Climate_Summit_2026",
+        "DETECTED_LANGUAGE": "pt",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 4
+    },
+    {
+        "EVENT_TAG": "Climate_Summit_2026",
+        "DETECTED_LANGUAGE": "pt",
+        "CULTURAL_FRAME": "collectivist",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "Climate_Summit_2026",
+        "DETECTED_LANGUAGE": "ru",
+        "CULTURAL_FRAME": "historical_grievance",
+        "N": 7
+    },
+    {
+        "EVENT_TAG": "Climate_Summit_2026",
+        "DETECTED_LANGUAGE": "ru",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 3
+    },
+    {
+        "EVENT_TAG": "Climate_Summit_2026",
+        "DETECTED_LANGUAGE": "ru",
+        "CULTURAL_FRAME": "pragmatic",
+        "N": 3
+    },
+    {
+        "EVENT_TAG": "Climate_Summit_2026",
+        "DETECTED_LANGUAGE": "ru",
+        "CULTURAL_FRAME": "status_quo",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "Climate_Summit_2026",
+        "DETECTED_LANGUAGE": "ru",
+        "CULTURAL_FRAME": "nationalist",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "Climate_Summit_2026",
+        "DETECTED_LANGUAGE": "zh",
+        "CULTURAL_FRAME": "opportunity_framing",
+        "N": 10
+    },
+    {
+        "EVENT_TAG": "Climate_Summit_2026",
+        "DETECTED_LANGUAGE": "zh",
+        "CULTURAL_FRAME": "pragmatic",
+        "N": 4
+    },
+    {
+        "EVENT_TAG": "Climate_Summit_2026",
+        "DETECTED_LANGUAGE": "zh",
+        "CULTURAL_FRAME": "nationalist",
+        "N": 4
+    },
+    {
+        "EVENT_TAG": "Climate_Summit_2026",
+        "DETECTED_LANGUAGE": "zh",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 2
+    },
+    {
+        "EVENT_TAG": "EU_AI_act_enforcement",
+        "DETECTED_LANGUAGE": "ar",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 6
+    },
+    {
+        "EVENT_TAG": "EU_AI_act_enforcement",
+        "DETECTED_LANGUAGE": "ar",
+        "CULTURAL_FRAME": "historical_grievance",
+        "N": 4
+    },
+    {
+        "EVENT_TAG": "EU_AI_act_enforcement",
+        "DETECTED_LANGUAGE": "ar",
+        "CULTURAL_FRAME": "collectivist",
+        "N": 2
+    },
+    {
+        "EVENT_TAG": "EU_AI_act_enforcement",
+        "DETECTED_LANGUAGE": "ar",
+        "CULTURAL_FRAME": "spiritual_ethical",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "EU_AI_act_enforcement",
+        "DETECTED_LANGUAGE": "ar",
+        "CULTURAL_FRAME": "opportunity_framing",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "EU_AI_act_enforcement",
+        "DETECTED_LANGUAGE": "ar",
+        "CULTURAL_FRAME": "pragmatic",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "EU_AI_act_enforcement",
+        "DETECTED_LANGUAGE": "de",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 5
+    },
+    {
+        "EVENT_TAG": "EU_AI_act_enforcement",
+        "DETECTED_LANGUAGE": "de",
+        "CULTURAL_FRAME": "pragmatic",
+        "N": 5
+    },
+    {
+        "EVENT_TAG": "EU_AI_act_enforcement",
+        "DETECTED_LANGUAGE": "de",
+        "CULTURAL_FRAME": "threat_framing",
+        "N": 2
+    },
+    {
+        "EVENT_TAG": "EU_AI_act_enforcement",
+        "DETECTED_LANGUAGE": "de",
+        "CULTURAL_FRAME": "status_quo",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "EU_AI_act_enforcement",
+        "DETECTED_LANGUAGE": "de",
+        "CULTURAL_FRAME": "opportunity_framing",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "EU_AI_act_enforcement",
+        "DETECTED_LANGUAGE": "de",
+        "CULTURAL_FRAME": "reform_seeking",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "EU_AI_act_enforcement",
+        "DETECTED_LANGUAGE": "en",
+        "CULTURAL_FRAME": "opportunity_framing",
+        "N": 5
+    },
+    {
+        "EVENT_TAG": "EU_AI_act_enforcement",
+        "DETECTED_LANGUAGE": "en",
+        "CULTURAL_FRAME": "pragmatic",
+        "N": 5
+    },
+    {
+        "EVENT_TAG": "EU_AI_act_enforcement",
+        "DETECTED_LANGUAGE": "en",
+        "CULTURAL_FRAME": "individualist",
+        "N": 4
+    },
+    {
+        "EVENT_TAG": "EU_AI_act_enforcement",
+        "DETECTED_LANGUAGE": "en",
+        "CULTURAL_FRAME": "threat_framing",
+        "N": 4
+    },
+    {
+        "EVENT_TAG": "EU_AI_act_enforcement",
+        "DETECTED_LANGUAGE": "en",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 2
+    },
+    {
+        "EVENT_TAG": "EU_AI_act_enforcement",
+        "DETECTED_LANGUAGE": "es",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 8
+    },
+    {
+        "EVENT_TAG": "EU_AI_act_enforcement",
+        "DETECTED_LANGUAGE": "es",
+        "CULTURAL_FRAME": "pragmatic",
+        "N": 2
+    },
+    {
+        "EVENT_TAG": "EU_AI_act_enforcement",
+        "DETECTED_LANGUAGE": "es",
+        "CULTURAL_FRAME": "opportunity_framing",
+        "N": 2
+    },
+    {
+        "EVENT_TAG": "EU_AI_act_enforcement",
+        "DETECTED_LANGUAGE": "es",
+        "CULTURAL_FRAME": "collectivist",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "EU_AI_act_enforcement",
+        "DETECTED_LANGUAGE": "es",
+        "CULTURAL_FRAME": "individualist",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "EU_AI_act_enforcement",
+        "DETECTED_LANGUAGE": "es",
+        "CULTURAL_FRAME": "spiritual_ethical",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "EU_AI_act_enforcement",
+        "DETECTED_LANGUAGE": "fr",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 5
+    },
+    {
+        "EVENT_TAG": "EU_AI_act_enforcement",
+        "DETECTED_LANGUAGE": "fr",
+        "CULTURAL_FRAME": "reform_seeking",
+        "N": 4
+    },
+    {
+        "EVENT_TAG": "EU_AI_act_enforcement",
+        "DETECTED_LANGUAGE": "fr",
+        "CULTURAL_FRAME": "spiritual_ethical",
+        "N": 3
+    },
+    {
+        "EVENT_TAG": "EU_AI_act_enforcement",
+        "DETECTED_LANGUAGE": "fr",
+        "CULTURAL_FRAME": "status_quo",
+        "N": 2
+    },
+    {
+        "EVENT_TAG": "EU_AI_act_enforcement",
+        "DETECTED_LANGUAGE": "fr",
+        "CULTURAL_FRAME": "historical_grievance",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "EU_AI_act_enforcement",
+        "DETECTED_LANGUAGE": "hi",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 7
+    },
+    {
+        "EVENT_TAG": "EU_AI_act_enforcement",
+        "DETECTED_LANGUAGE": "hi",
+        "CULTURAL_FRAME": "individualist",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "EU_AI_act_enforcement",
+        "DETECTED_LANGUAGE": "hi",
+        "CULTURAL_FRAME": "collectivist",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "EU_AI_act_enforcement",
+        "DETECTED_LANGUAGE": "hi",
+        "CULTURAL_FRAME": "spiritual_ethical",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "EU_AI_act_enforcement",
+        "DETECTED_LANGUAGE": "it",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 8
+    },
+    {
+        "EVENT_TAG": "EU_AI_act_enforcement",
+        "DETECTED_LANGUAGE": "it",
+        "CULTURAL_FRAME": "spiritual_ethical",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "EU_AI_act_enforcement",
+        "DETECTED_LANGUAGE": "it",
+        "CULTURAL_FRAME": "collectivist",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "EU_AI_act_enforcement",
+        "DETECTED_LANGUAGE": "ja",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 8
+    },
+    {
+        "EVENT_TAG": "EU_AI_act_enforcement",
+        "DETECTED_LANGUAGE": "ja",
+        "CULTURAL_FRAME": "status_quo",
+        "N": 5
+    },
+    {
+        "EVENT_TAG": "EU_AI_act_enforcement",
+        "DETECTED_LANGUAGE": "ja",
+        "CULTURAL_FRAME": "threat_framing",
+        "N": 3
+    },
+    {
+        "EVENT_TAG": "EU_AI_act_enforcement",
+        "DETECTED_LANGUAGE": "ja",
+        "CULTURAL_FRAME": "pragmatic",
+        "N": 2
+    },
+    {
+        "EVENT_TAG": "EU_AI_act_enforcement",
+        "DETECTED_LANGUAGE": "ja",
+        "CULTURAL_FRAME": "spiritual_ethical",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "EU_AI_act_enforcement",
+        "DETECTED_LANGUAGE": "ja",
+        "CULTURAL_FRAME": "collectivist",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "EU_AI_act_enforcement",
+        "DETECTED_LANGUAGE": "ko",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 5
+    },
+    {
+        "EVENT_TAG": "EU_AI_act_enforcement",
+        "DETECTED_LANGUAGE": "ko",
+        "CULTURAL_FRAME": "historical_grievance",
+        "N": 4
+    },
+    {
+        "EVENT_TAG": "EU_AI_act_enforcement",
+        "DETECTED_LANGUAGE": "ko",
+        "CULTURAL_FRAME": "pragmatic",
+        "N": 2
+    },
+    {
+        "EVENT_TAG": "EU_AI_act_enforcement",
+        "DETECTED_LANGUAGE": "ko",
+        "CULTURAL_FRAME": "globalist",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "EU_AI_act_enforcement",
+        "DETECTED_LANGUAGE": "ko",
+        "CULTURAL_FRAME": "individualist",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "EU_AI_act_enforcement",
+        "DETECTED_LANGUAGE": "ko",
+        "CULTURAL_FRAME": "opportunity_framing",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "EU_AI_act_enforcement",
+        "DETECTED_LANGUAGE": "ko",
+        "CULTURAL_FRAME": "collectivist",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "EU_AI_act_enforcement",
+        "DETECTED_LANGUAGE": "pt",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 5
+    },
+    {
+        "EVENT_TAG": "EU_AI_act_enforcement",
+        "DETECTED_LANGUAGE": "pt",
+        "CULTURAL_FRAME": "opportunity_framing",
+        "N": 3
+    },
+    {
+        "EVENT_TAG": "EU_AI_act_enforcement",
+        "DETECTED_LANGUAGE": "pt",
+        "CULTURAL_FRAME": "collectivist",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "EU_AI_act_enforcement",
+        "DETECTED_LANGUAGE": "pt",
+        "CULTURAL_FRAME": "pragmatic",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "EU_AI_act_enforcement",
+        "DETECTED_LANGUAGE": "ru",
+        "CULTURAL_FRAME": "historical_grievance",
+        "N": 6
+    },
+    {
+        "EVENT_TAG": "EU_AI_act_enforcement",
+        "DETECTED_LANGUAGE": "ru",
+        "CULTURAL_FRAME": "pragmatic",
+        "N": 3
+    },
+    {
+        "EVENT_TAG": "EU_AI_act_enforcement",
+        "DETECTED_LANGUAGE": "ru",
+        "CULTURAL_FRAME": "status_quo",
+        "N": 2
+    },
+    {
+        "EVENT_TAG": "EU_AI_act_enforcement",
+        "DETECTED_LANGUAGE": "ru",
+        "CULTURAL_FRAME": "nationalist",
+        "N": 2
+    },
+    {
+        "EVENT_TAG": "EU_AI_act_enforcement",
+        "DETECTED_LANGUAGE": "ru",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "EU_AI_act_enforcement",
+        "DETECTED_LANGUAGE": "ru",
+        "CULTURAL_FRAME": "spiritual_ethical",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "EU_AI_act_enforcement",
+        "DETECTED_LANGUAGE": "zh",
+        "CULTURAL_FRAME": "opportunity_framing",
+        "N": 7
+    },
+    {
+        "EVENT_TAG": "EU_AI_act_enforcement",
+        "DETECTED_LANGUAGE": "zh",
+        "CULTURAL_FRAME": "nationalist",
+        "N": 5
+    },
+    {
+        "EVENT_TAG": "EU_AI_act_enforcement",
+        "DETECTED_LANGUAGE": "zh",
+        "CULTURAL_FRAME": "pragmatic",
+        "N": 5
+    },
+    {
+        "EVENT_TAG": "EU_AI_act_enforcement",
+        "DETECTED_LANGUAGE": "zh",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 2
+    },
+    {
+        "EVENT_TAG": "EU_AI_act_enforcement",
+        "DETECTED_LANGUAGE": "zh",
+        "CULTURAL_FRAME": "collectivist",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "K-pop_global_tour",
+        "DETECTED_LANGUAGE": "ar",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 8
+    },
+    {
+        "EVENT_TAG": "K-pop_global_tour",
+        "DETECTED_LANGUAGE": "ar",
+        "CULTURAL_FRAME": "historical_grievance",
+        "N": 4
+    },
+    {
+        "EVENT_TAG": "K-pop_global_tour",
+        "DETECTED_LANGUAGE": "ar",
+        "CULTURAL_FRAME": "pragmatic",
+        "N": 2
+    },
+    {
+        "EVENT_TAG": "K-pop_global_tour",
+        "DETECTED_LANGUAGE": "ar",
+        "CULTURAL_FRAME": "spiritual_ethical",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "K-pop_global_tour",
+        "DETECTED_LANGUAGE": "de",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 6
+    },
+    {
+        "EVENT_TAG": "K-pop_global_tour",
+        "DETECTED_LANGUAGE": "de",
+        "CULTURAL_FRAME": "pragmatic",
+        "N": 4
+    },
+    {
+        "EVENT_TAG": "K-pop_global_tour",
+        "DETECTED_LANGUAGE": "de",
+        "CULTURAL_FRAME": "threat_framing",
+        "N": 2
+    },
+    {
+        "EVENT_TAG": "K-pop_global_tour",
+        "DETECTED_LANGUAGE": "de",
+        "CULTURAL_FRAME": "reform_seeking",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "K-pop_global_tour",
+        "DETECTED_LANGUAGE": "de",
+        "CULTURAL_FRAME": "opportunity_framing",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "K-pop_global_tour",
+        "DETECTED_LANGUAGE": "de",
+        "CULTURAL_FRAME": "status_quo",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "K-pop_global_tour",
+        "DETECTED_LANGUAGE": "en",
+        "CULTURAL_FRAME": "threat_framing",
+        "N": 5
+    },
+    {
+        "EVENT_TAG": "K-pop_global_tour",
+        "DETECTED_LANGUAGE": "en",
+        "CULTURAL_FRAME": "opportunity_framing",
+        "N": 5
+    },
+    {
+        "EVENT_TAG": "K-pop_global_tour",
+        "DETECTED_LANGUAGE": "en",
+        "CULTURAL_FRAME": "pragmatic",
+        "N": 5
+    },
+    {
+        "EVENT_TAG": "K-pop_global_tour",
+        "DETECTED_LANGUAGE": "en",
+        "CULTURAL_FRAME": "individualist",
+        "N": 4
+    },
+    {
+        "EVENT_TAG": "K-pop_global_tour",
+        "DETECTED_LANGUAGE": "en",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "K-pop_global_tour",
+        "DETECTED_LANGUAGE": "es",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 5
+    },
+    {
+        "EVENT_TAG": "K-pop_global_tour",
+        "DETECTED_LANGUAGE": "es",
+        "CULTURAL_FRAME": "opportunity_framing",
+        "N": 5
+    },
+    {
+        "EVENT_TAG": "K-pop_global_tour",
+        "DETECTED_LANGUAGE": "es",
+        "CULTURAL_FRAME": "spiritual_ethical",
+        "N": 3
+    },
+    {
+        "EVENT_TAG": "K-pop_global_tour",
+        "DETECTED_LANGUAGE": "es",
+        "CULTURAL_FRAME": "collectivist",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "K-pop_global_tour",
+        "DETECTED_LANGUAGE": "es",
+        "CULTURAL_FRAME": "historical_grievance",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "K-pop_global_tour",
+        "DETECTED_LANGUAGE": "fr",
+        "CULTURAL_FRAME": "spiritual_ethical",
+        "N": 4
+    },
+    {
+        "EVENT_TAG": "K-pop_global_tour",
+        "DETECTED_LANGUAGE": "fr",
+        "CULTURAL_FRAME": "reform_seeking",
+        "N": 4
+    },
+    {
+        "EVENT_TAG": "K-pop_global_tour",
+        "DETECTED_LANGUAGE": "fr",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 4
+    },
+    {
+        "EVENT_TAG": "K-pop_global_tour",
+        "DETECTED_LANGUAGE": "fr",
+        "CULTURAL_FRAME": "status_quo",
+        "N": 2
+    },
+    {
+        "EVENT_TAG": "K-pop_global_tour",
+        "DETECTED_LANGUAGE": "fr",
+        "CULTURAL_FRAME": "historical_grievance",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "K-pop_global_tour",
+        "DETECTED_LANGUAGE": "hi",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 6
+    },
+    {
+        "EVENT_TAG": "K-pop_global_tour",
+        "DETECTED_LANGUAGE": "hi",
+        "CULTURAL_FRAME": "individualist",
+        "N": 2
+    },
+    {
+        "EVENT_TAG": "K-pop_global_tour",
+        "DETECTED_LANGUAGE": "hi",
+        "CULTURAL_FRAME": "spiritual_ethical",
+        "N": 2
+    },
+    {
+        "EVENT_TAG": "K-pop_global_tour",
+        "DETECTED_LANGUAGE": "it",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 8
+    },
+    {
+        "EVENT_TAG": "K-pop_global_tour",
+        "DETECTED_LANGUAGE": "it",
+        "CULTURAL_FRAME": "collectivist",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "K-pop_global_tour",
+        "DETECTED_LANGUAGE": "it",
+        "CULTURAL_FRAME": "spiritual_ethical",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "K-pop_global_tour",
+        "DETECTED_LANGUAGE": "ja",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 8
+    },
+    {
+        "EVENT_TAG": "K-pop_global_tour",
+        "DETECTED_LANGUAGE": "ja",
+        "CULTURAL_FRAME": "threat_framing",
+        "N": 3
+    },
+    {
+        "EVENT_TAG": "K-pop_global_tour",
+        "DETECTED_LANGUAGE": "ja",
+        "CULTURAL_FRAME": "collectivist",
+        "N": 3
+    },
+    {
+        "EVENT_TAG": "K-pop_global_tour",
+        "DETECTED_LANGUAGE": "ja",
+        "CULTURAL_FRAME": "pragmatic",
+        "N": 3
+    },
+    {
+        "EVENT_TAG": "K-pop_global_tour",
+        "DETECTED_LANGUAGE": "ja",
+        "CULTURAL_FRAME": "status_quo",
+        "N": 2
+    },
+    {
+        "EVENT_TAG": "K-pop_global_tour",
+        "DETECTED_LANGUAGE": "ja",
+        "CULTURAL_FRAME": "spiritual_ethical",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "K-pop_global_tour",
+        "DETECTED_LANGUAGE": "ko",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 5
+    },
+    {
+        "EVENT_TAG": "K-pop_global_tour",
+        "DETECTED_LANGUAGE": "ko",
+        "CULTURAL_FRAME": "historical_grievance",
+        "N": 3
+    },
+    {
+        "EVENT_TAG": "K-pop_global_tour",
+        "DETECTED_LANGUAGE": "ko",
+        "CULTURAL_FRAME": "pragmatic",
+        "N": 3
+    },
+    {
+        "EVENT_TAG": "K-pop_global_tour",
+        "DETECTED_LANGUAGE": "ko",
+        "CULTURAL_FRAME": "opportunity_framing",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "K-pop_global_tour",
+        "DETECTED_LANGUAGE": "ko",
+        "CULTURAL_FRAME": "collectivist",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "K-pop_global_tour",
+        "DETECTED_LANGUAGE": "ko",
+        "CULTURAL_FRAME": "individualist",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "K-pop_global_tour",
+        "DETECTED_LANGUAGE": "ko",
+        "CULTURAL_FRAME": "globalist",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "K-pop_global_tour",
+        "DETECTED_LANGUAGE": "pt",
+        "CULTURAL_FRAME": "opportunity_framing",
+        "N": 4
+    },
+    {
+        "EVENT_TAG": "K-pop_global_tour",
+        "DETECTED_LANGUAGE": "pt",
+        "CULTURAL_FRAME": "collectivist",
+        "N": 3
+    },
+    {
+        "EVENT_TAG": "K-pop_global_tour",
+        "DETECTED_LANGUAGE": "pt",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 3
+    },
+    {
+        "EVENT_TAG": "K-pop_global_tour",
+        "DETECTED_LANGUAGE": "ru",
+        "CULTURAL_FRAME": "historical_grievance",
+        "N": 7
+    },
+    {
+        "EVENT_TAG": "K-pop_global_tour",
+        "DETECTED_LANGUAGE": "ru",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 4
+    },
+    {
+        "EVENT_TAG": "K-pop_global_tour",
+        "DETECTED_LANGUAGE": "ru",
+        "CULTURAL_FRAME": "pragmatic",
+        "N": 2
+    },
+    {
+        "EVENT_TAG": "K-pop_global_tour",
+        "DETECTED_LANGUAGE": "ru",
+        "CULTURAL_FRAME": "status_quo",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "K-pop_global_tour",
+        "DETECTED_LANGUAGE": "ru",
+        "CULTURAL_FRAME": "nationalist",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "K-pop_global_tour",
+        "DETECTED_LANGUAGE": "zh",
+        "CULTURAL_FRAME": "opportunity_framing",
+        "N": 8
+    },
+    {
+        "EVENT_TAG": "K-pop_global_tour",
+        "DETECTED_LANGUAGE": "zh",
+        "CULTURAL_FRAME": "nationalist",
+        "N": 4
+    },
+    {
+        "EVENT_TAG": "K-pop_global_tour",
+        "DETECTED_LANGUAGE": "zh",
+        "CULTURAL_FRAME": "pragmatic",
+        "N": 4
+    },
+    {
+        "EVENT_TAG": "K-pop_global_tour",
+        "DETECTED_LANGUAGE": "zh",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 2
+    },
+    {
+        "EVENT_TAG": "K-pop_global_tour",
+        "DETECTED_LANGUAGE": "zh",
+        "CULTURAL_FRAME": "collectivist",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "K-pop_global_tour",
+        "DETECTED_LANGUAGE": "zh",
+        "CULTURAL_FRAME": "individualist",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "Olympics_2026_opening",
+        "DETECTED_LANGUAGE": "ar",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 6
+    },
+    {
+        "EVENT_TAG": "Olympics_2026_opening",
+        "DETECTED_LANGUAGE": "ar",
+        "CULTURAL_FRAME": "historical_grievance",
+        "N": 4
+    },
+    {
+        "EVENT_TAG": "Olympics_2026_opening",
+        "DETECTED_LANGUAGE": "ar",
+        "CULTURAL_FRAME": "opportunity_framing",
+        "N": 3
+    },
+    {
+        "EVENT_TAG": "Olympics_2026_opening",
+        "DETECTED_LANGUAGE": "ar",
+        "CULTURAL_FRAME": "pragmatic",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "Olympics_2026_opening",
+        "DETECTED_LANGUAGE": "ar",
+        "CULTURAL_FRAME": "spiritual_ethical",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "Olympics_2026_opening",
+        "DETECTED_LANGUAGE": "de",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 6
+    },
+    {
+        "EVENT_TAG": "Olympics_2026_opening",
+        "DETECTED_LANGUAGE": "de",
+        "CULTURAL_FRAME": "threat_framing",
+        "N": 3
+    },
+    {
+        "EVENT_TAG": "Olympics_2026_opening",
+        "DETECTED_LANGUAGE": "de",
+        "CULTURAL_FRAME": "pragmatic",
+        "N": 2
+    },
+    {
+        "EVENT_TAG": "Olympics_2026_opening",
+        "DETECTED_LANGUAGE": "de",
+        "CULTURAL_FRAME": "reform_seeking",
+        "N": 2
+    },
+    {
+        "EVENT_TAG": "Olympics_2026_opening",
+        "DETECTED_LANGUAGE": "de",
+        "CULTURAL_FRAME": "status_quo",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "Olympics_2026_opening",
+        "DETECTED_LANGUAGE": "de",
+        "CULTURAL_FRAME": "opportunity_framing",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "Olympics_2026_opening",
+        "DETECTED_LANGUAGE": "en",
+        "CULTURAL_FRAME": "opportunity_framing",
+        "N": 5
+    },
+    {
+        "EVENT_TAG": "Olympics_2026_opening",
+        "DETECTED_LANGUAGE": "en",
+        "CULTURAL_FRAME": "individualist",
+        "N": 5
+    },
+    {
+        "EVENT_TAG": "Olympics_2026_opening",
+        "DETECTED_LANGUAGE": "en",
+        "CULTURAL_FRAME": "threat_framing",
+        "N": 5
+    },
+    {
+        "EVENT_TAG": "Olympics_2026_opening",
+        "DETECTED_LANGUAGE": "en",
+        "CULTURAL_FRAME": "pragmatic",
+        "N": 4
+    },
+    {
+        "EVENT_TAG": "Olympics_2026_opening",
+        "DETECTED_LANGUAGE": "en",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "Olympics_2026_opening",
+        "DETECTED_LANGUAGE": "es",
+        "CULTURAL_FRAME": "opportunity_framing",
+        "N": 6
+    },
+    {
+        "EVENT_TAG": "Olympics_2026_opening",
+        "DETECTED_LANGUAGE": "es",
+        "CULTURAL_FRAME": "spiritual_ethical",
+        "N": 3
+    },
+    {
+        "EVENT_TAG": "Olympics_2026_opening",
+        "DETECTED_LANGUAGE": "es",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 3
+    },
+    {
+        "EVENT_TAG": "Olympics_2026_opening",
+        "DETECTED_LANGUAGE": "es",
+        "CULTURAL_FRAME": "collectivist",
+        "N": 2
+    },
+    {
+        "EVENT_TAG": "Olympics_2026_opening",
+        "DETECTED_LANGUAGE": "es",
+        "CULTURAL_FRAME": "historical_grievance",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "Olympics_2026_opening",
+        "DETECTED_LANGUAGE": "fr",
+        "CULTURAL_FRAME": "spiritual_ethical",
+        "N": 4
+    },
+    {
+        "EVENT_TAG": "Olympics_2026_opening",
+        "DETECTED_LANGUAGE": "fr",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 4
+    },
+    {
+        "EVENT_TAG": "Olympics_2026_opening",
+        "DETECTED_LANGUAGE": "fr",
+        "CULTURAL_FRAME": "status_quo",
+        "N": 3
+    },
+    {
+        "EVENT_TAG": "Olympics_2026_opening",
+        "DETECTED_LANGUAGE": "fr",
+        "CULTURAL_FRAME": "reform_seeking",
+        "N": 3
+    },
+    {
+        "EVENT_TAG": "Olympics_2026_opening",
+        "DETECTED_LANGUAGE": "fr",
+        "CULTURAL_FRAME": "historical_grievance",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "Olympics_2026_opening",
+        "DETECTED_LANGUAGE": "hi",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 6
+    },
+    {
+        "EVENT_TAG": "Olympics_2026_opening",
+        "DETECTED_LANGUAGE": "hi",
+        "CULTURAL_FRAME": "spiritual_ethical",
+        "N": 2
+    },
+    {
+        "EVENT_TAG": "Olympics_2026_opening",
+        "DETECTED_LANGUAGE": "hi",
+        "CULTURAL_FRAME": "individualist",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "Olympics_2026_opening",
+        "DETECTED_LANGUAGE": "hi",
+        "CULTURAL_FRAME": "opportunity_framing",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "Olympics_2026_opening",
+        "DETECTED_LANGUAGE": "it",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 6
+    },
+    {
+        "EVENT_TAG": "Olympics_2026_opening",
+        "DETECTED_LANGUAGE": "it",
+        "CULTURAL_FRAME": "spiritual_ethical",
+        "N": 2
+    },
+    {
+        "EVENT_TAG": "Olympics_2026_opening",
+        "DETECTED_LANGUAGE": "it",
+        "CULTURAL_FRAME": "collectivist",
+        "N": 2
+    },
+    {
+        "EVENT_TAG": "Olympics_2026_opening",
+        "DETECTED_LANGUAGE": "ja",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 4
+    },
+    {
+        "EVENT_TAG": "Olympics_2026_opening",
+        "DETECTED_LANGUAGE": "ja",
+        "CULTURAL_FRAME": "threat_framing",
+        "N": 4
+    },
+    {
+        "EVENT_TAG": "Olympics_2026_opening",
+        "DETECTED_LANGUAGE": "ja",
+        "CULTURAL_FRAME": "spiritual_ethical",
+        "N": 3
+    },
+    {
+        "EVENT_TAG": "Olympics_2026_opening",
+        "DETECTED_LANGUAGE": "ja",
+        "CULTURAL_FRAME": "historical_grievance",
+        "N": 3
+    },
+    {
+        "EVENT_TAG": "Olympics_2026_opening",
+        "DETECTED_LANGUAGE": "ja",
+        "CULTURAL_FRAME": "collectivist",
+        "N": 3
+    },
+    {
+        "EVENT_TAG": "Olympics_2026_opening",
+        "DETECTED_LANGUAGE": "ja",
+        "CULTURAL_FRAME": "status_quo",
+        "N": 2
+    },
+    {
+        "EVENT_TAG": "Olympics_2026_opening",
+        "DETECTED_LANGUAGE": "ja",
+        "CULTURAL_FRAME": "opportunity_framing",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "Olympics_2026_opening",
+        "DETECTED_LANGUAGE": "ko",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 5
+    },
+    {
+        "EVENT_TAG": "Olympics_2026_opening",
+        "DETECTED_LANGUAGE": "ko",
+        "CULTURAL_FRAME": "historical_grievance",
+        "N": 4
+    },
+    {
+        "EVENT_TAG": "Olympics_2026_opening",
+        "DETECTED_LANGUAGE": "ko",
+        "CULTURAL_FRAME": "opportunity_framing",
+        "N": 2
+    },
+    {
+        "EVENT_TAG": "Olympics_2026_opening",
+        "DETECTED_LANGUAGE": "ko",
+        "CULTURAL_FRAME": "status_quo",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "Olympics_2026_opening",
+        "DETECTED_LANGUAGE": "ko",
+        "CULTURAL_FRAME": "pragmatic",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "Olympics_2026_opening",
+        "DETECTED_LANGUAGE": "ko",
+        "CULTURAL_FRAME": "collectivist",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "Olympics_2026_opening",
+        "DETECTED_LANGUAGE": "ko",
+        "CULTURAL_FRAME": "globalist",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "Olympics_2026_opening",
+        "DETECTED_LANGUAGE": "pt",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 5
+    },
+    {
+        "EVENT_TAG": "Olympics_2026_opening",
+        "DETECTED_LANGUAGE": "pt",
+        "CULTURAL_FRAME": "opportunity_framing",
+        "N": 4
+    },
+    {
+        "EVENT_TAG": "Olympics_2026_opening",
+        "DETECTED_LANGUAGE": "pt",
+        "CULTURAL_FRAME": "collectivist",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "Olympics_2026_opening",
+        "DETECTED_LANGUAGE": "ru",
+        "CULTURAL_FRAME": "historical_grievance",
+        "N": 7
+    },
+    {
+        "EVENT_TAG": "Olympics_2026_opening",
+        "DETECTED_LANGUAGE": "ru",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 3
+    },
+    {
+        "EVENT_TAG": "Olympics_2026_opening",
+        "DETECTED_LANGUAGE": "ru",
+        "CULTURAL_FRAME": "nationalist",
+        "N": 2
+    },
+    {
+        "EVENT_TAG": "Olympics_2026_opening",
+        "DETECTED_LANGUAGE": "ru",
+        "CULTURAL_FRAME": "pragmatic",
+        "N": 2
+    },
+    {
+        "EVENT_TAG": "Olympics_2026_opening",
+        "DETECTED_LANGUAGE": "ru",
+        "CULTURAL_FRAME": "status_quo",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "Olympics_2026_opening",
+        "DETECTED_LANGUAGE": "zh",
+        "CULTURAL_FRAME": "opportunity_framing",
+        "N": 8
+    },
+    {
+        "EVENT_TAG": "Olympics_2026_opening",
+        "DETECTED_LANGUAGE": "zh",
+        "CULTURAL_FRAME": "nationalist",
+        "N": 4
+    },
+    {
+        "EVENT_TAG": "Olympics_2026_opening",
+        "DETECTED_LANGUAGE": "zh",
+        "CULTURAL_FRAME": "pragmatic",
+        "N": 4
+    },
+    {
+        "EVENT_TAG": "Olympics_2026_opening",
+        "DETECTED_LANGUAGE": "zh",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 2
+    },
+    {
+        "EVENT_TAG": "Olympics_2026_opening",
+        "DETECTED_LANGUAGE": "zh",
+        "CULTURAL_FRAME": "globalist",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "Olympics_2026_opening",
+        "DETECTED_LANGUAGE": "zh",
+        "CULTURAL_FRAME": "threat_framing",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "Tesla_robotaxi_debut",
+        "DETECTED_LANGUAGE": "ar",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 7
+    },
+    {
+        "EVENT_TAG": "Tesla_robotaxi_debut",
+        "DETECTED_LANGUAGE": "ar",
+        "CULTURAL_FRAME": "historical_grievance",
+        "N": 4
+    },
+    {
+        "EVENT_TAG": "Tesla_robotaxi_debut",
+        "DETECTED_LANGUAGE": "ar",
+        "CULTURAL_FRAME": "opportunity_framing",
+        "N": 2
+    },
+    {
+        "EVENT_TAG": "Tesla_robotaxi_debut",
+        "DETECTED_LANGUAGE": "ar",
+        "CULTURAL_FRAME": "spiritual_ethical",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "Tesla_robotaxi_debut",
+        "DETECTED_LANGUAGE": "ar",
+        "CULTURAL_FRAME": "pragmatic",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "Tesla_robotaxi_debut",
+        "DETECTED_LANGUAGE": "de",
+        "CULTURAL_FRAME": "pragmatic",
+        "N": 7
+    },
+    {
+        "EVENT_TAG": "Tesla_robotaxi_debut",
+        "DETECTED_LANGUAGE": "de",
+        "CULTURAL_FRAME": "threat_framing",
+        "N": 3
+    },
+    {
+        "EVENT_TAG": "Tesla_robotaxi_debut",
+        "DETECTED_LANGUAGE": "de",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 3
+    },
+    {
+        "EVENT_TAG": "Tesla_robotaxi_debut",
+        "DETECTED_LANGUAGE": "de",
+        "CULTURAL_FRAME": "opportunity_framing",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "Tesla_robotaxi_debut",
+        "DETECTED_LANGUAGE": "de",
+        "CULTURAL_FRAME": "reform_seeking",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "Tesla_robotaxi_debut",
+        "DETECTED_LANGUAGE": "en",
+        "CULTURAL_FRAME": "pragmatic",
+        "N": 6
+    },
+    {
+        "EVENT_TAG": "Tesla_robotaxi_debut",
+        "DETECTED_LANGUAGE": "en",
+        "CULTURAL_FRAME": "threat_framing",
+        "N": 5
+    },
+    {
+        "EVENT_TAG": "Tesla_robotaxi_debut",
+        "DETECTED_LANGUAGE": "en",
+        "CULTURAL_FRAME": "opportunity_framing",
+        "N": 5
+    },
+    {
+        "EVENT_TAG": "Tesla_robotaxi_debut",
+        "DETECTED_LANGUAGE": "en",
+        "CULTURAL_FRAME": "individualist",
+        "N": 4
+    },
+    {
+        "EVENT_TAG": "Tesla_robotaxi_debut",
+        "DETECTED_LANGUAGE": "es",
+        "CULTURAL_FRAME": "opportunity_framing",
+        "N": 5
+    },
+    {
+        "EVENT_TAG": "Tesla_robotaxi_debut",
+        "DETECTED_LANGUAGE": "es",
+        "CULTURAL_FRAME": "spiritual_ethical",
+        "N": 3
+    },
+    {
+        "EVENT_TAG": "Tesla_robotaxi_debut",
+        "DETECTED_LANGUAGE": "es",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 3
+    },
+    {
+        "EVENT_TAG": "Tesla_robotaxi_debut",
+        "DETECTED_LANGUAGE": "es",
+        "CULTURAL_FRAME": "collectivist",
+        "N": 2
+    },
+    {
+        "EVENT_TAG": "Tesla_robotaxi_debut",
+        "DETECTED_LANGUAGE": "es",
+        "CULTURAL_FRAME": "pragmatic",
+        "N": 2
+    },
+    {
+        "EVENT_TAG": "Tesla_robotaxi_debut",
+        "DETECTED_LANGUAGE": "fr",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 5
+    },
+    {
+        "EVENT_TAG": "Tesla_robotaxi_debut",
+        "DETECTED_LANGUAGE": "fr",
+        "CULTURAL_FRAME": "reform_seeking",
+        "N": 4
+    },
+    {
+        "EVENT_TAG": "Tesla_robotaxi_debut",
+        "DETECTED_LANGUAGE": "fr",
+        "CULTURAL_FRAME": "spiritual_ethical",
+        "N": 3
+    },
+    {
+        "EVENT_TAG": "Tesla_robotaxi_debut",
+        "DETECTED_LANGUAGE": "fr",
+        "CULTURAL_FRAME": "historical_grievance",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "Tesla_robotaxi_debut",
+        "DETECTED_LANGUAGE": "fr",
+        "CULTURAL_FRAME": "pragmatic",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "Tesla_robotaxi_debut",
+        "DETECTED_LANGUAGE": "fr",
+        "CULTURAL_FRAME": "status_quo",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "Tesla_robotaxi_debut",
+        "DETECTED_LANGUAGE": "hi",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 8
+    },
+    {
+        "EVENT_TAG": "Tesla_robotaxi_debut",
+        "DETECTED_LANGUAGE": "hi",
+        "CULTURAL_FRAME": "spiritual_ethical",
+        "N": 2
+    },
+    {
+        "EVENT_TAG": "Tesla_robotaxi_debut",
+        "DETECTED_LANGUAGE": "it",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 7
+    },
+    {
+        "EVENT_TAG": "Tesla_robotaxi_debut",
+        "DETECTED_LANGUAGE": "it",
+        "CULTURAL_FRAME": "spiritual_ethical",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "Tesla_robotaxi_debut",
+        "DETECTED_LANGUAGE": "it",
+        "CULTURAL_FRAME": "collectivist",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "Tesla_robotaxi_debut",
+        "DETECTED_LANGUAGE": "it",
+        "CULTURAL_FRAME": "opportunity_framing",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "Tesla_robotaxi_debut",
+        "DETECTED_LANGUAGE": "ja",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 9
+    },
+    {
+        "EVENT_TAG": "Tesla_robotaxi_debut",
+        "DETECTED_LANGUAGE": "ja",
+        "CULTURAL_FRAME": "threat_framing",
+        "N": 4
+    },
+    {
+        "EVENT_TAG": "Tesla_robotaxi_debut",
+        "DETECTED_LANGUAGE": "ja",
+        "CULTURAL_FRAME": "status_quo",
+        "N": 3
+    },
+    {
+        "EVENT_TAG": "Tesla_robotaxi_debut",
+        "DETECTED_LANGUAGE": "ja",
+        "CULTURAL_FRAME": "pragmatic",
+        "N": 2
+    },
+    {
+        "EVENT_TAG": "Tesla_robotaxi_debut",
+        "DETECTED_LANGUAGE": "ja",
+        "CULTURAL_FRAME": "collectivist",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "Tesla_robotaxi_debut",
+        "DETECTED_LANGUAGE": "ja",
+        "CULTURAL_FRAME": "spiritual_ethical",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "Tesla_robotaxi_debut",
+        "DETECTED_LANGUAGE": "ko",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 5
+    },
+    {
+        "EVENT_TAG": "Tesla_robotaxi_debut",
+        "DETECTED_LANGUAGE": "ko",
+        "CULTURAL_FRAME": "historical_grievance",
+        "N": 3
+    },
+    {
+        "EVENT_TAG": "Tesla_robotaxi_debut",
+        "DETECTED_LANGUAGE": "ko",
+        "CULTURAL_FRAME": "pragmatic",
+        "N": 3
+    },
+    {
+        "EVENT_TAG": "Tesla_robotaxi_debut",
+        "DETECTED_LANGUAGE": "ko",
+        "CULTURAL_FRAME": "opportunity_framing",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "Tesla_robotaxi_debut",
+        "DETECTED_LANGUAGE": "ko",
+        "CULTURAL_FRAME": "collectivist",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "Tesla_robotaxi_debut",
+        "DETECTED_LANGUAGE": "ko",
+        "CULTURAL_FRAME": "individualist",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "Tesla_robotaxi_debut",
+        "DETECTED_LANGUAGE": "ko",
+        "CULTURAL_FRAME": "globalist",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "Tesla_robotaxi_debut",
+        "DETECTED_LANGUAGE": "pt",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 4
+    },
+    {
+        "EVENT_TAG": "Tesla_robotaxi_debut",
+        "DETECTED_LANGUAGE": "pt",
+        "CULTURAL_FRAME": "opportunity_framing",
+        "N": 4
+    },
+    {
+        "EVENT_TAG": "Tesla_robotaxi_debut",
+        "DETECTED_LANGUAGE": "pt",
+        "CULTURAL_FRAME": "collectivist",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "Tesla_robotaxi_debut",
+        "DETECTED_LANGUAGE": "pt",
+        "CULTURAL_FRAME": "individualist",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "Tesla_robotaxi_debut",
+        "DETECTED_LANGUAGE": "ru",
+        "CULTURAL_FRAME": "historical_grievance",
+        "N": 6
+    },
+    {
+        "EVENT_TAG": "Tesla_robotaxi_debut",
+        "DETECTED_LANGUAGE": "ru",
+        "CULTURAL_FRAME": "pragmatic",
+        "N": 4
+    },
+    {
+        "EVENT_TAG": "Tesla_robotaxi_debut",
+        "DETECTED_LANGUAGE": "ru",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 2
+    },
+    {
+        "EVENT_TAG": "Tesla_robotaxi_debut",
+        "DETECTED_LANGUAGE": "ru",
+        "CULTURAL_FRAME": "nationalist",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "Tesla_robotaxi_debut",
+        "DETECTED_LANGUAGE": "ru",
+        "CULTURAL_FRAME": "status_quo",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "Tesla_robotaxi_debut",
+        "DETECTED_LANGUAGE": "ru",
+        "CULTURAL_FRAME": "spiritual_ethical",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "Tesla_robotaxi_debut",
+        "DETECTED_LANGUAGE": "zh",
+        "CULTURAL_FRAME": "opportunity_framing",
+        "N": 7
+    },
+    {
+        "EVENT_TAG": "Tesla_robotaxi_debut",
+        "DETECTED_LANGUAGE": "zh",
+        "CULTURAL_FRAME": "pragmatic",
+        "N": 6
+    },
+    {
+        "EVENT_TAG": "Tesla_robotaxi_debut",
+        "DETECTED_LANGUAGE": "zh",
+        "CULTURAL_FRAME": "nationalist",
+        "N": 5
+    },
+    {
+        "EVENT_TAG": "Tesla_robotaxi_debut",
+        "DETECTED_LANGUAGE": "zh",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "Tesla_robotaxi_debut",
+        "DETECTED_LANGUAGE": "zh",
+        "CULTURAL_FRAME": "collectivist",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "World_Cup_2026_final",
+        "DETECTED_LANGUAGE": "ar",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 9
+    },
+    {
+        "EVENT_TAG": "World_Cup_2026_final",
+        "DETECTED_LANGUAGE": "ar",
+        "CULTURAL_FRAME": "historical_grievance",
+        "N": 4
+    },
+    {
+        "EVENT_TAG": "World_Cup_2026_final",
+        "DETECTED_LANGUAGE": "ar",
+        "CULTURAL_FRAME": "spiritual_ethical",
+        "N": 2
+    },
+    {
+        "EVENT_TAG": "World_Cup_2026_final",
+        "DETECTED_LANGUAGE": "de",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 6
+    },
+    {
+        "EVENT_TAG": "World_Cup_2026_final",
+        "DETECTED_LANGUAGE": "de",
+        "CULTURAL_FRAME": "pragmatic",
+        "N": 5
+    },
+    {
+        "EVENT_TAG": "World_Cup_2026_final",
+        "DETECTED_LANGUAGE": "de",
+        "CULTURAL_FRAME": "threat_framing",
+        "N": 2
+    },
+    {
+        "EVENT_TAG": "World_Cup_2026_final",
+        "DETECTED_LANGUAGE": "de",
+        "CULTURAL_FRAME": "opportunity_framing",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "World_Cup_2026_final",
+        "DETECTED_LANGUAGE": "de",
+        "CULTURAL_FRAME": "reform_seeking",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "World_Cup_2026_final",
+        "DETECTED_LANGUAGE": "en",
+        "CULTURAL_FRAME": "opportunity_framing",
+        "N": 5
+    },
+    {
+        "EVENT_TAG": "World_Cup_2026_final",
+        "DETECTED_LANGUAGE": "en",
+        "CULTURAL_FRAME": "pragmatic",
+        "N": 5
+    },
+    {
+        "EVENT_TAG": "World_Cup_2026_final",
+        "DETECTED_LANGUAGE": "en",
+        "CULTURAL_FRAME": "individualist",
+        "N": 4
+    },
+    {
+        "EVENT_TAG": "World_Cup_2026_final",
+        "DETECTED_LANGUAGE": "en",
+        "CULTURAL_FRAME": "threat_framing",
+        "N": 4
+    },
+    {
+        "EVENT_TAG": "World_Cup_2026_final",
+        "DETECTED_LANGUAGE": "en",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 2
+    },
+    {
+        "EVENT_TAG": "World_Cup_2026_final",
+        "DETECTED_LANGUAGE": "es",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 7
+    },
+    {
+        "EVENT_TAG": "World_Cup_2026_final",
+        "DETECTED_LANGUAGE": "es",
+        "CULTURAL_FRAME": "opportunity_framing",
+        "N": 4
+    },
+    {
+        "EVENT_TAG": "World_Cup_2026_final",
+        "DETECTED_LANGUAGE": "es",
+        "CULTURAL_FRAME": "collectivist",
+        "N": 2
+    },
+    {
+        "EVENT_TAG": "World_Cup_2026_final",
+        "DETECTED_LANGUAGE": "es",
+        "CULTURAL_FRAME": "spiritual_ethical",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "World_Cup_2026_final",
+        "DETECTED_LANGUAGE": "es",
+        "CULTURAL_FRAME": "individualist",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "World_Cup_2026_final",
+        "DETECTED_LANGUAGE": "fr",
+        "CULTURAL_FRAME": "reform_seeking",
+        "N": 4
+    },
+    {
+        "EVENT_TAG": "World_Cup_2026_final",
+        "DETECTED_LANGUAGE": "fr",
+        "CULTURAL_FRAME": "spiritual_ethical",
+        "N": 4
+    },
+    {
+        "EVENT_TAG": "World_Cup_2026_final",
+        "DETECTED_LANGUAGE": "fr",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 4
+    },
+    {
+        "EVENT_TAG": "World_Cup_2026_final",
+        "DETECTED_LANGUAGE": "fr",
+        "CULTURAL_FRAME": "status_quo",
+        "N": 2
+    },
+    {
+        "EVENT_TAG": "World_Cup_2026_final",
+        "DETECTED_LANGUAGE": "fr",
+        "CULTURAL_FRAME": "historical_grievance",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "World_Cup_2026_final",
+        "DETECTED_LANGUAGE": "hi",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 8
+    },
+    {
+        "EVENT_TAG": "World_Cup_2026_final",
+        "DETECTED_LANGUAGE": "hi",
+        "CULTURAL_FRAME": "individualist",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "World_Cup_2026_final",
+        "DETECTED_LANGUAGE": "hi",
+        "CULTURAL_FRAME": "spiritual_ethical",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "World_Cup_2026_final",
+        "DETECTED_LANGUAGE": "it",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 7
+    },
+    {
+        "EVENT_TAG": "World_Cup_2026_final",
+        "DETECTED_LANGUAGE": "it",
+        "CULTURAL_FRAME": "spiritual_ethical",
+        "N": 2
+    },
+    {
+        "EVENT_TAG": "World_Cup_2026_final",
+        "DETECTED_LANGUAGE": "it",
+        "CULTURAL_FRAME": "collectivist",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "World_Cup_2026_final",
+        "DETECTED_LANGUAGE": "ja",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 9
+    },
+    {
+        "EVENT_TAG": "World_Cup_2026_final",
+        "DETECTED_LANGUAGE": "ja",
+        "CULTURAL_FRAME": "threat_framing",
+        "N": 3
+    },
+    {
+        "EVENT_TAG": "World_Cup_2026_final",
+        "DETECTED_LANGUAGE": "ja",
+        "CULTURAL_FRAME": "historical_grievance",
+        "N": 2
+    },
+    {
+        "EVENT_TAG": "World_Cup_2026_final",
+        "DETECTED_LANGUAGE": "ja",
+        "CULTURAL_FRAME": "status_quo",
+        "N": 2
+    },
+    {
+        "EVENT_TAG": "World_Cup_2026_final",
+        "DETECTED_LANGUAGE": "ja",
+        "CULTURAL_FRAME": "pragmatic",
+        "N": 2
+    },
+    {
+        "EVENT_TAG": "World_Cup_2026_final",
+        "DETECTED_LANGUAGE": "ja",
+        "CULTURAL_FRAME": "spiritual_ethical",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "World_Cup_2026_final",
+        "DETECTED_LANGUAGE": "ja",
+        "CULTURAL_FRAME": "collectivist",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "World_Cup_2026_final",
+        "DETECTED_LANGUAGE": "ko",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 6
+    },
+    {
+        "EVENT_TAG": "World_Cup_2026_final",
+        "DETECTED_LANGUAGE": "ko",
+        "CULTURAL_FRAME": "historical_grievance",
+        "N": 4
+    },
+    {
+        "EVENT_TAG": "World_Cup_2026_final",
+        "DETECTED_LANGUAGE": "ko",
+        "CULTURAL_FRAME": "pragmatic",
+        "N": 2
+    },
+    {
+        "EVENT_TAG": "World_Cup_2026_final",
+        "DETECTED_LANGUAGE": "ko",
+        "CULTURAL_FRAME": "status_quo",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "World_Cup_2026_final",
+        "DETECTED_LANGUAGE": "ko",
+        "CULTURAL_FRAME": "opportunity_framing",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "World_Cup_2026_final",
+        "DETECTED_LANGUAGE": "ko",
+        "CULTURAL_FRAME": "collectivist",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "World_Cup_2026_final",
+        "DETECTED_LANGUAGE": "pt",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 7
+    },
+    {
+        "EVENT_TAG": "World_Cup_2026_final",
+        "DETECTED_LANGUAGE": "pt",
+        "CULTURAL_FRAME": "opportunity_framing",
+        "N": 2
+    },
+    {
+        "EVENT_TAG": "World_Cup_2026_final",
+        "DETECTED_LANGUAGE": "pt",
+        "CULTURAL_FRAME": "collectivist",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "World_Cup_2026_final",
+        "DETECTED_LANGUAGE": "ru",
+        "CULTURAL_FRAME": "historical_grievance",
+        "N": 7
+    },
+    {
+        "EVENT_TAG": "World_Cup_2026_final",
+        "DETECTED_LANGUAGE": "ru",
+        "CULTURAL_FRAME": "pragmatic",
+        "N": 3
+    },
+    {
+        "EVENT_TAG": "World_Cup_2026_final",
+        "DETECTED_LANGUAGE": "ru",
+        "CULTURAL_FRAME": "nationalist",
+        "N": 2
+    },
+    {
+        "EVENT_TAG": "World_Cup_2026_final",
+        "DETECTED_LANGUAGE": "ru",
+        "CULTURAL_FRAME": "status_quo",
+        "N": 2
+    },
+    {
+        "EVENT_TAG": "World_Cup_2026_final",
+        "DETECTED_LANGUAGE": "ru",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "World_Cup_2026_final",
+        "DETECTED_LANGUAGE": "zh",
+        "CULTURAL_FRAME": "opportunity_framing",
+        "N": 7
+    },
+    {
+        "EVENT_TAG": "World_Cup_2026_final",
+        "DETECTED_LANGUAGE": "zh",
+        "CULTURAL_FRAME": "pragmatic",
+        "N": 5
+    },
+    {
+        "EVENT_TAG": "World_Cup_2026_final",
+        "DETECTED_LANGUAGE": "zh",
+        "CULTURAL_FRAME": "nationalist",
+        "N": 4
+    },
+    {
+        "EVENT_TAG": "World_Cup_2026_final",
+        "DETECTED_LANGUAGE": "zh",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 2
+    },
+    {
+        "EVENT_TAG": "World_Cup_2026_final",
+        "DETECTED_LANGUAGE": "zh",
+        "CULTURAL_FRAME": "collectivist",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "World_Cup_2026_final",
+        "DETECTED_LANGUAGE": "zh",
+        "CULTURAL_FRAME": "individualist",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "iPhone_17_launch",
+        "DETECTED_LANGUAGE": "ar",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 10
+    },
+    {
+        "EVENT_TAG": "iPhone_17_launch",
+        "DETECTED_LANGUAGE": "ar",
+        "CULTURAL_FRAME": "historical_grievance",
+        "N": 3
+    },
+    {
+        "EVENT_TAG": "iPhone_17_launch",
+        "DETECTED_LANGUAGE": "ar",
+        "CULTURAL_FRAME": "spiritual_ethical",
+        "N": 2
+    },
+    {
+        "EVENT_TAG": "iPhone_17_launch",
+        "DETECTED_LANGUAGE": "de",
+        "CULTURAL_FRAME": "pragmatic",
+        "N": 7
+    },
+    {
+        "EVENT_TAG": "iPhone_17_launch",
+        "DETECTED_LANGUAGE": "de",
+        "CULTURAL_FRAME": "threat_framing",
+        "N": 3
+    },
+    {
+        "EVENT_TAG": "iPhone_17_launch",
+        "DETECTED_LANGUAGE": "de",
+        "CULTURAL_FRAME": "reform_seeking",
+        "N": 2
+    },
+    {
+        "EVENT_TAG": "iPhone_17_launch",
+        "DETECTED_LANGUAGE": "de",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 2
+    },
+    {
+        "EVENT_TAG": "iPhone_17_launch",
+        "DETECTED_LANGUAGE": "de",
+        "CULTURAL_FRAME": "opportunity_framing",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "iPhone_17_launch",
+        "DETECTED_LANGUAGE": "en",
+        "CULTURAL_FRAME": "pragmatic",
+        "N": 6
+    },
+    {
+        "EVENT_TAG": "iPhone_17_launch",
+        "DETECTED_LANGUAGE": "en",
+        "CULTURAL_FRAME": "individualist",
+        "N": 5
+    },
+    {
+        "EVENT_TAG": "iPhone_17_launch",
+        "DETECTED_LANGUAGE": "en",
+        "CULTURAL_FRAME": "opportunity_framing",
+        "N": 5
+    },
+    {
+        "EVENT_TAG": "iPhone_17_launch",
+        "DETECTED_LANGUAGE": "en",
+        "CULTURAL_FRAME": "threat_framing",
+        "N": 3
+    },
+    {
+        "EVENT_TAG": "iPhone_17_launch",
+        "DETECTED_LANGUAGE": "en",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "iPhone_17_launch",
+        "DETECTED_LANGUAGE": "es",
+        "CULTURAL_FRAME": "opportunity_framing",
+        "N": 6
+    },
+    {
+        "EVENT_TAG": "iPhone_17_launch",
+        "DETECTED_LANGUAGE": "es",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 3
+    },
+    {
+        "EVENT_TAG": "iPhone_17_launch",
+        "DETECTED_LANGUAGE": "es",
+        "CULTURAL_FRAME": "spiritual_ethical",
+        "N": 2
+    },
+    {
+        "EVENT_TAG": "iPhone_17_launch",
+        "DETECTED_LANGUAGE": "es",
+        "CULTURAL_FRAME": "pragmatic",
+        "N": 2
+    },
+    {
+        "EVENT_TAG": "iPhone_17_launch",
+        "DETECTED_LANGUAGE": "es",
+        "CULTURAL_FRAME": "historical_grievance",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "iPhone_17_launch",
+        "DETECTED_LANGUAGE": "es",
+        "CULTURAL_FRAME": "individualist",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "iPhone_17_launch",
+        "DETECTED_LANGUAGE": "fr",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 8
+    },
+    {
+        "EVENT_TAG": "iPhone_17_launch",
+        "DETECTED_LANGUAGE": "fr",
+        "CULTURAL_FRAME": "reform_seeking",
+        "N": 3
+    },
+    {
+        "EVENT_TAG": "iPhone_17_launch",
+        "DETECTED_LANGUAGE": "fr",
+        "CULTURAL_FRAME": "spiritual_ethical",
+        "N": 3
+    },
+    {
+        "EVENT_TAG": "iPhone_17_launch",
+        "DETECTED_LANGUAGE": "fr",
+        "CULTURAL_FRAME": "status_quo",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "iPhone_17_launch",
+        "DETECTED_LANGUAGE": "hi",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 9
+    },
+    {
+        "EVENT_TAG": "iPhone_17_launch",
+        "DETECTED_LANGUAGE": "hi",
+        "CULTURAL_FRAME": "spiritual_ethical",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "iPhone_17_launch",
+        "DETECTED_LANGUAGE": "it",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 5
+    },
+    {
+        "EVENT_TAG": "iPhone_17_launch",
+        "DETECTED_LANGUAGE": "it",
+        "CULTURAL_FRAME": "individualist",
+        "N": 2
+    },
+    {
+        "EVENT_TAG": "iPhone_17_launch",
+        "DETECTED_LANGUAGE": "it",
+        "CULTURAL_FRAME": "spiritual_ethical",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "iPhone_17_launch",
+        "DETECTED_LANGUAGE": "it",
+        "CULTURAL_FRAME": "opportunity_framing",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "iPhone_17_launch",
+        "DETECTED_LANGUAGE": "it",
+        "CULTURAL_FRAME": "collectivist",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "iPhone_17_launch",
+        "DETECTED_LANGUAGE": "ja",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 10
+    },
+    {
+        "EVENT_TAG": "iPhone_17_launch",
+        "DETECTED_LANGUAGE": "ja",
+        "CULTURAL_FRAME": "pragmatic",
+        "N": 3
+    },
+    {
+        "EVENT_TAG": "iPhone_17_launch",
+        "DETECTED_LANGUAGE": "ja",
+        "CULTURAL_FRAME": "threat_framing",
+        "N": 3
+    },
+    {
+        "EVENT_TAG": "iPhone_17_launch",
+        "DETECTED_LANGUAGE": "ja",
+        "CULTURAL_FRAME": "status_quo",
+        "N": 2
+    },
+    {
+        "EVENT_TAG": "iPhone_17_launch",
+        "DETECTED_LANGUAGE": "ja",
+        "CULTURAL_FRAME": "spiritual_ethical",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "iPhone_17_launch",
+        "DETECTED_LANGUAGE": "ja",
+        "CULTURAL_FRAME": "collectivist",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "iPhone_17_launch",
+        "DETECTED_LANGUAGE": "ko",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 5
+    },
+    {
+        "EVENT_TAG": "iPhone_17_launch",
+        "DETECTED_LANGUAGE": "ko",
+        "CULTURAL_FRAME": "historical_grievance",
+        "N": 3
+    },
+    {
+        "EVENT_TAG": "iPhone_17_launch",
+        "DETECTED_LANGUAGE": "ko",
+        "CULTURAL_FRAME": "pragmatic",
+        "N": 3
+    },
+    {
+        "EVENT_TAG": "iPhone_17_launch",
+        "DETECTED_LANGUAGE": "ko",
+        "CULTURAL_FRAME": "individualist",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "iPhone_17_launch",
+        "DETECTED_LANGUAGE": "ko",
+        "CULTURAL_FRAME": "collectivist",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "iPhone_17_launch",
+        "DETECTED_LANGUAGE": "ko",
+        "CULTURAL_FRAME": "opportunity_framing",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "iPhone_17_launch",
+        "DETECTED_LANGUAGE": "ko",
+        "CULTURAL_FRAME": "globalist",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "iPhone_17_launch",
+        "DETECTED_LANGUAGE": "pt",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 5
+    },
+    {
+        "EVENT_TAG": "iPhone_17_launch",
+        "DETECTED_LANGUAGE": "pt",
+        "CULTURAL_FRAME": "opportunity_framing",
+        "N": 2
+    },
+    {
+        "EVENT_TAG": "iPhone_17_launch",
+        "DETECTED_LANGUAGE": "pt",
+        "CULTURAL_FRAME": "pragmatic",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "iPhone_17_launch",
+        "DETECTED_LANGUAGE": "pt",
+        "CULTURAL_FRAME": "individualist",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "iPhone_17_launch",
+        "DETECTED_LANGUAGE": "pt",
+        "CULTURAL_FRAME": "collectivist",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "iPhone_17_launch",
+        "DETECTED_LANGUAGE": "ru",
+        "CULTURAL_FRAME": "historical_grievance",
+        "N": 7
+    },
+    {
+        "EVENT_TAG": "iPhone_17_launch",
+        "DETECTED_LANGUAGE": "ru",
+        "CULTURAL_FRAME": "pragmatic",
+        "N": 4
+    },
+    {
+        "EVENT_TAG": "iPhone_17_launch",
+        "DETECTED_LANGUAGE": "ru",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 2
+    },
+    {
+        "EVENT_TAG": "iPhone_17_launch",
+        "DETECTED_LANGUAGE": "ru",
+        "CULTURAL_FRAME": "nationalist",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "iPhone_17_launch",
+        "DETECTED_LANGUAGE": "ru",
+        "CULTURAL_FRAME": "status_quo",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "iPhone_17_launch",
+        "DETECTED_LANGUAGE": "zh",
+        "CULTURAL_FRAME": "opportunity_framing",
+        "N": 8
+    },
+    {
+        "EVENT_TAG": "iPhone_17_launch",
+        "DETECTED_LANGUAGE": "zh",
+        "CULTURAL_FRAME": "pragmatic",
+        "N": 5
+    },
+    {
+        "EVENT_TAG": "iPhone_17_launch",
+        "DETECTED_LANGUAGE": "zh",
+        "CULTURAL_FRAME": "nationalist",
+        "N": 3
+    },
+    {
+        "EVENT_TAG": "iPhone_17_launch",
+        "DETECTED_LANGUAGE": "zh",
+        "CULTURAL_FRAME": "threat_framing",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "iPhone_17_launch",
+        "DETECTED_LANGUAGE": "zh",
+        "CULTURAL_FRAME": "individualist",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "iPhone_17_launch",
+        "DETECTED_LANGUAGE": "zh",
+        "CULTURAL_FRAME": "ambiguous",
+        "N": 1
+    },
+    {
+        "EVENT_TAG": "iPhone_17_launch",
+        "DETECTED_LANGUAGE": "zh",
+        "CULTURAL_FRAME": "collectivist",
+        "N": 1
+    }
+]

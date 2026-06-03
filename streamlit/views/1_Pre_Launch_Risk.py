@@ -23,7 +23,9 @@ inject_css()
 
 session = get_active_session()
 
-SAMPLE = "Live Free, Drive Fast — the new electric sports car that puts you first."
+SAMPLE = ("Own the future. The all-new Tesla Robotaxi puts YOU in control - no driver, "
+          "no limits, just pure individual freedom. Be the first to ride solo and leave "
+          "the crowd behind.")
 MARKET_NAMES = {
     "en": "English", "ja": "Japanese", "ko": "Korean", "zh": "Chinese",
     "de": "German", "es": "Spanish", "fr": "French", "pt": "Portuguese",
@@ -122,7 +124,7 @@ with right:
     st.markdown("<div class='nu-kicker'>Target markets</div>", unsafe_allow_html=True)
     target_markets = st.multiselect(
         "Target markets", options=languages, label_visibility="collapsed",
-        default=[l for l in ["ja", "ko", "de", "fr"] if l in languages][:4],
+        default=[l for l in ["en", "ja", "fr", "hi"] if l in languages][:4],
         format_func=lambda c: f"{c} · {market_name(c)}")
     st.markdown("<div class='nu-kicker' style='margin-top:8px;'>Source</div>",
                 unsafe_allow_html=True)
@@ -342,8 +344,9 @@ def render_empty_body():
               "{SAMPLE}"
             </div>
             <div style='font:400 13px/1.55 var(--sans); color:var(--ink-muted);'>
-              Real automotive launch line, scored against ja, ko, de, fr. Spoiler:
-              one market is the one to watch. Worth seeing why.
+              A real individualist launch line, scored against English, Japanese,
+              French, and Hindi. Spoiler: it travels at home — and almost nowhere
+              else. Worth seeing why.
             </div>
           </div>
         """, unsafe_allow_html=True)

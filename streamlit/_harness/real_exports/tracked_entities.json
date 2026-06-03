@@ -1,0 +1,12 @@
+[
+    {
+        "ENTITY_ID": "869be100-4b86-4775-a0d6-3bcf2ed1dd8f",
+        "ENTITY_NAME": "Olympics 2026",
+        "ENTITY_TYPE": "brand",
+        "OWNER_EMAIL": "johnsmith@example.com",
+        "CDS_THRESHOLD_DELTA": 0.15,
+        "CDS_THRESHOLD_ABS": 0.55,
+        "ACTIVE": true,
+        "CREATED_AT": "2026-05-31T07:22:32.395000"
+    }
+]

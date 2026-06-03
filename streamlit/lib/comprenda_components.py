@@ -27,8 +27,8 @@ def demo_note():
     """Render the public-demo disclaimer for LLM-output pages; no-op otherwise."""
     if is_demo():
         st.info(
-            "**Demo mode** — outputs on this page are a pre-computed example for the "
-            "sample automotive launch line and don't reflect your input. The live app "
+            "**Demo mode** — outputs on this page are pre-computed Cortex results for the "
+            "sample Tesla Robotaxi launch line and don't reflect your input. The live app "
             "runs your own text on Snowflake Cortex.",
             icon="🔎")
 
@@ -63,9 +63,10 @@ def event_label(tag: str) -> str:
     """Readable label for an event_tag — display only; the raw tag stays the
     underlying value (selectbox options / query keys are unchanged).
 
-    ``ev_automotive_ev_launch`` -> ``Automotive EV launch``. The leading ``ev_``
-    is the event namespace and is dropped; a remaining ``ev`` token is the EV
-    acronym. Non-tag strings pass through sentence-cased.
+    ``Tesla_robotaxi_debut`` -> ``Tesla robotaxi debut``; ``iPhone_17_launch`` ->
+    ``iPhone 17 launch``. A legacy leading ``ev_`` namespace is dropped (a
+    remaining ``ev`` token is the EV acronym). Non-tag strings pass through
+    sentence-cased; tokens that already carry case are preserved.
     """
     if not tag or not isinstance(tag, str):
         return tag
@@ -78,7 +79,9 @@ def event_label(tag: str) -> str:
         if p.lower() in _EVENT_ACRONYMS:
             out.append(_EVENT_ACRONYMS[p.lower()])
         elif i == 0:
-            out.append(p[:1].upper() + p[1:])
+            # Preserve tokens that already carry case (iPhone, BrandX, K-pop);
+            # only sentence-case an all-lowercase leading token.
+            out.append(p if any(c.isupper() for c in p) else p[:1].upper() + p[1:])
         else:
             out.append(p)
     return " ".join(out)

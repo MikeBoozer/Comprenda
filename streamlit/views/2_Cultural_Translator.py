@@ -23,7 +23,9 @@ inject_css()
 
 session = get_active_session()
 
-SAMPLE = "Live Free, Drive Fast — the new electric sports car that puts you first."
+SAMPLE = ("Own the future. The all-new Tesla Robotaxi puts YOU in control - no driver, "
+          "no limits, just pure individual freedom. Be the first to ride solo and leave "
+          "the crowd behind.")
 MARKET_NAMES = {
     "en": "English", "ja": "Japanese", "ko": "Korean", "zh": "Chinese",
     "de": "German", "es": "Spanish", "fr": "French", "pt": "Portuguese",
@@ -343,8 +345,8 @@ def render_empty_body():
               "{SAMPLE}"
             </div>
             <div style='font:400 13px/1.55 var(--sans); color:var(--ink-muted);'>
-              An assertive, individualist automotive line. See how it reframes for a
-              market that codes restraint as status.
+              An assertive, individualist launch line. See how it reframes for Japan,
+              where the same idea lands better through a risk-and-reassurance frame.
             </div>
           </div>
         """, unsafe_allow_html=True)

@@ -1,0 +1,12 @@
+[
+    {
+        "RUN_ID": "0f22634b-5788-4bbb-848b-030345beae2d",
+        "SOURCE_CONTENT": "Own the future. The all-new Tesla Robotaxi puts YOU in control - no driver, no limits, just pure individual freedom. Be the first to ride solo and leave the crowd behind.",
+        "SOURCE_LANGUAGE": "en",
+        "TARGET_MARKET": "ja",
+        "TARGET_FRAME_HINT": "threat_framing",
+        "ADAPTED_VARIANTS": "[\n  {\n    \"frame_shift\": \"obsolescence_threat\",\n    \"rationale\": \"Frames the product as protection against being left behind by technological progress, appealing to Japanese concerns about staying current.\",\n    \"text\": \"\u6642\u4ee3\u306b\u53d6\u308a\u6b8b\u3055\u308c\u308b\u306a\u3002\u5168\u304f\u65b0\u3057\u3044\u30c6\u30b9\u30e9\u30ed\u30dc\u30bf\u30af\u30b7\u30fc\u3067\u3001\u904b\u8ee2\u624b\u4e0d\u8981\u306e\u78ba\u5b9f\u306a\u79fb\u52d5\u3092\u624b\u306b\u5165\u308c\u3088\u3046\u3002\u65e7\u5f0f\u306e\u4ea4\u901a\u624b\u6bb5\u306b\u4f9d\u5b58\u3059\u308b\u30ea\u30b9\u30af\u304b\u3089\u4eca\u3059\u3050\u8131\u5374\u305b\u3088\u3002\"\n  },\n  {\n    \"frame_shift\": \"safety_threat\",\n    \"rationale\": \"Emphasizes protection from human driving errors and accidents, leveraging Japanese cultural prioritization of safety and risk avoidance.\",\n    \"text\": \"\u4ea4\u901a\u4e8b\u6545\u306e\u6050\u6016\u304b\u3089\u89e3\u653e\u3055\u308c\u308b\u3002\u30c6\u30b9\u30e9\u30ed\u30dc\u30bf\u30af\u30b7\u30fc\u306e\u5b8c\u5168\u81ea\u52d5\u904b\u8ee2\u3067\u3001\u30d2\u30e5\u30fc\u30de\u30f3\u30a8\u30e9\u30fc\u306b\u3088\u308b\u5371\u967a\u3092\u6392\u9664\u3002\u3042\u306a\u305f\u3068\u5927\u5207\u306a\u4eba\u3092\u5b88\u308b\u3001\u6700\u3082\u5b89\u5168\u306a\u9078\u629e\u3002\"\n  },\n  {\n    \"frame_shift\": \"discomfort_threat\",\n    \"rationale\": \"Targets the specific Japanese experience of crowded public transportation as a daily threat to comfort and well-being.\",\n    \"text\": \"\u3082\u3046\u6e80\u54e1\u96fb\u8eca\u306e\u82e6\u75db\u306b\u8010\u3048\u308b\u5fc5\u8981\u306f\u306a\u3044\u3002\u30c6\u30b9\u30e9\u30ed\u30dc\u30bf\u30af\u30b7\u30fc\u3067\u3001\u5bc6\u96c6\u3057\u305f\u516c\u5171\u4ea4\u901a\u6a5f\u95a2\u306e\u30b9\u30c8\u30ec\u30b9\u3068\u4e0d\u5feb\u611f\u304b\u3089\u5b8c\u5168\u306b\u9003\u308c\u3088\u3046\u3002\u5feb\u9069\u306a\u500b\u4eba\u7a7a\u9593\u3092\u4eca\u3059\u3050\u78ba\u4fdd\u3002\"\n  }\n]",
+        "MODEL_USED": "claude-4-sonnet",
+        "INFERENCE_TIMESTAMP": "2026-06-03T12:04:51.870000"
+    }
+]

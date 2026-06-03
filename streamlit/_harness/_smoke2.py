@@ -99,5 +99,15 @@ feed = fixtures.plcs_scores_df(10)
 n_drafts = feed["DRAFT_PREVIEW"].nunique() if not feed.empty else 0
 check("Overview feed shows varied drafts", n_drafts > 1, f"distinct drafts={n_drafts}")
 
+# --- PLCS sources provenance resolves to frames (recommendation #2) ----------
+import json as _json
+_pr = _json.load(open(str(STREAMLIT / "_harness" / "real_exports" / "plcs_runs.json"), encoding="utf-8"))
+_na = _pr[0]["NEAREST_ANALOGS"]
+_na = _json.loads(_na) if isinstance(_na, str) else _na
+_meta = fixtures.get_post_meta_map(_na[:3])
+check("get_post_meta resolves nearest-analog ids to frames",
+      len(_meta) >= 1 and all(v.get("frame") for v in _meta.values()),
+      f"resolved={len(_meta)}/{len(_na[:3])}")
+
 print("\n" + ("PASS" if not fails else "FAILURES: " + ", ".join(fails)))
 sys.exit(1 if fails else 0)

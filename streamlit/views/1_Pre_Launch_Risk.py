@@ -8,11 +8,12 @@ Redesign blueprint: Claude-Code-Handoff.md §6.2. Query logic and the
 SCORE_CONTENT / FIND_ANALOGS proc signatures are preserved.
 """
 import time
+from collections import Counter
 
 import streamlit as st
 from snowflake.snowpark.context import get_active_session
 
-from lib.comprenda_queries import call_plcs, list_languages, call_find_analogs
+from lib.comprenda_queries import call_plcs, list_languages, call_find_analogs, get_post_meta
 from lib.comprenda_theme import inject_css
 from lib.comprenda_components import (
     page_header, plcs_card, risk_band, analog, rec_band,
@@ -264,11 +265,32 @@ def render_results(state):
         for m, r in results.items():
             st.markdown(f"- **{market_name(m)}** — {r.get('confidence', 0):.0%}")
     with st.expander("Sources cited", expanded=False):
+        st.caption(
+            "Each score is grounded in the nearest in-market posts. What the score "
+            "reads is their cultural frames and sentiment — shown below, not opaque IDs.")
         for m, r in results.items():
             ids = r.get("nearest_analogs", []) or []
-            st.markdown(f"**{market_name(m)}** — {len(ids)} nearest posts")
-            if ids:
-                st.code(", ".join(map(str, ids)), language=None)
+            try:
+                meta = get_post_meta(session, ids)
+            except Exception:
+                meta = {}
+            frames = [meta[i]["frame"] for i in ids
+                      if i in meta and meta[i].get("frame")]
+            sents = [meta[i]["sentiment"] for i in ids
+                     if i in meta and meta[i].get("sentiment") is not None]
+            if frames:
+                breakdown = " · ".join(f"{frame_label(f)} ×{c}"
+                                       for f, c in Counter(frames).most_common())
+                avg = f" · avg sentiment {sum(sents)/len(sents):+.2f}" if sents else ""
+                st.markdown(f"**{market_name(m)}** — {len(ids)} nearest in-market "
+                            f"posts · {breakdown}{avg}")
+                if ids:
+                    st.caption("post ids: " + ", ".join(map(str, ids)))
+            else:
+                # Fallback (e.g. live app, no metadata match): count + raw ids.
+                st.markdown(f"**{market_name(m)}** — {len(ids)} nearest posts")
+                if ids:
+                    st.code(", ".join(map(str, ids)), language=None)
     with st.expander("About this run", expanded=False):
         st.markdown(f"- Duration · {state['elapsed']:.1f}s")
         for m, r in results.items():

@@ -243,6 +243,35 @@ def call_plcs(
     return raw
 
 
+def get_post_meta(session: Session, post_ids) -> dict:
+    """Resolve post_ids to their enrichment signal (language, frame, sentiment).
+
+    Lets the PLCS screen render readable provenance for its nearest neighbors —
+    a frame/sentiment breakdown rather than opaque post_id hashes. Returns
+    {post_id: {"language": str, "frame": str, "sentiment": float}} for the ids
+    found; missing ids are simply absent.
+    """
+    ids = [p for p in (post_ids or []) if p]
+    if not ids:
+        return {}
+    placeholders = ",".join(["?"] * len(ids))
+    rows = _sql(
+        session,
+        "SELECT post_id, detected_language, cultural_frame, sentiment_score "
+        "FROM NUANCE_DB.ENRICHED.CULTURAL_FRAMES "
+        f"WHERE post_id IN ({placeholders})",
+        params=ids,
+    ).collect()
+    return {
+        r["POST_ID"]: {
+            "language": r["DETECTED_LANGUAGE"],
+            "frame": r["CULTURAL_FRAME"],
+            "sentiment": r["SENTIMENT_SCORE"],
+        }
+        for r in rows
+    }
+
+
 # ---------------------------------------------------------------------------
 # Cultural Translator
 # ---------------------------------------------------------------------------

@@ -185,6 +185,25 @@ def _plcs_for(market):
 
 
 # ---------------------------------------------------------------------------
+# Post-id → enrichment signal (language, frame, sentiment) — backs readable
+# PLCS "Sources cited" provenance instead of opaque post_id hashes.
+# ---------------------------------------------------------------------------
+_POST_META = {
+    r["POST_ID"]: {
+        "language": r["DETECTED_LANGUAGE"],
+        "frame": r["CULTURAL_FRAME"],
+        "sentiment": r["SENTIMENT_SCORE"],
+    }
+    for r in _load("post_meta")
+}
+
+
+def get_post_meta_map(post_ids):
+    ids = [p for p in (post_ids or []) if p]
+    return {pid: _POST_META[pid] for pid in ids if pid in _POST_META}
+
+
+# ---------------------------------------------------------------------------
 # Analogs — merged from the two captured find_analogs result sets (deduped),
 # canonical first (Levi's 501 in India, WeWork, P&G Whisper, Toyota Prius …).
 # ---------------------------------------------------------------------------
@@ -340,6 +359,7 @@ def build_query_module():
     m.get_cds_matrix = lambda session, event_tag: cds_matrix_df(event_tag)
     m.get_frame_distribution = lambda session, event_tag: frame_distribution_df(event_tag)
     m.call_plcs = lambda session, draft_content, source_language, target_market, requested_by=None: _plcs_for(target_market)
+    m.get_post_meta = lambda session, post_ids: get_post_meta_map(post_ids)
     m.call_translator = lambda session, *a, **k: _translator_result()
     m.list_tracked_entities = lambda session: (
         _empty_df(["ENTITY_ID", "ENTITY_NAME", "ENTITY_TYPE", "OWNER_EMAIL",

@@ -328,4 +328,9 @@ def build_query_module():
     m.call_find_analogs = lambda session, query_text, target_market=None, k=5: {"analogs": _ANALOGS[:k]}
     m.call_generate_brief = lambda session, event_tag, target_languages, requested_by=None: _brief_for(event_tag, target_languages)
     m.narrative_search = lambda session, query, languages=None, frames=None, limit=25: narrative_search_df(query, languages, frames, limit)
+    # _sql: the Native-App object-name resolver wrapper (lib.comprenda_queries).
+    # 4_Divergence_Matrix.py imports it for its inlined CDS query. In the demo there
+    # is no retargeting, so it just delegates to the (fake) session — FakeSession.sql
+    # returns the CDS matrix fixture for that query.
+    m._sql = lambda session, text, params=None: session.sql(text, params=params)
     return m

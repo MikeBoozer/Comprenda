@@ -211,6 +211,13 @@ with cols[2]:
 with cols[3]:
     kpi("Drift events · 24h", f"{kpis['drift_24h']:,}")
 
+# Reframe the modest counts as substantial real analysis — plain language so a
+# marketing buyer reads depth, not jargon (keeps the KPI metrics themselves
+# unchanged, for consistency with the SiS / native-app screenshots).
+st.caption(
+    "Every post is analyzed by Cortex AI for cultural frame, sentiment, and tone — "
+    "and cultural divergence is scored for every pair of languages, on every event.")
+
 st.divider()
 
 # --- Two-column feeds ------------------------------------------------------

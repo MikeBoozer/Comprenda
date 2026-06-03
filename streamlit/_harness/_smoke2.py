@@ -94,5 +94,10 @@ ns = ss(at, "nsearch_results", {}).get("df")
 check("Narrative no exception", not at.exception, str(list(at.exception)))
 check("Narrative returns rows", ns is not None and len(ns) > 0, f"rows={0 if ns is None else len(ns)}")
 
+# --- Overview feed variety (recommendation #1) -------------------------------
+feed = fixtures.plcs_scores_df(10)
+n_drafts = feed["DRAFT_PREVIEW"].nunique() if not feed.empty else 0
+check("Overview feed shows varied drafts", n_drafts > 1, f"distinct drafts={n_drafts}")
+
 print("\n" + ("PASS" if not fails else "FAILURES: " + ", ".join(fails)))
 sys.exit(1 if fails else 0)

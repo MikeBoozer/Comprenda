@@ -203,13 +203,64 @@ The model preserved marketing intent while re-framing from Western individualism
 target market's dominant frame — and emitted correct multibyte Japanese end-to-end
 (`PYTHONUTF8=1` required for the `snow` CLI to handle the CJK round-trip).
 
+## 5. Native-app UI verified rendering end-to-end (2026-06-03)
+
+The installed app's Streamlit had never actually been *opened* before today — only the
+Streamlit object's existence and the four procedures had been verified. Opening it surfaced
+four deploy-only issues (none in app logic — all packaging/runtime), each found and fixed
+live; the Python-version pin took two attempts to land:
+
+| Symptom at render | Root cause | Fix | Commit |
+|---|---|---|---|
+| `FileNotFoundError: /tmp/appRoot/comprenda_app.py` | `snowflake.yml` artifact `dest: streamlit/` double-nested the tree to `/streamlit/streamlit/*` | `dest: ./` (lands at `/streamlit/*`) | `125c13b` |
+| `Packages not found: python==3.11` | env pinned a Python the SiS runtime can't resolve | bump → 3.12 (superseded) | `afab6bb` |
+| `Python runtime version 3.12 is not supported` | SiS Streamlit doesn't support 3.12 either | drop the `python=` pin; let SiS default | `2cf8690` |
+| `AttributeError: module 'streamlit' has no attribute 'Page'` | unpinned `streamlit` resolved to a build older than the 1.36 multipage API | pin `streamlit=1.44.1` | `36b60f4` |
+| `002043 … Object does not exist` on every page | entry script ran dev-only `USE WAREHOUSE nuance_dev_wh` / `USE DATABASE nuance_db`, inaccessible in the app | wrap both `USE` in `try/except` (best-effort) | `c2611e2` |
+
+After the fixes the app renders live — opened in Snowsight as `ACCOUNTADMIN` on `COMPUTE_WH`
+(a Development-mode install of `COMPRENDA_APP`, "Comprenda v1.0"). Stills of the hero surfaces:
+
+**Application package — provider side (`COMPRENDA_PKG` in Projects → App Packages):**
+
+![Comprenda application package](img/native_app_00_app_pkg_listing.png)
+
+**Installed Native App — consumer side (proof — note the "Comprenda v1.0" app bar):**
+
+![Comprenda in the Snowsight Apps list](img/native_app_01_apps_listing.png)
+
+**Overview — KPIs over the bundled corpus (8 events / 12 languages / 1,440 posts):**
+
+![Overview](img/native_app_02_overview.png)
+
+**Divergence Matrix — frame-divergence (JSD) heatmap per language pair:**
+
+![Divergence Matrix](img/native_app_03_divergence_matrix.png)
+
+**Pre-Launch Risk — PLCS on an individualist EN draft targeting Hindi (~72):**
+
+![Pre-Launch Risk](img/native_app_04_pre_launch_risk.png)
+
+**AI Brief — generated Cultural Intelligence Brief:**
+
+![AI Brief](img/native_app_05_ai_brief.png)
+
+**Analog Retrieval — historical-analog matches:**
+
+![Analog Retrieval](img/native_app_06_analog_retrieval.png)
+
+**Cultural Translator — intent-preserving variants reframed in the target market's language:**
+
+![Cultural Translator](img/native_app_07_cultural_translator.png)
+
 ## What this does and doesn't cover
 
-- **Covered (text/query evidence, irreplaceable):** the app + package install, version/patch,
-  provisioning (search services, warehouse, materialized corpus), the real divergence matrix,
-  and all four hero Cortex procedures returning live output. This is the proof that dies with
-  the trial.
-- **Not covered here (operator's part):** browser stills of the installed app's Streamlit
-  rendering inside Snowsight (Data Products → Apps → Comprenda). Those are the native-app
-  analog of the SiS stills already captured for the live app, and are worth grabbing in the
-  same session if the trial is still up.
+- **Covered (text/query evidence + UI, irreplaceable):** the app + package install,
+  version/patch, provisioning (search services, warehouse, materialized corpus), the real
+  divergence matrix, all four hero Cortex procedures returning live output, and the installed
+  app's Streamlit UI rendering every hero page (stills above). This is the proof that dies
+  with the trial.
+- **Honest empty-states (by design, not bugs):** Drift Alerts shows no events — the
+  `tracked_entities` / `drift_events` data isn't bundled (ADR-0001 privacy) and drift
+  detection needs a CDS time series the single-snapshot demo doesn't have. Narrative Search
+  works but the bundled corpus is template-thin, so results read repetitively.

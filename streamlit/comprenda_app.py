@@ -59,8 +59,17 @@ session = get_active_session()
 # SPCS containers start with the wrong warehouse/database context; pin it once, before
 # any page query runs. Moved here from the old deployed home file per ADR-0004 (the repo
 # home file lacked it). Harmless in the local harness (FakeSession.sql is a no-op).
-session.sql("USE WAREHOUSE nuance_dev_wh").collect()
-session.sql("USE DATABASE nuance_db").collect()
+#
+# BEST-EFFORT: inside the installed Native App, nuance_db / nuance_dev_wh are NOT
+# accessible — the app already runs in its own database with the consumer's warehouse.
+# Without this guard the first USE throws "Object does not exist" and every page errors
+# right after the sidebar renders. The comprenda_queries resolver then detects app mode
+# on its own (it probes app_data.config), so skipping these pins in the app is correct.
+try:
+    session.sql("USE WAREHOUSE nuance_dev_wh").collect()
+    session.sql("USE DATABASE nuance_db").collect()
+except Exception:
+    pass
 session_diagnostics(session)  # small popover at the bottom of the sidebar
 
 # Top utility bar: breadcrumb (left) + quiet Cortex search pill (right), per the

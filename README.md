@@ -42,6 +42,10 @@ streamlit run demo_app.py
 
 **Deploy it yourself (free):** [Streamlit Community Cloud](https://share.streamlit.io) → *New app* → this repo, branch `main`, **main file `streamlit/demo_app.py`**. It uses the light `streamlit/requirements.txt` (streamlit + pandas + altair) and serves fixture data — no Snowflake account or secrets. (Hugging Face Spaces works the same way.)
 
+### Ships as a Snowflake Native App
+
+Beyond the hosted app, Comprenda packages as a **Snowflake Native App** ([`native_app/`](native_app/)) — a customer installs it from Marketplace into *their own* Snowflake account, and their data never leaves it. The bundled demo corpus ships as native-app **data content** (tables populated in the application package, shared into the installed app via versioned views); a one-call provisioner then builds the in-account **Cortex Search** (RAG retrieval) and **Cortex `COMPLETE`** (Claude) features. It installs and runs end-to-end — verified on a live account.
+
 ---
 
 ## What's in this repo
@@ -89,9 +93,11 @@ comprenda/
 │   └── environment.yml
 ├── semantic_model/
 │   └── nuance_semantic_model.yaml         ← Cortex Analyst
-├── native_app/                            ← Snowflake Native App / Marketplace (roadmap)
-│   ├── manifest.yml
-│   └── setup_script.sql
+├── native_app/                            ← Snowflake Native App (installs + runs; verified live)
+│   ├── manifest.yml                        ← app metadata, references, privileges
+│   ├── setup_script.sql                    ← runs on install (procs, proxy views, Streamlit)
+│   ├── snowflake.yml                       ← snowflake-cli project + data-content post-deploy hook
+│   └── scripts/                            ← bundled demo corpus as native-app data content
 ├── mcp/                                   ← MCP server (Claude Desktop / Cursor)
 │   ├── nuance_mcp_server.py
 │   └── README.md

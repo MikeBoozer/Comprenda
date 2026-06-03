@@ -172,8 +172,10 @@ CREATE TABLE IF NOT EXISTS app_data.drift_events (
     notified     BOOLEAN DEFAULT FALSE
 );
 
--- Raw corpus (the demo ships a synthetic slice; columns mirror the bundled
--- social_posts.parquet — see native_app/export_demo_data.py).
+-- Raw corpus working table. The demo ships a synthetic slice as package data
+-- content (comprenda_pkg.shared_data.social_posts); provision_app() materializes
+-- it here from app_instance.src_social_posts. Source: native_app/data/*.parquet
+-- via scripts/_gen_table_seeds.py.
 CREATE TABLE IF NOT EXISTS app_data.social_posts (
     post_id           VARCHAR PRIMARY KEY,
     post_text         VARCHAR,
@@ -258,6 +260,38 @@ WHEN NOT MATCHED THEN
 -- Grant read+write on data to admins, read-only to users.
 GRANT SELECT ON ALL TABLES IN SCHEMA app_data TO APPLICATION ROLE app_user;
 GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA app_data TO APPLICATION ROLE app_admin;
+
+-- ---------------------------------------------------------------------------
+-- Proxy views over the bundled demo corpus, shared from the application package
+-- (comprenda_pkg.shared_data -- populated + GRANTed TO SHARE by the post-deploy
+-- hook scripts/seed_package_data.sql). Per Snowflake's data-content guidance,
+-- views on shared content live in a VERSIONED schema (app_instance) so each app
+-- version pins its own definition. provision_app() materializes these into the
+-- app_data.* working tables that the procs + Cortex Search services read.
+-- ---------------------------------------------------------------------------
+CREATE OR REPLACE VIEW app_instance.src_social_posts AS
+    SELECT post_id, post_text, detected_language, source_platform,
+           post_timestamp, event_tag, country_hint, ingested_at
+    FROM shared_data.social_posts;
+CREATE OR REPLACE VIEW app_instance.src_cultural_frames AS
+    SELECT post_id, post_text, detected_language, event_tag, cultural_frame,
+           frame_confidence, sentiment_score, emotional_tone, model_used,
+           prompt_version, inference_timestamp
+    FROM shared_data.cultural_frames;
+CREATE OR REPLACE VIEW app_instance.src_cultural_divergence_scores AS
+    SELECT cds_id, event_tag, language_a, language_b, posts_lang_a, posts_lang_b,
+           cds_score, cds_confidence, topical_overlap, frame_divergence,
+           sentiment_divergence, headline_score, situation_label, computed_at
+    FROM shared_data.cultural_divergence_scores;
+CREATE OR REPLACE VIEW app_instance.src_analog_corpus AS
+    SELECT analog_id, case_name, company, year, description,
+           affected_markets, failure_frames, outcome_summary, source_url
+    FROM shared_data.analog_corpus;
+
+GRANT SELECT ON VIEW app_instance.src_social_posts TO APPLICATION ROLE app_admin;
+GRANT SELECT ON VIEW app_instance.src_cultural_frames TO APPLICATION ROLE app_admin;
+GRANT SELECT ON VIEW app_instance.src_cultural_divergence_scores TO APPLICATION ROLE app_admin;
+GRANT SELECT ON VIEW app_instance.src_analog_corpus TO APPLICATION ROLE app_admin;
 
 -- ---------------------------------------------------------------------------
 -- Compute UDF: cosine distance between two 1024-dim vectors. Used by the
@@ -866,17 +900,17 @@ GRANT USAGE ON PROCEDURE app_instance.find_analogs(STRING, STRING, INTEGER)
 -- ===========================================================================
 -- Provisioning procedure (run ONCE by the consumer after install).
 -- ---------------------------------------------------------------------------
--- A native-app setup script runs WITHOUT a warehouse, and both COPY INTO and
--- CREATE CORTEX SEARCH SERVICE require compute — so the bundled-data load and
--- the two Cortex Search services cannot run in the setup body. They live here,
--- in a procedure the consumer calls after granting the app a warehouse + Cortex
--- access (see native_app/README.md):
+-- A native-app setup script runs WITHOUT a warehouse, and both the corpus
+-- materialize (INSERT...SELECT) and CREATE CORTEX SEARCH SERVICE require compute
+-- — so they cannot run in the setup body. They live here, in a procedure the
+-- consumer calls after granting the app a warehouse + Cortex access
+-- (see native_app/README.md):
 --     GRANT CREATE WAREHOUSE ON ACCOUNT TO APPLICATION <app>;
 --     GRANT IMPORTED PRIVILEGES ON DATABASE SNOWFLAKE TO APPLICATION <app>;
 --     CALL <app>.app_instance.provision_app();
--- Idempotent: COPY INTO skips already-loaded files; the analog seed clears +
--- reseeds; the search services are CREATE OR REPLACE.
--- NOTE: a stored proc cannot run USE WAREHOUSE, so the COPY INTO / seed run on the
+-- Idempotent: each working table is TRUNCATE+reloaded from the shared package
+-- corpus; the search services are CREATE OR REPLACE.
+-- NOTE: a stored proc cannot run USE WAREHOUSE, so the materialize runs on the
 -- CALLER's active warehouse — set one (USE WAREHOUSE <wh>) before CALLing. The
 -- Cortex Search services refresh on comprenda_wh via their WAREHOUSE = clause.
 -- ===========================================================================
@@ -889,7 +923,7 @@ $$
 BEGIN
     -- 1. Dedicated XS warehouse the Cortex Search services refresh on (referenced
     --    by their WAREHOUSE = clause below; that needs no USE statement). A stored
-    --    procedure cannot run USE WAREHOUSE, so the COPY INTO / seed steps run on
+    --    procedure cannot run USE WAREHOUSE, so the materialize steps below run on
     --    the CALLER's active warehouse — the consumer sets one before CALLing this.
     CREATE WAREHOUSE IF NOT EXISTS comprenda_wh
         WAREHOUSE_SIZE = 'XSMALL'
@@ -897,73 +931,49 @@ BEGIN
         AUTO_RESUME = TRUE
         INITIALLY_SUSPENDED = TRUE;
 
-    -- 2. Load the bundled synthetic corpus from the application package
-    --    (runs on the caller's warehouse).
-    COPY INTO app_data.social_posts
-        FROM '/data/social_posts.parquet'
-        FILE_FORMAT = (TYPE = PARQUET USE_LOGICAL_TYPE = TRUE)
-        MATCH_BY_COLUMN_NAME = CASE_INSENSITIVE;
-    COPY INTO app_data.cultural_frames
-        FROM '/data/cultural_frames.parquet'
-        FILE_FORMAT = (TYPE = PARQUET USE_LOGICAL_TYPE = TRUE)
-        MATCH_BY_COLUMN_NAME = CASE_INSENSITIVE;
-    COPY INTO app_data.cultural_divergence_scores
-        FROM '/data/cultural_divergence_scores.parquet'
-        FILE_FORMAT = (TYPE = PARQUET USE_LOGICAL_TYPE = TRUE)
-        MATCH_BY_COLUMN_NAME = CASE_INSENSITIVE;
+    -- 2. Materialize the bundled demo corpus into the app's working tables. The
+    --    corpus ships as native-app DATA CONTENT (package schema shared_data,
+    --    GRANTed TO SHARE), exposed here via the versioned app_instance.src_*
+    --    proxy views. INSERT...SELECT runs on the CALLER's warehouse (a stored
+    --    proc cannot USE WAREHOUSE). Default-valued timestamp columns (ingested_at
+    --    / inference_timestamp / computed_at) are left to default to provision
+    --    time so "corpus freshness" reflects this install.
+    TRUNCATE TABLE app_data.social_posts;
+    INSERT INTO app_data.social_posts
+        (post_id, post_text, detected_language, source_platform,
+         post_timestamp, event_tag, country_hint)
+        SELECT post_id, post_text, detected_language, source_platform,
+               post_timestamp, event_tag, country_hint
+        FROM app_instance.src_social_posts;
 
-    -- 3. Seed the static analog library (39 curated cases; no embeddings — the
-    --    analog Cortex Search service indexes `description`). Inlined from
-    --    native_app/scripts/seed_analog_corpus.sql (source of truth:
-    --    data/seed_analog_library.py; regenerate with scripts/_gen_analog_seed.py).
-    --    Inlined rather than EXECUTE IMMEDIATE FROM '/scripts/...' because
-    --    `snow app validate` statically resolves file refs inside proc bodies.
-    DELETE FROM app_data.analog_corpus;
+    TRUNCATE TABLE app_data.cultural_frames;
+    INSERT INTO app_data.cultural_frames
+        (post_id, post_text, detected_language, event_tag, cultural_frame,
+         frame_confidence, sentiment_score, emotional_tone, model_used, prompt_version)
+        SELECT post_id, post_text, detected_language, event_tag, cultural_frame,
+               frame_confidence, sentiment_score, emotional_tone, model_used, prompt_version
+        FROM app_instance.src_cultural_frames;
+
+    TRUNCATE TABLE app_data.cultural_divergence_scores;
+    INSERT INTO app_data.cultural_divergence_scores
+        (cds_id, event_tag, language_a, language_b, posts_lang_a, posts_lang_b,
+         cds_score, cds_confidence, topical_overlap, frame_divergence,
+         sentiment_divergence, headline_score, situation_label)
+        SELECT cds_id, event_tag, language_a, language_b, posts_lang_a, posts_lang_b,
+               cds_score, cds_confidence, topical_overlap, frame_divergence,
+               sentiment_divergence, headline_score, situation_label
+        FROM app_instance.src_cultural_divergence_scores;
+
+    -- 3. Curated analog library (39 cases; no embeddings -- the analog Cortex
+    --    Search service indexes `description`). Also shipped as package data
+    --    content via app_instance.src_analog_corpus.
+    TRUNCATE TABLE app_data.analog_corpus;
     INSERT INTO app_data.analog_corpus
         (analog_id, case_name, company, year, description,
          affected_markets, failure_frames, outcome_summary, source_url)
-    SELECT column1, column2, column3, column4, column5,
-           PARSE_JSON(column6), PARSE_JSON(column7), column8, column9
-    FROM VALUES
-        ('analog_001', 'HSBC Assume Nothing → Do Nothing', 'HSBC', 2009, 'HSBC''s global ''Assume Nothing'' campaign translated into multiple markets as ''Do Nothing,'' implying inaction. The brand spent $10M rebranding to ''The world''s local bank'' to repair the damage.', '["zh", "ja", "ko", "es", "pt", "ar"]', '["pragmatic", "ambiguous"]', '$10M global rebrand; brand-trust impact in non-English markets for 18+ months.', 'https://www.gelato.com/blog/international-marketing-failures'),
-        ('analog_002', 'Mercedes Bensi → ''Rush to Die''', 'Mercedes-Benz', 1990, 'Mercedes-Benz entered China as ''Bensi,'' which read homophonically as ''rush to die.'' The brand quickly switched to ''Benchi'' (meaning ''dashing speed''). Early sales were materially affected.', '["zh"]', '["nationalist", "spiritual_ethical", "status_quo"]', 'Localized name change; Chinese launch delayed and re-budgeted.', 'https://www.gelato.com/blog/international-marketing-failures'),
-        ('analog_003', 'Pepsi ''Come Alive'' → ''Bring Ancestors Back''', 'Pepsi', 1960, 'Pepsi''s ''Come alive with the Pepsi Generation'' translated in Chinese as ''Pepsi brings your ancestors back from the dead.'' Spiritual-frame violation in market with strong ancestor veneration.', '["zh"]', '["spiritual_ethical", "historical_grievance"]', 'Campaign pulled in market; case-study staple for 60+ years.', 'https://www.gelato.com/blog/international-marketing-failures'),
-        ('analog_004', 'Parker Pen ''Embarrass'' Translation', 'Parker Pen', 1994, 'Parker''s ''It won''t leak in your pocket and embarrass you'' translated into Spanish using ''embarazar,'' which means ''to impregnate.'' The ad ran as ''It won''t leak in your pocket and impregnate you.''', '["es"]', '["pragmatic", "ambiguous"]', 'Brand mockery in Spanish-speaking markets for years.', 'https://www.gelato.com/blog/international-marketing-failures'),
-        ('analog_005', 'Coors ''Turn It Loose'' → ''Suffer from Diarrhea''', 'Coors', 1980, 'Coors'' ''Turn it loose'' slogan, when translated to Spanish, read as ''suffer from diarrhea.'' Material brand reputation damage.', '["es"]', '["pragmatic"]', 'Spanish-market entry delayed; campaign re-shot.', 'https://www.gelato.com/blog/international-marketing-failures'),
-        ('analog_006', 'KFC ''Finger-Lickin'' Good'' → ''Eat Your Fingers Off''', 'KFC', 1987, 'KFC''s signature slogan translated in Chinese as ''Eat your fingers off.'' Threat-framing violation in market that prizes pragmatism.', '["zh"]', '["threat_framing", "ambiguous"]', 'Slogan dropped in market; alternative wording used.', 'https://www.gelato.com/blog/international-marketing-failures'),
-        ('analog_007', 'Ford Pinto Name in Brazil', 'Ford', 1971, 'Ford launched the Pinto in Brazil; ''pinto'' is Brazilian-Portuguese slang for small male genitals. Sales were a fraction of forecast.', '["pt"]', '["pragmatic", "ambiguous"]', 'Renamed to ''Corcel'' in Brazil; sales recovered.', 'https://www.gelato.com/blog/international-marketing-failures'),
-        ('analog_008', 'Electrolux ''Nothing Sucks Like an Electrolux''', 'Electrolux', 1960, 'Swedish brand''s English campaign ''Nothing sucks like an Electrolux'' succeeded in UK but became meme-fodder in US English markets.', '["en"]', '["pragmatic", "ambiguous"]', 'Brand survived; campaign quietly retired in US.', 'https://www.gelato.com/blog/international-marketing-failures'),
-        ('analog_009', 'American Airlines ''Fly in Leather'' → ''Fly Naked''', 'American Airlines', 1990, 'AA''s ''Fly in leather'' translated to Mexican Spanish as ''Fly naked'' (''Vuela en cuero'' is colloquial for nudity). Premium-cabin positioning undermined in entire Mexican market.', '["es"]', '["pragmatic"]', 'Premium ad budget rewritten for Mexican market.', 'https://www.gelato.com/blog/international-marketing-failures'),
-        ('analog_010', 'Got Milk? in Mexico', 'California Milk Processor Board', 1993, '''Got Milk?'' translated literally into Spanish as ''¿Tienes leche?'' which read in Mexico as ''Are you lactating?'' Maternal-frame collision with brand intent.', '["es"]', '["spiritual_ethical", "pragmatic"]', 'Replaced with ''Familia, Amor y Leche'' in Mexican market.', 'https://www.gelato.com/blog/international-marketing-failures'),
-        ('analog_011', 'Dolce & Gabbana China Chopsticks Ad', 'Dolce & Gabbana', 2018, 'D&G aired a campaign showing Chinese model awkwardly eating pizza with chopsticks. Read in Chinese market as nationalist insult; leaked DMs from designer compounded historical-grievance frame.', '["zh"]', '["nationalist", "historical_grievance"]', 'Shanghai show canceled; estimated $500M+ China revenue impact over 2 years.', 'https://www.bbc.com/news/world-asia-china-46307889'),
-        ('analog_012', 'Tropicana Redesign 2009', 'Tropicana', 2009, 'Tropicana''s $35M packaging redesign abandoned the iconic orange-with-straw imagery. Sales fell 20% in 2 months. Status-quo frame violation.', '["en"]', '["status_quo", "threat_framing"]', 'Reverted within 60 days; $35M+ lost.', 'https://en.wikipedia.org/wiki/Tropicana_Products'),
-        ('analog_013', 'Gap Logo Redesign 2010', 'Gap', 2010, 'Gap replaced its iconic blue-box logo with a flat sans-serif. Twitter and design press revolt. Pulled within 6 days.', '["en"]', '["status_quo", "individualist"]', 'Reverted in 6 days; estimated $100M brand-equity hit.', 'https://en.wikipedia.org/wiki/Gap_Inc.'),
-        ('analog_014', 'Pepsi Kendall Jenner Protest Ad', 'Pepsi', 2017, 'Pepsi ad showed Kendall Jenner ending a protest by handing a police officer a Pepsi. Read as trivializing Black Lives Matter — historical-grievance and threat-framing simultaneously.', '["en"]', '["historical_grievance", "threat_framing"]', 'Pulled in 24 hours; CEO public apology.', 'https://en.wikipedia.org/wiki/Kendall_Jenner_Pepsi_advertisement'),
-        ('analog_015', 'Burger King Vietnam Chopstick Ad', 'Burger King', 2019, 'BK New Zealand ad showed customers eating Whoppers with oversized chopsticks. Nationalist-frame violation in East Asian markets; circulated globally.', '["zh", "ja", "ko", "vi"]', '["nationalist", "historical_grievance"]', 'Pulled; BK NZ public apology.', 'https://www.bbc.com/news/world-asia-47832890'),
-        ('analog_016', 'Heineken ''Sometimes Lighter Is Better''', 'Heineken', 2018, 'Heineken Light ad showed bartender sliding a beer past darker-skinned patrons to a lighter-skinned one with the tagline ''Sometimes lighter is better.'' Historical-grievance frame collision in US.', '["en"]', '["historical_grievance", "threat_framing"]', 'Pulled within 48 hours; public apology.', 'https://www.nytimes.com/2018/03/26/business/heineken-ad.html'),
-        ('analog_017', 'Dove ''Real Beauty'' Soap Bar Ad', 'Dove', 2017, 'Dove Facebook ad showed Black woman removing brown shirt to reveal white woman, intended as ''all skin types'' message. Read as historical-grievance violation.', '["en"]', '["historical_grievance"]', 'Pulled; public apology.', 'https://www.theguardian.com/world/2017/oct/08/dove-pulls-ad-showing-black-woman-turning-into-white-one'),
-        ('analog_018', 'H&M ''Coolest Monkey'' Hoodie', 'H&M', 2018, 'H&M product page featured Black child model wearing hoodie labeled ''Coolest monkey in the jungle.'' Historical-grievance violation.', '["en", "sv"]', '["historical_grievance"]', 'Product pulled; CEO public apology.', 'https://www.bbc.com/news/world-africa-42634194'),
-        ('analog_019', 'Bud Light Dylan Mulvaney Partnership', 'Anheuser-Busch', 2023, 'Bud Light''s trans-influencer partnership triggered a multi-month boycott in US conservative markets. Status-quo and historical-grievance frames collided with brand''s pragmatic identity.', '["en"]', '["status_quo", "historical_grievance"]', '~$400M sales decline; market-share loss to Modelo.', 'https://en.wikipedia.org/wiki/Bud_Light_and_Dylan_Mulvaney'),
-        ('analog_020', 'Balenciaga Holiday 2022 Campaign', 'Balenciaga', 2022, 'Balenciaga campaign featured children with BDSM-themed teddy bears and adjacent court-document props. Spiritual-ethical violation in every market simultaneously.', '["en", "ja", "zh", "de", "es", "fr"]', '["spiritual_ethical", "threat_framing"]', 'Campaign pulled; lawsuits filed; ~30% sales decline that quarter.', 'https://en.wikipedia.org/wiki/Balenciaga'),
-        ('analog_021', 'Coca-Cola ''New Coke'' 1985', 'Coca-Cola', 1985, 'Coca-Cola replaced classic formula with ''New Coke.'' Status-quo violation triggered consumer revolt. Reformulated within 79 days.', '["en"]', '["status_quo"]', 'Reverted within 79 days; brand-trust narrative shifted for decade.', 'https://en.wikipedia.org/wiki/New_Coke'),
-        ('analog_022', 'Toyota Prius Japan vs US Marketing Split', 'Toyota', 2010, 'Toyota''s Prius marketing emphasized collectivist ''family'' values in Japan, individualist ''eco-savvy choice'' in US. Same product, opposite frame. Successful divergent execution — exemplar case study.', '["en", "ja"]', '["individualist", "collectivist"]', 'Top-selling hybrid for 15 years; case study in deliberate cultural framing.', 'https://hbr.org/case-study/toyota'),
-        ('analog_023', 'IKEA Furniture Naming in Thailand', 'IKEA', 2012, 'IKEA product names sounded similar to vulgar terms in Thai. Thai team rewrote naming for local market entry — pragmatic localization success.', '["th"]', '["pragmatic"]', 'Smooth market entry due to proactive linguistic vetting.', 'https://www.wsj.com/articles/SB10001424052702304470504577483254039762870'),
-        ('analog_024', 'P&G ''Stork Delivering Babies'' in Japan', 'Procter & Gamble', 1985, 'P&G''s diaper ad showed a stork delivering babies. In Japan, stork mythology is about peach-borne babies. Cultural-narrative mismatch made ad confusing rather than offensive — sales muted.', '["ja"]', '["ambiguous", "spiritual_ethical"]', 'Ad replaced with Japanese-mythology-aligned imagery; sales recovered.', 'https://www.gelato.com/blog/international-marketing-failures'),
-        ('analog_025', 'Nike ''Air'' Logo Resembling ''Allah''', 'Nike', 1997, 'Nike Air-Bakin shoe ''Air'' flame-script logo resembled the Arabic word for ''Allah.'' Spiritual-ethical violation in MENA market.', '["ar"]', '["spiritual_ethical"]', '38,000 shoes recalled; logo redesigned.', 'https://www.washingtonpost.com/archive/sports/1997/06/25/nike-recalling-shoes-after-muslim-protest/'),
-        ('analog_026', 'Burger King ''Texican'' Ad Spain', 'Burger King', 2009, 'BK Spanish ad showed tall American cowboy alongside short Mexican wrestler wearing US flag cape. Nationalist-frame and historical-grievance violations in Mexico simultaneously.', '["es"]', '["nationalist", "historical_grievance"]', 'Ad pulled; Mexican ambassador filed complaint.', 'https://www.theguardian.com/business/2009/may/18/burger-king-texican'),
-        ('analog_027', 'Audi ''Vorsprung durch Technik'' Translation', 'Audi', 1990, 'Audi kept German tagline ''Vorsprung durch Technik'' in English markets rather than translating. Counterintuitively succeeded — pragmatic German identity reinforced brand. Case study in ''don''t translate.''', '["en"]', '["pragmatic", "nationalist"]', 'Tagline still in use 30+ years; brand-equity case study.', 'https://en.wikipedia.org/wiki/Vorsprung_durch_Technik'),
-        ('analog_028', 'Levi''s 501 in India', 'Levi''s', 1995, 'Levi''s launched 501 with US individualist ''rebel'' messaging in India. Collectivist Indian market preferred family-celebration framing. Sales muted until campaign rewritten.', '["hi"]', '["individualist", "collectivist"]', 'Re-shot for family-frame in India; sales recovered.', 'https://hbr.org/2011/04/levis-tries-on-india'),
-        ('analog_029', 'McDonald''s Hindu Beef Tallow Fries', 'McDonald''s', 2001, 'McDonald''s revealed its US fries were cooked in beef tallow despite vegetarian claims. Spiritual-ethical violation in Hindu Indian diaspora led to $10M lawsuit settlement.', '["hi", "en"]', '["spiritual_ethical"]', '$10M settlement; vegetarian-only India menu post-launch.', 'https://www.bbc.co.uk/news/world-south-asia-13473296'),
-        ('analog_030', 'Walmart Germany Exit', 'Walmart', 2006, 'Walmart''s friendliness training (smiling at strangers, in-store chants) violated German cultural norms around workplace formality and personal space. Exited Germany after $1B loss.', '["de"]', '["pragmatic", "status_quo"]', '$1B loss; exit after 9 years; Harvard case study.', 'https://hbr.org/2006/12/why-walmart-failed-in-germany'),
-        ('analog_031', 'Mattel Barbie in Saudi Arabia', 'Mattel', 2003, 'Saudi religious police banned Barbie dolls, calling them ''a threat to morality'' due to Western individualist femininity. Spiritual-ethical frame collision.', '["ar"]', '["spiritual_ethical", "status_quo"]', 'Banned 2003; Fulla doll dominated regional market.', 'https://www.cbsnews.com/news/saudi-arabia-bans-barbie-as-a-threat/'),
-        ('analog_032', 'Disney Mulan 2020 Boycott China & US', 'Disney', 2020, 'Disney''s Mulan was boycotted in US for actress''s pro-HK-government comments and in China for being filmed near Xinjiang. Historical-grievance frame fired in opposite directions in two markets.', '["en", "zh"]', '["historical_grievance", "nationalist"]', '$200M production grossed $70M; one of Disney''s biggest losses of the decade.', 'https://en.wikipedia.org/wiki/Mulan_(2020_film)#Controversies'),
-        ('analog_033', 'Nestlé Infant Formula Africa 1970s', 'Nestlé', 1977, 'Nestlé marketed infant formula in African markets with insufficient clean-water access, contributing to infant deaths. Spiritual-ethical violation triggered 7-year global boycott.', '["en", "fr", "ar", "sw"]', '["spiritual_ethical", "threat_framing"]', '7-year boycott; WHO marketing code (1981) directly attributable to case.', 'https://en.wikipedia.org/wiki/Nestl%C3%A9_boycott'),
-        ('analog_034', 'Snapchat Chinese New Year Filter', 'Snap Inc.', 2016, 'Snapchat Chinese New Year filter narrowed eyes and made face yellow. Historical-grievance frame triggered in Chinese-American and Chinese markets simultaneously.', '["en", "zh"]', '["historical_grievance", "threat_framing"]', 'Filter pulled within 24 hours; public apology.', 'https://www.theguardian.com/technology/2016/aug/10/snapchat-anime-filter-yellowface'),
-        ('analog_035', 'Renault Kangoo Naming in Spain', 'Renault', 1997, 'Renault Kangoo sold well in most markets but in Spain, ''Kangoo'' sounded similar to slang for awkward person. Sales soft until Spanish-specific positioning was added.', '["es"]', '["pragmatic"]', 'Spain-specific campaign launched; sales recovered.', 'https://www.gelato.com/blog/international-marketing-failures'),
-        ('analog_036', 'Procter & Gamble ''Whisper'' Naming', 'Procter & Gamble', 1990, 'P&G launched feminine-hygiene brand ''Whisper'' globally but ''Always'' in collectivist markets like Italy and Spain where ''whisper'' framing felt isolating rather than supportive. Successful frame split.', '["it", "es"]', '["individualist", "collectivist"]', 'Both brand names continue; deliberate cultural-frame split.', 'https://www.pg.com/news/'),
-        ('analog_037', 'Apple iPhone ''No Sim'' Launch China', 'Apple', 2009, 'Apple launched iPhone in China without an official carrier deal, leaving grey-market phones dominant. Pragmatic-frame misjudgment; consumer trust in Apple suffered for 18 months.', '["zh"]', '["pragmatic", "ambiguous"]', 'China Unicom deal 2010; market-share takeoff began 2011.', 'https://en.wikipedia.org/wiki/IPhone_in_China'),
-        ('analog_038', 'Twitter Rebrand to X 2023', 'X Corp.', 2023, 'Twitter rebranded to X overnight in 2023. Status-quo frame violation across all 240M+ users simultaneously. Brand equity ($24B in 2018) largely destroyed in days.', '["en", "ja", "es", "pt", "de", "fr"]', '["status_quo", "ambiguous"]', '~$20B brand-equity loss; advertiser exodus.', 'https://en.wikipedia.org/wiki/X_(social_network)'),
-        ('analog_039', 'WeWork ''Live the We Life'' Global Campaign', 'WeWork', 2018, 'WeWork''s collectivist-Western ''community'' framing failed in individualist markets like Germany and pragmatist markets like Japan. Vacancy rates 2-3x higher in those markets.', '["de", "ja"]', '["collectivist", "individualist", "pragmatic"]', 'Market exits; $39B → $9B valuation collapse partly attributable to GTM mismatch.', 'https://en.wikipedia.org/wiki/WeWork');
+        SELECT analog_id, case_name, company, year, description,
+               affected_markets, failure_frames, outcome_summary, source_url
+        FROM app_instance.src_analog_corpus;
 
     -- 4. Cortex Search services. They re-index from text (post_text /
     --    description), so the bundled data needs no vectors. The post service

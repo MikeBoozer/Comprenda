@@ -17,12 +17,21 @@ native_app/
 ├── manifest.yml          # App metadata, references, privileges
 ├── setup_script.sql      # Runs in consumer account on install
 ├── README.md             # This file (also displayed in Marketplace)
-└── streamlit/            # Copied from ../streamlit at packaging time (git-ignored)
-    ├── comprenda_app.py  # MAIN_FILE (post-redesign entry; NOT the old nuance_app.py)
-    ├── views/            # the 10 pages: 0_Overview … 9_Narrative_Search (NOT pages/)
-    ├── lib/              # comprenda_theme.py / comprenda_components.py / comprenda_queries.py
-    └── environment.yml
+├── streamlit/            # Copied from ../streamlit at packaging time (git-ignored)
+│   ├── comprenda_app.py  # MAIN_FILE (post-redesign entry; NOT the old nuance_app.py)
+│   ├── views/            # the 10 pages: 0_Overview … 9_Narrative_Search (NOT pages/)
+│   ├── lib/              # comprenda_theme.py / comprenda_components.py / comprenda_queries.py
+│   └── environment.yml
+├── data/                 # Parquet demo corpus — PROVIDER-SIDE source, NOT shipped to consumers
+└── scripts/              # _gen_table_seeds.py + generated seed_package_data.sql (post-deploy hook)
 ```
+
+The bundled demo corpus ships as native-app **data content**: `seed_package_data.sql`
+(generated from `data/*.parquet` by `scripts/_gen_table_seeds.py`) runs as a provider-side
+post-deploy hook that populates the package's `shared_data` schema and GRANTs it
+`TO SHARE`. `setup_script.sql` exposes it through versioned `app_instance.src_*` proxy
+views, and `provision_app()` materializes it into the app's working tables. Regenerate the
+seed after refreshing the Parquet: `python native_app/scripts/_gen_table_seeds.py`.
 
 ## Packaging steps
 
@@ -43,9 +52,11 @@ snow app validate
 #    it into your account as an APPLICATION (deploy + create-app in one step)
 snow app run
 
-# 3b. One-time provisioning: a native-app setup script has no warehouse, so the
-#     bundled-data load + Cortex Search services run in app_instance.provision_app()
-#     instead. See "After install" below for the two grants + the CALL.
+# 3b. `snow app run` also runs the post-deploy hook (scripts/seed_package_data.sql),
+#     which populates the package's shared_data corpus and GRANTs it TO SHARE.
+#     One-time consumer provisioning then materializes that corpus + builds the two
+#     Cortex Search services in app_instance.provision_app() (a setup script has no
+#     warehouse). See "After install" below for the two grants + the CALL.
 # open Snowflake UI → Data Products → Apps → (the installed app) → the Streamlit object
 
 # 4. Publish to Snowflake Marketplace via the Provider Studio
@@ -78,9 +89,9 @@ Consumers can pin or auto-upgrade per their preference.
 
 This MVP ships a **self-contained demo on bundled synthetic data** — no data binding
 required. Because a native-app setup script runs without a warehouse (and so can't
-`COPY INTO` or build a Cortex Search service at install time), there is one provisioning
-step. After installing Comprenda from Marketplace, grant the app the privileges its
-provisioner needs, then call it:
+materialize the shared corpus or build a Cortex Search service at install time), there is
+one provisioning step. After installing Comprenda from Marketplace, grant the app the
+privileges its provisioner needs, then call it:
 
 ```sql
 -- Substitute your installed application name for `comprenda_app` if you chose another.
@@ -90,15 +101,17 @@ GRANT IMPORTED PRIVILEGES ON DATABASE SNOWFLAKE TO APPLICATION comprenda_app;  -
 -- provision_app() is granted to the app_admin application role, so grant it to your
 -- role before calling it:
 GRANT APPLICATION ROLE comprenda_app.app_admin TO ROLE ACCOUNTADMIN;
--- The proc can't run USE WAREHOUSE, so its COPY INTO / seed run on the caller's
+-- The proc can't run USE WAREHOUSE, so its materialize step runs on the caller's
 -- warehouse — set any warehouse you own active first:
 USE WAREHOUSE nuance_dev_wh;
 CALL comprenda_app.app_instance.provision_app();
 ```
 
-`provision_app()` creates an XS warehouse (`comprenda_wh`), loads the bundled corpus
-(`COPY INTO` from the packaged Parquet), seeds the analog library, and builds the two
-Cortex Search services. It is **idempotent** — safe to re-run. Then open the Comprenda
+`provision_app()` creates an XS warehouse (`comprenda_wh`), materializes the bundled demo
+corpus (shipped as native-app *data content* in the package and shared in — it copies from
+the `app_instance.src_*` proxy views into the app's working tables, including the analog
+library), and builds the two Cortex Search services. It is **idempotent** — safe to re-run.
+Then open the Comprenda
 Streamlit (Snowflake UI → Data Products → Apps → Comprenda) and every hero feature works
 on the bundled data. All compute runs in the consumer's account; nothing leaves it.
 

@@ -39,11 +39,19 @@ entities:
         dest: README.md
       - src: streamlit/
         dest: streamlit/
-      # Bundled demo Parquet loaded by app_instance.provision_app() (COPY INTO from
-      # the package path /data). The analog seed is inlined in setup_script.sql, so
-      # scripts/ does not ship (it stays in the repo as the source-of-truth generator).
-      - src: data/
-        dest: data/
+      # NOTE: data/ and scripts/ are deliberately NOT shipped to consumers. The
+      # bundled demo corpus ships as native-app DATA CONTENT: the post-deploy hook
+      # below populates comprenda_pkg.shared_data.* (provider-side, in the package)
+      # and GRANTs it TO SHARE; installed apps expose it via versioned proxy views
+      # (setup_script.sql app_instance.src_*).
+
+    # Provider-side hooks run by `snow app deploy` AFTER artifacts upload, against
+    # the application package (NOT shipped to consumers). seed_package_data.sql is
+    # generated from the local Parquet by scripts/_gen_table_seeds.py.
+    meta:
+      warehouse: NUANCE_DEV_WH
+      post_deploy:
+        - sql_script: scripts/seed_package_data.sql
 
   app:
     type: application
